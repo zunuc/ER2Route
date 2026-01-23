@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>ER 2-Route Generator (Final Edition)</title>
+    <style>
+        body { background-color: #3b3d3f; color: white; font-family: 'Malgun Gothic', sans-serif; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .header { margin-bottom: 40px; text-align: center; }
+        .header img { height: 50px; vertical-align: middle; }
+        .header span { font-size: 24px; font-weight: bold; margin-left: 10px; }
+        .main-layout { display: flex; gap: 30px; width: 100%; max-width: 1450px; justify-content: center; align-items: flex-start; }
+        .column { display: flex; flex-direction: column; gap: 25px; }
+        .title-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; height: 25px; }
+        .title { font-size: 18px; font-weight: bold; margin: 0; }
+        .btn-action { background: #4a4c4e; color: #ccc; border: 1px solid #666; font-size: 11px; padding: 2px 8px; cursor: pointer; border-radius: 2px; }
+        .btn-action:hover { background: #5a5c5e; color: white; }
+
+        .grid-bg { background-color: #2a2c2e; padding: 10px; border-radius: 2px; border: 1px solid #4a4c4e; display: grid; gap: 5px; }
+        .slot { width: 50px; height: 50px; background-color: #3e4144; border: 1px solid #555; display: flex; align-items: center; justify-content: center; cursor: pointer; box-sizing: border-box; position: relative; }
+        .slot img { width: 100%; height: 100%; object-fit: contain; }
+        .slot.active { border: 2px solid #ff4655; background-color: #5a2e32; }
+        .slot.epic { border: 2px solid #bc58ff; }
+        .slot.selected { border: 2px solid #ffffff !important; }
+
+        .role-grid, .weapon-grid { grid-template-columns: repeat(6, 50px); }
+        .candidate-grid { grid-template-columns: repeat(5, 50px); grid-auto-rows: 50px; min-height: 50px; width: fit-content; align-content: start; }
+        .all-items-grid { grid-template-columns: repeat(8, 50px); grid-auto-rows: 50px; max-height: 50vh; overflow-y: auto; padding-right: 10px; min-height: 350px; align-content: start; }
+
+        .result-section { width: 100%; max-width: 1450px; margin-top: 30px; border-top: 1px solid #555; padding-top: 20px; }
+        .route-card { background: #2a2c2e; border: 1px solid #4a4c4e; padding: 15px; margin-bottom: 15px; border-radius: 4px; }
+        .route-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #444; padding-bottom: 8px; }
+        .route-path { font-weight: bold; font-size: 18px; color: #ff4655; }
+        .item-set-box { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+        .item-tag { background: #3e4144; padding: 4px 8px; border-radius: 3px; font-size: 12px; border: 1px solid #666; display: flex; align-items: center; gap: 5px; }
+        .tag-auto { border-color: #bc58ff; color: #e0afff; background: #3b2a4a; }
+        .miss-badge { font-size: 12px; background: #555; padding: 2px 6px; border-radius: 10px; color: #eee; }
+        .missing-info { color: #ff6b6b; font-size: 12px; font-weight: bold; margin-top: 5px; display: block; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="img/logo__white.png" alt="Logo">
+        <span>ER 2루트 계산기</span>
+    </div>
+
+    <div class="main-layout">
+        <div class="column">
+            <div>
+                <div class="title-wrapper"><h2 class="title">역할군</h2></div>
+                <div class="grid-bg role-grid" id="roleFilters">
+                    <div class="slot" onclick="toggleRoleFilter('탱', this)"><img src="img/역할군/탱.webp"></div>
+                    <div class="slot" onclick="toggleRoleFilter('전사', this)"><img src="img/역할군/전사.webp"></div>
+                    <div class="slot" onclick="toggleRoleFilter('암살자', this)"><img src="img/역할군/암살자.webp"></div>
+                    <div class="slot" onclick="toggleRoleFilter('스증', this)"><img src="img/역할군/스증.webp"></div>
+                    <div class="slot" onclick="toggleRoleFilter('원딜', this)"><img src="img/역할군/원딜.webp"></div>
+                    <div class="slot" onclick="toggleRoleFilter('서폿', this)"><img src="img/역할군/서폿.webp"></div>
+                </div>
+            </div>
+            <div>
+                <div class="title">무기군 선택</div>
+                <div class="grid-bg weapon-grid" id="weaponFilters">
+                    <div class="slot active" id="weapon-all" onclick="setWeaponFilter('all', this)">ALL</div>
+                    <div class="slot" onclick="setWeaponFilter('Glove', this)"><img src="img/무기 종류/대표 이미지/01. Glove.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Tonfa', this)"><img src="img/무기 종류/대표 이미지/02. Tonfa.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Bat', this)"><img src="img/무기 종류/대표 이미지/03. Bat.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Hammer', this)"><img src="img/무기 종류/대표 이미지/04. Hammer.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Whip', this)"><img src="img/무기 종류/대표 이미지/05. Whip.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Throwing', this)"><img src="img/무기 종류/대표 이미지/06. Throwing.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Shuriken', this)"><img src="img/무기 종류/대표 이미지/07. Shuriken.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Bow', this)"><img src="img/무기 종류/대표 이미지/08. Bow.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Crossbow', this)"><img src="img/무기 종류/대표 이미지/09. Crossbow.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Pistol', this)"><img src="img/무기 종류/대표 이미지/10. Pistol.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Assault Rifle', this)"><img src="img/무기 종류/대표 이미지/11. Assault Rifle.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Sniper Rifle', this)"><img src="img/무기 종류/대표 이미지/12. Sniper Rifle.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Axe', this)"><img src="img/무기 종류/대표 이미지/13. Axe.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Dagger', this)"><img src="img/무기 종류/대표 이미지/14. Dagger.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Twohanded Sword', this)"><img src="img/무기 종류/대표 이미지/15. Twohanded Sword.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Dual Sword', this)"><img src="img/무기 종류/대표 이미지/16. Dual Sword.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Spear', this)"><img src="img/무기 종류/대표 이미지/17. Spear.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Nunchaku', this)"><img src="img/무기 종류/대표 이미지/18. Nunchaku.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Rapier', this)"><img src="img/무기 종류/대표 이미지/19. Rapier.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Guitar', this)"><img src="img/무기 종류/대표 이미지/20. Guitar.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Camera', this)"><img src="img/무기 종류/대표 이미지/21. Camera.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('Arcana', this)"><img src="img/무기 종류/대표 이미지/22. Arcana.png"></div>
+                    <div class="slot" onclick="setWeaponFilter('VF Prosthetic', this)"><img src="img/무기 종류/대표 이미지/23. VF Prosthetic.png""></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="title-wrapper">
+                <h2 class="title">후보군</h2>
+                <button class="btn-action" onclick="clearCandidates()">전체 삭제</button>
+            </div>
+            <div class="grid-bg candidate-grid" id="candidateList"></div>
+        </div>
+
+        <div class="column">
+            <div class="title-wrapper">
+                <h2 class="title">아이템</h2>
+                <button class="btn-action" onclick="addAllFiltered()">전체 추가</button>
+            </div>
+            <div class="grid-bg all-items-grid" id="allItemsDisplay"></div>
+        </div>
+    </div>
+
+    <div class="result-section">
+        <div class="title-wrapper">
+            <h2 class="title">계산 결과</h2>
+            <button class="btn-action" style="padding: 10px 25px; background: #ff4655; color: white; border: none; font-weight: bold;" onclick="startRouteCalculation()">루트 계산 실행</button>
+        </div>
+        <div id="routeResults"></div>
+    </div>
+
+    <script>
+        /* 데이터 영역 */
+        const areaData = {
+            "항구": { items: ["식칼","쌍칼","쇠사슬","전신 수영복","바람막이","손목시계","붕대","실","가위","깃털","거북이 등딱지","고철","라이터","마패","원석"], near: ["창고", "성당", "공장"], hasLoop: false },
+            "창고": { items: ["망치","목장갑","발터 PPK","페도로프 자동소총","머리띠","모자","팔찌","슬리퍼","플라스틱","곡괭이","유리병","깃털","리본","얼음","고무","배터리"], near: ["고급 주택가", "성당", "항구"], hasLoop: false },
+            "연못": { items: ["꽃","대나무","석궁","양궁","전신 수영복","머리띠","나막신","실","깃털","리본","거북이 등딱지","오일","원석","종이","흑연","약초"], near: ["소방서","경찰서","개울","병원","묘지"], hasLoop: false },
+            "개울": { items: ["꽃","망치","양궁","머리띠","셔츠","슬리퍼","플라스틱","쇠구슬","트럼프 카드","분필","얼음","거북이 등딱지","고철","원석","화약","피아노선","약초"], near: ["절", "연못", "경찰서","병원"], hasLoop: true },
+            "모래사장": { items: ["쌍칼","야구공","보급형 기타","단창","바람막이","전신 수영복","운동화","실","플라스틱","곡괭이","유리병","거북이 등딱지","고무","고철","오일","원석","화학품"],near: ["호텔","숲","고급 주택가"], hasLoop: false },
+            "고급 주택가": { items: ["꽃","식칼","채찍","화승총","바늘","보급형 기타","모자","자전거 헬멧","가면","손목시계","팔찌","타이즈","가위","만년필","리본","라이터","옷감","쇠구슬","피아노선"], near: ["창고", "모래사장","숲","성당"], hasLoop: true },
+            "골목길": { items: ["야구공","유리구슬","팔찌","플라스틱","가위","만년필","곡괭이","유리병","십자가","못","라이터","원석","피아노선"], near: ["주유소","경찰서","절"], hasLoop: false },
+            "주유소": { items: ["목장갑","모자","자전거 헬멧","셔츠","손목시계","고무","고철","마패","배터리","오일","옷감","화학품"], near: ["양궁장", "학교","소방서","골목길"], hasLoop: true },
+            "호텔": { items: ["식칼","면도칼","발터 PPK","페도로프 자동소총","바늘","렌즈","머리띠","팔찌","만년필","탄창","트럼프 카드","못","배터리","오일","옷감","종이","피아노선","얼음"], near: ["숲", "양궁장", "학교","모래사장"], hasLoop: true },
+            "경찰서": { items: ["발터 PPK","페도로프 자동소총","화승총","쇠사슬","손목시계","라이터","탄창","쌍안경","쇠구슬","레이저 포인터","마패","리본","종이","화약","흑연","피아노선"], near: ["골목길","절","개울","연못","소방서"], hasLoop: false },
+            "소방서": { items: ["쌍칼","망치","손도끼","목장갑","화승총","바늘","자전거 헬멧","붕대","실","플라스틱","쇠구슬","만년필","트럼프 카드","못","고무","고철","배터리","화학품"], near: ["학교","주유소","경찰서","연못"], hasLoop: false },
+            "병원": { items: ["면도칼","바늘","붕대","팔찌","손목시계","타이즈","가위","유리병","레이저 포인터","배터리","오일","고무","종이","화학품"], near: ["개울","연못","묘지","공장"], hasLoop: true },
+            "절": { items: ["꽃","녹슨 검","쌍칼","단창","대나무","렌즈","유리구슬","모자","머리띠","승복","나막신","곡괭이","깃털","거북이 등딱지","마패","배터리","옷감","원석","약초"], near: ["골목길","경찰서","개울"], hasLoop: true },
+            "양궁장": { items: ["녹슨 검","단창","단봉","대나무","채찍","양궁","석궁","모자","승복","운동화","실","쌍안경","쇠구슬","유리병","깃털","못","가위","화약","흑연","피아노선"], near: ["호텔","학교","주유소"], hasLoop: false },
+            "묘지": { items: ["꽃","단봉","채찍","쇠사슬","승복","팔찌","곡괭이","리본","십자가","라이터","마패","옷감","화약","화학품","흑연"], near: ["연못","병원","공장","성당","숲"], hasLoop: false },
+            "숲": { items: ["꽃","녹슨 검","손도끼","대나무","석궁","모자","자전거 헬멧","붕대","나막신","타이즈","라이터","쌍안경","곡괭이","깃털","얼음","거북이 등딱지","레이저 포인터","원석","흑연","약초"], near: ["학교","호텔","모래사장","고급 주택가","성당"], hasLoop: true },
+            "공장": { items: ["망치","손도끼","단창","목장갑","면도칼","발터 PPK","페도로프 자동소총","자전거 헬멧","손목시계","붕대","운동화","화학품","플라스틱","탄창","가면","쇠구슬","분필","못","고무","고철","배터리","오일","종이"], near: ["병원","묘지","성당","항구"], hasLoop: true },
+            "성당": { items: ["단봉","손도끼","녹슨 검","채찍","면도칼","양궁","화승총","보급형 기타","렌즈","유리구슬","머리띠","셔츠","트럼프 카드","분필","유리병","십자가","못","옷감","화약","흑연","피아노선"], near: ["묘지","공장","항구","창고","고급 주택가","숲"], hasLoop: true },
+            "학교": { items: ["단봉","식칼","야구공","보급형 기타","유리구슬","바람막이","붕대","슬리퍼","십자가","가면","실","가위","만년필","분필","리본","고철","라이터","레이저 포인터","종이","흑연"], near: ["양궁장","주유소","소방서","숲","호텔"], hasLoop: true }
+        };
+
+        const allItems = [
+            { name: "단영촌천투", type: "weapon", roles: [], weaponGroup: "Glove", image: "img/무기 종류/글러브/008. One Inch Punch.png", materials: ["거북이 등딱지", "깃털"] },
+            { name: "디바인 피스트", type: "weapon", roles: [], weaponGroup: "Glove", image: "img/무기 종류/글러브/009. Divine Fist.png", materials: ["고철", "옷감", "십자가"] },
+            { name: "블러드윙 너클", type: "weapon", roles: [], weaponGroup: "Glove", image: "img/무기 종류/글러브/010. Bloodwing Knuckles.png", materials: ["고철", "깃털", "원석"] },
+            { name: "빙화현옥수", type: "weapon", roles: [], weaponGroup: "Glove", image: "img/무기 종류/글러브/011. Frost Petal Hand.png", materials: ["라이터", "얼음"] },
+            { name: "여래수투", type: "weapon", roles: [], weaponGroup: "Glove", image: "img/무기 종류/글러브/012. Buddha_s Palm.png", materials: ["거북이 등딱지", "종이"] },
+            { name: "브레이질 건틀릿", type: "weapon", roles: [], weaponGroup: "Glove", image: "img/무기 종류/글러브/013. Brasil Gauntlet.png", materials: ["고철", "옷감", "오일"] },
+            { name: "소수", type: "weapon", roles: [], weaponGroup: "Glove", image: "img/무기 종류/글러브/014. White Claw Punch.png", materials: ["라이터", "분필"] },
+            { name: "택티컬 톤파", type: "weapon", roles: [], weaponGroup: "Tonfa", image: "img/무기 종류/톤파/005. Tactical Tonfa.png", materials: ["마패", "만년필"] },
+            { name: "마이쏙", type: "weapon", roles: [], weaponGroup: "Tonfa", image: "img/무기 종류/톤파/006. Mai Sok.png", materials: ["분필", "거북이 등딱지"] },
+            { name: "플라즈마 톤파", type: "weapon", roles: [], weaponGroup: "Tonfa", image: "img/무기 종류/톤파/007. Plasma Tonfa.png", materials: ["배터리","흑연"] },
+            { name: "홀스터 톤파", type: "weapon", roles: [], weaponGroup: "Tonfa", image: "img/무기 종류/톤파/008. Holster Tonfa.png", materials: ["마패","손목시계"] },
+            { name: "금강저", type: "weapon", roles: [], weaponGroup: "Bat", image: "img/무기 종류/방망이/006. Vajra.png", materials: ["고철","유리병"] },
+            { name: "팔괘장", type: "weapon", roles: [], weaponGroup: "Bat", image: "img/무기 종류/방망이/007. Pakua Chang.png", materials: ["고철","원석","실"] },
+            { name: "구원의 여신상", type: "weapon", roles: [], weaponGroup: "Bat", image: "img/무기 종류/방망이/008. Statue of Soteria.png", materials: ["고철","흑연","라이터"] },
+            { name: "타구봉", type: "weapon", roles: [], weaponGroup: "Bat", image: "img/무기 종류/방망이/009. Mallet.png", materials: ["못","피아노선"] },
+            { name: "스파이의 우산", type: "weapon", roles: [], weaponGroup: "Bat", image: "img/무기 종류/방망이/010. Spy Umbrella.png", materials: ["옷감","화학품"] },
+            { name: "낭아봉", type: "weapon", roles: [], weaponGroup: "Hammer", image: "img/무기 종류/망치/006. Fang Mace.png", materials: ["못","쇠구슬","마패"] },
+            { name: "다그다의 망치", type: "weapon", roles: [], weaponGroup: "Hammer", image: "img/무기 종류/망치/007. Hammer of Dagda.png", materials: ["못","흑연","라이터"] },
+            { name: "토르의 망치", type: "weapon", roles: [], weaponGroup: "Hammer", image: "img/무기 종류/망치/008. Hammer of Thor.png", materials: ["고무","트럼프 카드","배터리"] },
+            { name: "천근추", type: "weapon", roles: [], weaponGroup: "Hammer", image: "img/무기 종류/망치/009. Weight of the World.png", materials: ["고무","트럼프 카드","유리병"] },
+            { name: "아는 것이 힘", type: "weapon", roles: [], weaponGroup: "Hammer", image: "img/무기 종류/망치/010. Bookmaster.png", materials: ["고무","종이"] },
+            { name: "뇌룡편", type: "weapon", roles: [], weaponGroup: "Whip", image: "img/무기 종류/채찍/005. Thunder Whip.png", materials: ["마패","곡괭이","원석"] },
+            { name: "글레이프니르", type: "weapon", roles: [], weaponGroup: "Whip", image: "img/무기 종류/채찍/006. Gleipnir.png", materials: ["마패","오일","붕대"] },
+            { name: "플라즈마 윕", type: "weapon", roles: [], weaponGroup: "Whip", image: "img/무기 종류/채찍/007. Plasma Whip.png", materials: ["못","배터리","만년필"] },
+            { name: "캐소드라쉬", type: "weapon", roles: [], weaponGroup: "Whip", image: "img/무기 종류/채찍/008. Cathod Lash.png", materials: ["깃털","원석","꽃"] },
+            { name: "소이탄", type: "weapon", roles: [], weaponGroup: "Throwing", image: "img/무기 종류/투척/008. Incendiary Bomb.png", materials: ["화약","배터리","라이터"] },
+            { name: "다비드슬링", type: "weapon", roles: [], weaponGroup: "Throwing", image: "img/무기 종류/투척/009. David_s Sling.png", materials: ["만년필","고무","십자가"] },
+            { name: "연막탄", type: "weapon", roles: [], weaponGroup: "Throwing", image: "img/무기 종류/투척/010. Smoke Bomb.png", materials: ["화약","분필","화학품"]},
+            { name: "점착폭탄", type: "weapon", roles: [], weaponGroup: "Throwing", image: "img/무기 종류/투척/011. Sticky Bomb.png", materials: ["화약","배터리","만년필"]},
+            { name: "루테늄 구슬", type: "weapon", roles: [], weaponGroup: "Throwing", image: "img/무기 종류/투척/012. Ruthenium Marble.png", materials: ["만년필","곡괭이","원석"]},
+            { name: "미치광이 왕의 카드", type: "weapon", roles: [], weaponGroup: "Shuriken", image: "img/무기 종류/암기/010. Cards of Tyranny.png", materials: ["트럼프 카드","종이"]},
+            { name: "옥전결", type: "weapon", roles: [], weaponGroup: "Shuriken", image: "img/무기 종류/암기/011. Mystic Jade Charm.png", materials: ["트럼프 카드","분필","종이"]},
+            { name: "풍마 수리검", type: "weapon", roles: [], weaponGroup: "Shuriken", image: "img/무기 종류/암기/012. Fuhma Shuriken.png", materials: ["피아노선","마패","흑연"]},
+            { name: "푸른색 단도", type: "weapon", roles: [], weaponGroup: "Shuriken", image: "img/무기 종류/암기/013. Azure Dagger.png", materials: ["분필","화학품"]},
+            { name: "플레셋", type: "weapon", roles: [], weaponGroup: "Shuriken", image: "img/무기 종류/암기/014. Flechette.png", materials: ["고철","분필"]},
+            { name: "편전", type: "weapon", roles: [], weaponGroup: "Bow", image: "img/무기 종류/활/007. Ancient Bolt.png", materials: ["피아노선","오일"]},
+            { name: "골든래쇼 보우", type: "weapon", roles: [], weaponGroup: "Bow", image: "img/무기 종류/활/008. Golden-Ratio Bow.png", materials: ["피아노선","곡괭이","원석"]},
+            { name: "트윈보우", type: "weapon", roles: [], weaponGroup: "Bow", image: "img/무기 종류/활/009. Twinbow.png", materials: ["피아노선","못","화학품"]},
+            { name: "제베의 활", type: "weapon", roles: [], weaponGroup: "Bow", image: "img/무기 종류/활/010. Jebe_s Altered Bow.png", materials: ["고무","화약","깃털"]},
+            { name: "엘리멘탈 보우", type: "weapon", roles: [], weaponGroup: "Bow", image: "img/무기 종류/활/011. Elemental Bow.png", materials: ["고무","원석","실"]},
+            { name: "대황", type: "weapon", roles: [], weaponGroup: "Crossbow", image: "img/무기 종류/석궁/007. The Legend of The General.png", materials: ["피아노선","고철","오일"]},
+            { name: "발리스타", type: "weapon", roles: [], weaponGroup: "Crossbow", image: "img/무기 종류/석궁/008. Ballista.png", materials: ["피아노선","고철","못"]},
+            { name: "저격 크로스보우", type: "weapon", roles: [], weaponGroup: "Crossbow", image: "img/무기 종류/석궁/009. Sniper Crossbow.png", materials: ["레이저 포인터","고무"]},
+            { name: "포이즌드 크로스보우", type: "weapon", roles: [], weaponGroup: "Crossbow", image: "img/무기 종류/석궁/010. Poisoned Crossbow.png", materials: ["고철","화학품"]},
+            { name: "엘레강스", type: "weapon", roles: [], weaponGroup: "Pistol", image: "img/무기 종류/권총/007. Elegance.png", materials: ["레이저 포인터","깃털"]},
+            { name: "일렉트론 블라스터", type: "weapon", roles: [], weaponGroup: "Pistol", image: "img/무기 종류/권총/008. Electron Blaster.png", materials: ["오일","만년필","배터리"]},
+            { name: "매그넘-보아", type: "weapon", roles: [], weaponGroup: "Pistol", image: "img/무기 종류/권총/009. Magnum-Boa.png", materials: ["오일","만년필","고철"]},
+            { name: "글록48", type: "weapon", roles: [], weaponGroup: "Pistol", image: "img/무기 종류/권총/010. Glock 48.png", materials: ["만년필","종이"]},
+            { name: "스탬피드", type: "weapon", roles: [], weaponGroup: "Pistol", image: "img/무기 종류/권총/011. Stempede.png", materials: ["피아노선","플라스틱","고철"]},
+            { name: "95식 자동 소총", type: "weapon", roles: [], weaponGroup: "Assault Rifle", image: "img/무기 종류/돌격 소총/006. Type 95.png", materials: ["화약","피아노선","분필"]},
+            { name: "AK-12", type: "weapon", roles: [], weaponGroup: "Assault Rifle", image: "img/무기 종류/돌격 소총/007. AK-12.png", materials: ["화약","피아노선","레이저 포인터"]},
+            { name: "XCR", type: "weapon", roles: [], weaponGroup: "Assault Rifle", image: "img/무기 종류/돌격 소총/008. XCR.png", materials: ["고무","종이","라이터"]},
+            { name: "골드 러시", type: "weapon", roles: [], weaponGroup: "Assault Rifle", image: "img/무기 종류/돌격 소총/009. Gold Rush.png", materials: ["플라스틱","곡괭이","원석"]},
+            { name: "아그니", type: "weapon", roles: [], weaponGroup: "Assault Rifle", image: "img/무기 종류/돌격 소총/010. Agni.png", materials: ["플라스틱","만년필","종이"]},
+            { name: "Tac-50", type: "weapon", roles: [], weaponGroup: "Sniper Rifle", image: "img/무기 종류/저격총/006. Tac-50.png", materials: ["원석","못","종이"]},
+            { name: "NTW-20", type: "weapon", roles: [], weaponGroup: "Sniper Rifle", image: "img/무기 종류/저격총/007. NTW-20.png", materials: ["원석","못","레이저 포인터"]},
+            { name: "폴라리스", type: "weapon", roles: [], weaponGroup: "Sniper Rifle", image: "img/무기 종류/저격총/008. Polaris.png", materials: ["레이저 포인터","피아노선","분필"]},
+            { name: "가우스 라이플", type: "weapon", roles: [], weaponGroup: "Sniper Rifle", image: "img/무기 종류/저격총/009. Gauss Rifle.png", materials: ["레이저 포인터","피아노선","종이"]},
+            { name: "빔 엑스", type: "weapon", roles: [], weaponGroup: "Axe", image: "img/무기 종류/도끼/007. Beam Axe.png", materials: ["고철","레이저 포인터"]},
+            { name: "산타 무에르테", type: "weapon", roles: [], weaponGroup: "Axe", image: "img/무기 종류/도끼/008. Santa Muerte.png", materials: ["실","흑연","라이터"]},
+            { name: "스퀴테", type: "weapon", roles: [], weaponGroup: "Axe", image: "img/무기 종류/도끼/009. Scythe.png", materials: ["실","곡괭이","원석"]},
+            { name: "파라슈", type: "weapon", roles: [], weaponGroup: "Axe", image: "img/무기 종류/도끼/010. Parashu.png", materials: ["깃털","트럼프 카드"]},
+            { name: "하르페", type: "weapon", roles: [], weaponGroup: "Axe", image: "img/무기 종류/도끼/011. Harpe.png", materials: ["실","곡괭이","오일"]},
+            { name: "카른웬난", type: "weapon", roles: [], weaponGroup: "Dagger", image: "img/무기 종류/단검/007. Carnwennan.png", materials: ["꽃","깃털"]},
+            { name: "파산검", type: "weapon", roles: [], weaponGroup: "Dagger", image: "img/무기 종류/단검/008. Mount Slicer.png", materials: ["꽃","종이"] },
+            { name: "초진동나이프", type: "weapon", roles: [], weaponGroup: "Dagger", image: "img/무기 종류/단검/009. Vibroblade.png", materials: ["만년필","배터리","피아노선"] },
+            { name: "다마스커스 가시", type: "weapon", roles: [], weaponGroup: "Dagger", image: "img/무기 종류/단검/010. Damascus Steel Thorn.png", materials: ["만년필","가위","화학품"] },
+            { name: "마하라자", type: "weapon", roles: [], weaponGroup: "Dagger", image: "img/무기 종류/단검/011. Maharaja.png", materials: ["고무","배터리"]},
+            { name: "하이랜더 더크", type: "weapon", roles: [], weaponGroup: "Dagger", image: "img/무기 종류/단검/012. Highlander Dirk.png", materials: ["만년필","곡괭이","원석"] },
+            { name: "뚜언 띠엔", type: "weapon", roles: [], weaponGroup: "Twohanded Sword", image: "img/무기 종류/양손검/006. Thuận Thiên.png", materials: ["오일","고철","거북이 등딱지"] },
+            { name: "아론다이트", type: "weapon", roles: [], weaponGroup: "Twohanded Sword", image: "img/무기 종류/양손검/007. Arondight.png", materials: ["오일","원석","십자가"] },
+            { name: "엑스칼리버", type: "weapon", roles: [], weaponGroup: "Twohanded Sword", image: "img/무기 종류/양손검/008. Excalibur.png", materials: ["오일","고철","십자가"] },
+            { name: "플라즈마 소드", type: "weapon", roles: [], weaponGroup: "Twohanded Sword", image: "img/무기 종류/양손검/009. Plasma Sword.png", materials: ["오일","배터리","흑연"] },
+            { name: "모노호시자오", type: "weapon", roles: [], weaponGroup: "Twohanded Sword", image: "img/무기 종류/양손검/010. Monohoshizao.png", materials: ["고철","화학품","곡괭이"] },
+            { name: "호푸어드", type: "weapon", roles: [], weaponGroup: "Twohanded Sword", image: "img/무기 종류/양손검/011. Hovud.png", materials: ["오일","유리병"] },
+            { name: "아케인 엣지", type: "weapon", roles: [], weaponGroup: "Twohanded Sword", image: "img/무기 종류/양손검/012. Arcane Edge.png", materials: ["오일","고철","만년필"] },
+            { name: "이천일류", type: "weapon", roles: [], weaponGroup: "Dual Sword", image: "img/무기 종류/쌍검/005. Divine Dual Swords.png", materials: ["흑연","라이터","분필"] },
+            { name: "아수라", type: "weapon", roles: [], weaponGroup: "Dual Sword", image: "img/무기 종류/쌍검/006. Asura.png", materials: ["흑연","라이터","원석"] },
+            { name: "검은 나비", type: "weapon", roles: [], weaponGroup: "Dual Sword", image: "img/무기 종류/쌍검/007. Deadly Butterfly.png", materials: ["곡괭이","고철","화학품"] },
+            { name: "디오스쿠로이", type: "weapon", roles: [], weaponGroup: "Dual Sword", image: "img/무기 종류/쌍검/008. Dioscuri.png", materials: ["곡괭이","배터리","흑연"] },
+            { name: "훅소드", type: "weapon", roles: [], weaponGroup: "Dual Sword", image: "img/무기 종류/쌍검/009. Hook Sword.png", materials: ["곡괭이","고철","못"] },
+            { name: "장팔사모", type: "weapon", roles: [], weaponGroup: "Spear", image: "img/무기 종류/창/007. Eighteen Foor Spear.png", materials: ["고철","꽃","원석"] },
+            { name: "트리아이나", type: "weapon", roles: [], weaponGroup: "Spear", image: "img/무기 종류/창/008. Lance of Poseidon.png", materials: ["못","오일"] },
+            { name: "방천화극", type: "weapon", roles: [], weaponGroup: "Spear", image: "img/무기 종류/창/009. Fangtian Huaji.png", materials: ["깃털","만년필"] },
+            { name: "청룡언월도", type: "weapon", roles: [], weaponGroup: "Spear", image: "img/무기 종류/창/010. Dragon Guandao.png", materials: ["고철","곡괭이","분필"] },
+            { name: "샤퍼", type: "weapon", roles: [], weaponGroup: "Nunchaku", image: "img/무기 종류/쌍절곤/004. Sharper.png", materials: ["플라스틱","피아노선"] },
+            { name: "대소반룡곤", type: "weapon", roles: [], weaponGroup: "Nunchaku", image: "img/무기 종류/쌍절곤/005. The Smiting Dragon.png", materials: ["플라스틱","못","화학품"] },
+            { name: "초진동눈차크", type: "weapon", roles: [], weaponGroup: "Nunchaku", image: "img/무기 종류/쌍절곤/006. Vibro Nunchaku.png", materials: ["플라스틱","못","배터리"] },
+            { name: "블루3", type: "weapon", roles: [], weaponGroup: "Nunchaku", image: "img/무기 종류/쌍절곤/007. Blue 3.png", materials: ["플라스틱","화확품","유리병"] },
+            { name: "활빈검", type: "weapon", roles: [], weaponGroup: "Rapier", image: "img/무기 종류/레이피어/005. Sword of Justice.png", materials: ["고철","꽃","붕대"] },
+            { name: "듀랜달 Mk2", type: "weapon", roles: [], weaponGroup: "Rapier", image: "img/무기 종류/레이피어/006. Durendal Mk2.png", materials: ["고철","꽃","레이저 포인터"] },
+            { name: "볼틱레토", type: "weapon", roles: [], weaponGroup: "Rapier", image: "img/무기 종류/레이피어/007. Volticletto.png", materials: ["고철","배터리","피아노선"] },
+            { name: "레드 팬서", type: "weapon", roles: [], weaponGroup: "Rapier", image: "img/무기 종류/레이피어/008. Red Panther.png", materials: ["고철","오일","원석"] },
+            { name: "에스프리", type: "weapon", roles: [], weaponGroup: "Rapier", image: "img/무기 종류/레이피어/009. Esprit.png", materials: ["고철","오일","유리병"] },
+            { name: "플랑베르주", type: "weapon", roles: [], weaponGroup: "Rapier", image: "img/무기 종류/레이피어/010. Flamberge.png", materials: ["고철","피아노선","플라스틱"] },
+            { name: "보헤미안", type: "weapon", roles: [], weaponGroup: "Guitar", image: "img/무기 종류/기타/010. Bohemian.png", materials: ["원석","라이터","트럼프 카드"] },
+            { name: "천국의 계단", type: "weapon", roles: [], weaponGroup: "Guitar", image: "img/무기 종류/기타/011. Stairway to Heaven.png", materials: ["원석","레이저 포인터","십자가"] },
+            { name: "퍼플 헤이즈", type: "weapon", roles: [], weaponGroup: "Guitar", image: "img/무기 종류/기타/012. Purple Haze.png", materials: ["원석","가위","유리병"] },
+            { name: "새티스팩션", type: "weapon", roles: [], weaponGroup: "Guitar", image: "img/무기 종류/기타/013. Satisfaction.png", materials: ["배터리","만년필","마패"] },
+            { name: "더 월", type: "weapon", roles: [], weaponGroup: "Guitar", image: "img/무기 종류/기타/014. The Wall.png", materials: ["배터리","피아노선","분필"] },
+            { name: "틴 스피릿", type: "weapon", roles: [], weaponGroup: "Guitar", image: "img/무기 종류/기타/015. Wild Horst.png", materials: ["배터리","오일","라이터"] },
+            { name: "미러리스", type: "weapon", roles: [], weaponGroup: "Camera", image: "img/무기 종류/카메라/006. Mirrorless.png", materials: ["흑연","렌즈","피아노선"] },
+            { name: "컴파운드 사이트", type: "weapon", roles: [], weaponGroup: "Camera", image: "img/무기 종류/카메라/007. Laser Designator.png", materials: ["레이저 포인터","만년필","종이"] },
+            { name: "V.I.C.G", type: "weapon", roles: [], weaponGroup: "Camera", image: "img/무기 종류/카메라/008. V.I.C.G.png", materials: ["레이저 포인터","화약","배터리"] },
+            { name: "폴라로이드 카메라", type: "weapon", roles: [], weaponGroup: "Camera", image: "img/무기 종류/카메라/009. Polaroid Camera.png", materials: ["흑연","렌즈","종이"] },
+            { name: "은둔자", type: "weapon", roles: [], weaponGroup: "Arcana", image: "img/무기 종류/아르카나/008. The Hermit.png", materials: ["오일","곡괭이","십자가"] },
+            { name: "운명의 수레바퀴", type: "weapon", roles: [], weaponGroup: "Arcana", image: "img/무기 종류/아르카나/009. The Hierophant.png", materials: ["얼음","못","종이"] },
+            { name: "절제", type: "weapon", roles: [], weaponGroup: "Arcana", image: "img/무기 종류/아르카나/010. Temperance.png", materials: ["오일","십자가","종이"] },
+            { name: "더 스타", type: "weapon", roles: [], weaponGroup: "Arcana", image: "img/무기 종류/아르카나/011. The Star.png", materials: ["얼음","마패","피아노선"] },
+            { name: "데스에더퀸", type: "weapon", roles: [], weaponGroup: "VF Prosthetic", image: "img/무기 종류/VF의수/007. Deathadder Queen.png", materials: [] },
+            { name: "블랙맘바킹", type: "weapon", roles: [], weaponGroup: "VF Prosthetic", image: "img/무기 종류/VF의수/008. Black Mamba King.png", materials: [] },
+            { name: "슈퍼사이드와인더", type: "weapon", roles: [], weaponGroup: "VF Prosthetic", image: "img/무기 종류/VF의수/009. Alpha Sidewinder.png", materials: [] },
+            { name: "백색 가운", type: "Cheat", roles: ["스증"], weaponGroup: null, image: "img/상의/Doctor_s Gown.png", materials: ["붕대","옷감"] },
+            { name: "고위 사제복", type: "Cheat", roles: ["스증"], weaponGroup: null, image: "img/상의/Cardinal Robes.png", materials: ["옷감","오일","붕대"] },
+            { name: "석양의 갑옷", type: "Cheat", roles: ["탱"], weaponGroup: null, image: "img/상의/Sunset Armor.png", materials: ["실","원석"] },
+            { name: "어사의", type: "Cheat", roles: ["스증"], weaponGroup: null, image: "img/상의/Covert Agent Uniform.png", materials: ["붕대","꽃","마패"] },
+            { name: "광학미채 슈트", type: "Cheat", roles: ["원딜"], weaponGroup: null, image: "img/상의/Optical Camouflage Suit.png", materials: ["고무","유리병"] },
+            { name: "락커의 자켓", type: "Cheat", roles: ["암살자"], weaponGroup: null, image: "img/상의/Rocker_s Jacket.png", materials: ["화학품","쇠구슬"] },
+            { name: "성기사의 갑옷", type: "Cheat", roles: ["탱"], weaponGroup: null, image: "img/상의/Crusader Armor.png", materials: ["실","십자가"] },
+            { name: "아마조네스 아머", type: "Cheat", roles: ["탱"], weaponGroup: null, image: "img/상의/Amazoness_Armor.png", materials: ["실","가위"] },
+            { name: "용의 도복", type: "Cheat", roles: ["암살자"], weaponGroup: null, image: "img/상의/Dragon Dobok.png", materials: ["가위","옷감","거북이 등딱지"] },
+            { name: "지휘관의 갑옷", type: "Cheat", roles: ["스증"], weaponGroup: null, image: "img/상의/Commander_s Armor.png", materials: ["흑연","라이터"] },
+            { name: "집사복", type: "Cheat", roles: ["원딜"], weaponGroup: null, image: "img/상의/Butler_s Suit.png", materials: ["리본","깃털"] },
+            { name: "EOD 슈트", type: "Cheat", roles: ["탱"], weaponGroup: null, image: "img/상의/EOD Suit.png", materials: ["플라스틱","고무"] },
+            { name: "턱시도", type: "Cheat", roles: ["원딜"], weaponGroup: null, image: "img/상의/Tuxedo.png", materials: ["리본","옷감"] },
+            { name: "제사장의 예복", type: "Cheat", roles: ["스증"], weaponGroup: null, image: "img/상의/High Priest Robes.png", materials: ["옷감","원석","실"] },
+            { name: "창파오", type: "Cheat", roles: ["원딜"], weaponGroup: null, image: "img/상의/Changpao.png", materials: ["가위","옷감","깃털"] },
+            { name: "방화복", type: "Cheat", roles: ["전사"], weaponGroup: null, image: "img/상의/Turnout Coat.png", materials: ["리본","플라스틱"] },
+            { name: "로빈", type: "Head", roles: ["전사"], weaponGroup: null, image: "img/머리/Virtuous Outlaw.png", materials: ["옷감","깃털","꽃","원석"] },
+            { name: "수정 티아라", type: "Head", roles: ["원딜"], weaponGroup: null, image: "img/머리/Crystal Tiara.png", materials: ["머리띠","라이터","원석"] },
+            { name: "오토바이 헬멧", type: "Head", roles: ["스증"], weaponGroup: null, image: "img/머리/Motorcycle Helmet.png", materials: ["자전거 헬멧","배터리","피아노선","고철"] },
+            { name: "전술-OPS 헬멧", type: "Head", roles: ["전사"], weaponGroup: null, image: "img/머리/Tactical OPS Helmet.png", materials: ["모자","가위","자전거 헬멧","배터리"] },
+            { name: "기사단장의 투구", type: "Head", roles: ["탱"], weaponGroup: null, image: "img/머리/Helm of Banneret.png", materials: ["머리띠","고철","화학품","흑연"] },
+            { name: "제국 왕관", type: "Head", roles: ["스증"], weaponGroup: null, image: "img/머리/Imperial Crown.png", materials: ["모자","곡괭이","원석","리본"] },
+            { name: "황실 부르고넷", type: "Head", roles: ["스증"], weaponGroup: null, image: "img/머리/Imperial Burgonet.png", materials: ["머리띠","고철","화학품","깃털"] },
+            { name: "모호크 헬멧", type: "Head", roles: ["탱"], weaponGroup: null, image: "img/머리/Mohawk Headgear.png", materials: ["자전거 헬멧","플라스틱","못"] },
+            { name: "비질란테", type: "Head", roles: ["스증"], weaponGroup: null, image: "img/머리/Vigilante.png", materials: ["자전거 헬멧","플라스틱","화약"] },
+            { name: "다이아뎀", type: "Head", roles: ["암살자"], weaponGroup: null, image: "img/머리/Diadem.png", materials: ["모자","곡괭이","원석","꽃"] },
+            { name: "카우보이 모자", type: "Head", roles: ["원딜"], weaponGroup: null, image: "img/머리/Cowboy Hat.png", materials: ["모자","가위","종이","라이터"] },
+            { name: "플라즈마 투구", type: "Head", roles: ["암살자"], weaponGroup: null, image: "img/머리/Plasma Helmet.png", materials: ["모자","실","배터리","흑연"] },
+            { name: "용접 마스크", type: "Head", roles: ["전사"], weaponGroup: null, image: "img/머리/Welding Helmet.png", materials: ["모자","가위","자전거 헬멧","플라스틱"] },
+            { name: "마녀 모자", type: "Head", roles: ["스증"], weaponGroup: null, image: "img/머리/White Witch Hat.png", materials: ["머리띠","종이","라이터"] },
+            { name: "여우 가면", type: "Head", roles: ["원딜"], weaponGroup: null, image: "img/머리/Fox Mask.png", materials: ["머리띠","깃털","꽃","원석"] },
+            { name: "스포츠 선글라스", type: "Head", roles: ["스증"], weaponGroup: null, image: "img/머리/Sport Sunglasses.png", materials: ["머리띠","배터리","피아노선","고철"] },
+            { name: "마린 햇", type: "Head", roles: ["탱"], weaponGroup: null, image: "img/머리/The Sailor.png", materials: ["모자","가위","꽃","원석"] },
+            { name: "만개하는 선율", type: "Head", roles: ["스증","전용"], weaponGroup: null, image: "img/머리/Harmony in Full Bloom.png", materials: [] },
+            { name: "포이즌드", type: "Arm", roles: ["스증"], weaponGroup: null, image: "img/팔/Corrupting Touch.png", materials: ["오일","붕대","화학품","유리병"] },
+            { name: "소드 스토퍼", type: "Arm", roles: ["탱"], weaponGroup: null, image: "img/팔/Sword Stopper.png", materials: ["붕대","고철","못"] },
+            { name: "드라우프니르", type: "Arm", roles: ["스증"], weaponGroup: null, image: "img/팔/Draupnir.png", materials: ["팔찌","곡괭이","원석","붕대"] },
+            { name: "바이탈 센서", type: "Arm", roles: ["원딜"], weaponGroup: null, image: "img/팔/Vital Sign Censor.png", materials: ["손목시계","화학품","배터리","피아노선"] },
+            { name: "기사의 신조", type: "Arm", roles: ["전사"], weaponGroup: null, image: "img/팔/Creed of the Knight.png", materials: ["거북이 등딱지","붕대","화약"] },
+            { name: "샤자한의 검집", type: "Arm", roles: ["암살자"], weaponGroup: null, image: "img/팔/Sheath of Shah Jahan.png", materials: ["고철","화학품","원석"] },
+            { name: "아이기스", type: "Arm", roles: ["탱"], weaponGroup: null, image: "img/팔/Burnished Aegis.png", materials: ["거북이 등딱지","흑연","라이터"] },
+            { name: "틴달로스의 팔찌", type: "Arm", roles: ["스증"], weaponGroup: null, image: "img/팔/Tindalos Band.png", materials: ["팔찌","라이터","원석","손목시계"] },
+            { name: "나이팅게일", type: "Arm", roles: ["서폿"], weaponGroup: null, image: "img/팔/Nightingale.png", materials: ["붕대","깃털","꽃","원석"] },
+            { name: "플라즈마 아크", type: "Arm", roles: ["전사"], weaponGroup: null, image: "img/팔/Plasma Arc.png", materials: ["거북이 등딱지","배터리","흑연"] },
+            { name: "스마트 밴드", type: "Arm", roles: ["암살자"], weaponGroup: null, image: "img/팔/Smart Band.png", materials: ["손목시계","배터리","피아노선","고철"] },
+            { name: "미닛맨의 표식", type: "Arm", roles: ["원딜"], weaponGroup: null, image: "img/팔/Minuteman Armband.png", materials: ["붕대","화약","꽃","원석"] },
+            { name: "스포츠 시계", type: "Arm", roles: ["스증"], weaponGroup: null, image: "img/팔/Sports Watch.png", materials: ["손목시계","화학품","만년필","종이"] },
+            { name: "백우선", type: "Arm", roles: ["스증"], weaponGroup: null, image: "img/팔/White Crane Fan.png", materials: ["못","깃털","꽃","원석"] },
+            { name: "궁기병의 화살통", type: "Arm", roles: ["원딜"], weaponGroup: null, image: "img/팔/Laced Quiver.png", materials: ["깃털","오일","붕대"] },
+            { name: "오르골", type: "Arm", roles: ["전사"], weaponGroup: null, image: "img/팔/Music Box.png", materials: ["옷감","배어리","흑연"] },
+            { name: "슈뢰딩거의 상자", type: "Arm", roles: ["탱"], weaponGroup: null, image: "img/팔/Schrödinger_s Box.png", materials: ["옷감","화학품","유리병"] },
+            { name: "진리는 나의 빛", type: "Arm", roles: ["스증"], weaponGroup: null, image: "img/팔/Veritas Lux Mea.png", materials: ["리본","깃털","꽃","원석"] },
+            { name: "등산화", type: "leg", roles: ["탱"], weaponGroup: null, image: "img/다리/Hiking Boots.png", materials: ["가위", "가죽", "옷감"] },
+            { name: "아이젠", type: "leg", roles: ["암살자"], weaponGroup: null, image: "img/다리/Glacier Crampons.png", materials: ["가위","피아노선","플라스틱"] },
+            { name: "강철 무릎 보호대", type: "leg", roles: ["탱"], weaponGroup: null, image: "img/다리/Steel Knee Pads.png", materials: ["고무","고철"] },
+            { name: "경량화 부츠", type: "leg", roles: ["전사"], weaponGroup: null, image: "img/다리/Feather Boots.png", materials: ["오일","깃털"] },
+            { name: "매버릭 러너", type: "leg", roles: ["전사"], weaponGroup: null, image: "img/다리/Maverick Runner.png", materials: ["쇠구슬","만년필","종이"] },
+            { name: "풍화륜", type: "leg", roles: ["스증"], weaponGroup: null, image: "img/다리/Straitjacket Sneakers.png", materials: ["가위","종이","라이터"] },
+            { name: "부케팔로스", type: "leg", roles: ["원딜"], weaponGroup: null, image: "img/다리/Bucephalus.png", materials: ["못","유리병"] },
+            { name: "클링온 부츠", type: "leg", roles: ["전사"], weaponGroup: null, image: "img/다리/White Rhinos.png", materials: ["오일","못"] },
+            { name: "타키온 브레이스", type: "leg", roles: ["탱"], weaponGroup: null, image: "img/다리/Tachyon Brace.png", materials: ["배터리","피아노선","고철"] },
+            { name: "SCV", type: "leg", roles: ["스증"], weaponGroup: null, image: "img/다리/SCV.png", materials: ["쇠구슬","배터리","피아노선"] },
+            { name: "스텔라 스텝", type: "leg", roles: ["원딜"], weaponGroup: null, image: "img/다리/Stellar Steps.png", materials: ["못","배터리","흑연"] },
+            { name: "카우보이 부츠", type: "leg", roles: ["전사"], weaponGroup: null, image: "img/다리/Cowboy Boots.png", materials: ["실","옷감"] },
+            { name: "글레디에이터", type: "leg", roles: ["원딜"], weaponGroup: null, image: "img/다리/Gladiator.png", materials: ["실","피아노선","플라스틱"] },
+            { name: "델타 레드", type: "leg", roles: ["스증"], weaponGroup: null, image: "img/다리/Delta Red.png", materials: ["쇠구슬","라이터","원석"] }
+        ];
+
+        let selectedItems = new Set();
+        let activeRoles = new Set();
+        let currentWeapon = 'all';
+
+        /* UI 인터랙션 - 필터 독립 제어 */
+        function toggleRoleFilter(role, el) {
+            activeRoles.has(role) ? activeRoles.delete(role) : activeRoles.add(role);
+            el.classList.toggle('active');
+            renderItems();
+        }
+
+        function setWeaponFilter(wp, el) {
+            currentWeapon = (currentWeapon === wp) ? 'all' : wp;
+            document.querySelectorAll('#weaponFilters .slot').forEach(s => s.classList.remove('active'));
+            if(currentWeapon === 'all') document.getElementById('weapon-all').classList.add('active');
+            else el.classList.add('active');
+            renderItems();
+        }
+
+        function renderItems() {
+            const display = document.getElementById('allItemsDisplay');
+            display.innerHTML = '';
+            
+            allItems.filter(item => {
+                // [필터 로직 수정] 
+                if (item.type === 'weapon') {
+                    // 무기는 무기군 필터의 영향만 받음
+                    return currentWeapon === 'all' || item.weaponGroup === currentWeapon;
+                } else {
+                    // 방어구는 역할군 필터의 영향만 받음
+                    return activeRoles.size === 0 || item.roles.some(role => activeRoles.has(role));
+                }
+            }).forEach(item => {
+                const div = document.createElement('div');
+                div.className = `slot epic ${selectedItems.has(item.name) ? 'selected' : ''}`;
+                div.onclick = () => { 
+                    selectedItems.has(item.name) ? selectedItems.delete(item.name) : selectedItems.add(item.name); 
+                    renderItems(); 
+                    renderCandidateList(); 
+                };
+                div.innerHTML = `<img src="${item.image}" title="${item.name}">`;
+                display.appendChild(div);
+            });
+        }
+
+        function renderCandidateList() {
+            const list = document.getElementById('candidateList');
+            list.innerHTML = '';
+            selectedItems.forEach(name => {
+                const item = allItems.find(i => i.name === name);
+                const div = document.createElement('div');
+                div.className = 'slot selected';
+                div.onclick = () => { selectedItems.delete(name); renderItems(); renderCandidateList(); };
+                div.innerHTML = `<img src="${item.image}" title="${item.name}">`;
+                list.appendChild(div);
+            });
+        }
+
+        function clearCandidates() { selectedItems.clear(); renderItems(); renderCandidateList(); }
+
+        function addAllFiltered() {
+            allItems.filter(item => {
+                if (item.type === 'weapon') return currentWeapon === 'all' || item.weaponGroup === currentWeapon;
+                return activeRoles.size === 0 || item.roles.some(role => activeRoles.has(role));
+            }).forEach(item => selectedItems.add(item.name));
+            renderItems(); renderCandidateList();
+        }
+
+        /* [계산 로직] 부족 재료 추적 기능 추가 */
+        function startRouteCalculation() {
+            const resultsDiv = document.getElementById('routeResults');
+            resultsDiv.innerHTML = '<p style="padding:20px;">계산 중...</p>';
+
+            if (selectedItems.size === 0) {
+                resultsDiv.innerHTML = '<p style="padding:20px;">아이템을 선택해주세요.</p>';
+                return;
+            }
+
+            const typeMap = { "weapon": "weapon", "Cheat": "chest", "Head": "head", "Arm": "arm", "leg": "leg" };
+            const revTypeMap = { "weapon": "weapon", "chest": "Cheat", "head": "Head", "arm": "Arm", "leg": "leg" };
+            const groups = { weapon: [], chest: [], head: [], arm: [], leg: [] };
+
+            selectedItems.forEach(name => {
+                const it = allItems.find(i => i.name === name);
+                const mapped = typeMap[it.type];
+                if (groups[mapped]) groups[mapped].push(it);
+            });
+
+            const activeSlots = Object.keys(groups).filter(s => groups[s].length > 0);
+            const missingSlots = Object.keys(groups).filter(s => groups[s].length === 0);
+
+            function getCombos(idx) {
+                if (idx === activeSlots.length) return [[]];
+                const res = [];
+                const sub = getCombos(idx + 1);
+                groups[activeSlots[idx]].forEach(item => {
+                    sub.forEach(s => res.push([item, ...s]));
+                });
+                return res;
+            }
+
+            const combinations = getCombos(0);
+            const areaNames = Object.keys(areaData);
+            const finalResults = [];
+
+            combinations.forEach(combo => {
+                const neededMats = new Set();
+                combo.forEach(it => it.materials.forEach(m => neededMats.add(m)));
+
+                for (let i = 0; i < areaNames.length; i++) {
+                    for (let j = 0; j < areaNames.length; j++) {
+                        if (i === j) continue;
+                        const aName = areaNames[i];
+                        const bName = areaNames[j];
+                        const areaA = areaData[aName];
+                        const areaB = areaData[bName];
+
+                        if (!(areaA.hasLoop || areaA.near.includes(bName))) continue;
+
+                        let missingMatsList = [];
+                        neededMats.forEach(mat => {
+                            if (!areaA.items.includes(mat) && !areaB.items.includes(mat)) {
+                                missingMatsList.push(mat);
+                            }
+                        });
+
+                        // 재료 유실 1개까지만 허용
+                        if (missingMatsList.length <= 1) {
+                            let autoFill = {};
+                            let allMissingSlotsPossible = true;
+
+                            for (const slot of missingSlots) {
+                                const targetType = revTypeMap[slot];
+                                const possibleItems = allItems.filter(it => {
+                                    if (it.type !== targetType) return false;
+                                    return it.materials.length > 0 && it.materials.every(m => 
+                                        areaA.items.includes(m) || areaB.items.includes(m)
+                                    );
+                                });
+
+                                if (possibleItems.length === 0) {
+                                    allMissingSlotsPossible = false;
+                                    break;
+                                }
+                                autoFill[slot] = possibleItems;
+                            }
+
+                            if (allMissingSlotsPossible) {
+                                finalResults.push({ 
+                                    path: [aName, bName], 
+                                    selected: combo, 
+                                    auto: autoFill, 
+                                    missCount: missingMatsList.length,
+                                    missingMats: missingMatsList
+                                });
+                            }
+                        }
+                    }
+                }
+            });
+
+            renderResults(finalResults);
+        }
+
+        function renderResults(routes) {
+            const container = document.getElementById('routeResults');
+            container.innerHTML = routes.length === 0 ? '<p style="padding:20px;">조건을 만족하는 루트가 없습니다.</p>' : '';
+            
+            // 부족한 재료가 적은 순으로 정렬
+            routes.sort((a, b) => a.missCount - b.missCount);
+
+            routes.forEach(route => {
+                const card = document.createElement('div');
+                card.className = 'route-card';
+                card.innerHTML = `
+                    <div class="route-header">
+                        <span class="route-path">${route.path[0]} → ${route.path[1]}</span>
+                        <span class="miss-badge" style="background:${route.missCount === 0 ? '#2ecc71' : '#e67e22'}">
+                            ${route.missCount === 0 ? '재료 완벽' : '재료 1개 부족'}
+                        </span>
+                    </div>
+                    <div class="item-set-box">
+                        ${route.selected.map(it => `<div class="item-tag"><img src="${it.image}" style="height:16px;"> ${it.name}</div>`).join('')}
+                        ${Object.keys(route.auto).map(s => route.auto[s].map(it => `<div class="item-tag tag-auto"><img src="${it.image}" style="height:16px;"> [${s}] ${it.name}</div>`).join('')).join('')}
+                    </div>
+                    ${route.missingMats.length > 0 ? `<span class="missing-info">⚠ 부족한 재료: ${route.missingMats.join(', ')}</span>` : ''}
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        renderItems();
+    </script>
+</body>
+</html>
