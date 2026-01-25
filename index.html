@@ -2,13 +2,63 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ER 2-Route Generator</title>
     <style>
         body { background-color: #3b3d3f; color: white; font-family: 'Malgun Gothic', sans-serif; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
         .header { margin-bottom: 40px; text-align: center; }
         .header img { height: 50px; vertical-align: middle; }
         .header span { font-size: 24px; font-weight: bold; margin-left: 10px; }
-        .main-layout { display: flex; gap: 30px; width: 100%; max-width: 1450px; justify-content: center; align-items: flex-start; }
+                /* 메인 레이아웃 반응형 수정 */
+        .main-layout { 
+            display: flex; 
+            gap: 30px; 
+            width: 100%; 
+            max-width: 1450px; 
+            justify-content: center; 
+            align-items: flex-start; 
+            flex-wrap: wrap; /* 모바일에서 아래로 떨어지게 설정 */
+        }
+
+        /* 모바일 전용 스타일 (너비 768px 이하) */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            
+            .header span { font-size: 20px; }
+            
+            .main-layout { 
+                flex-direction: column; 
+                align-items: stretch; /* 너비를 꽉 채우도록 */
+                gap: 20px;
+            }
+
+            .column { width: 100%; }
+
+            /* 그리드 시스템 모바일 최적화 */
+            .role-grid, .weapon-grid { 
+                grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); 
+            }
+            
+            .candidate-grid { 
+                grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); 
+                min-height: 60px;
+            }
+
+            .all-items-grid { 
+                grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); 
+                max-height: 40vh; /* 모바일에서는 높이를 조금 줄임 */
+            }
+
+            .slot { 
+                width: 100%; /* 그리드 칸에 맞춤 */
+                height: auto;
+                aspect-ratio: 1 / 1; 
+            }
+
+            /* 결과 카드 가독성 개선 */
+            .route-path { font-size: 16px; }
+            .item-tag { font-size: 11px; padding: 3px 6px; }
+        }
         .column { display: flex; flex-direction: column; gap: 25px; }
         .title-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; height: 25px; }
         .title { font-size: 18px; font-weight: bold; margin: 0; }
