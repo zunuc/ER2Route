@@ -27,7 +27,6 @@
             flex-wrap: wrap; /* 모바일에서 아래로 떨어지게 설정 */
         }
 
-        /* 모바일 전용 스타일 (너비 768px 이하) */
         @media (max-width: 768px) {
             body { padding: 10px; }
             
@@ -35,37 +34,47 @@
             
             .main-layout { 
                 flex-direction: column; 
-                align-items: stretch; /* 너비를 꽉 채우도록 */
+                align-items: stretch; 
                 gap: 20px;
             }
 
             .column { width: 100%; }
 
-            /* 그리드 시스템 모바일 최적화 */
+            /* 역할군과 무기군은 기존처럼 작게 유지하거나 적절히 조절 */
             .role-grid, .weapon-grid { 
-                grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); 
+                grid-template-columns: repeat(6, 1fr); 
+                gap: 5px;
             }
             
+            /* 후보군과 아이템 목록의 크기를 키움 */
             .candidate-grid { 
-                grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); 
-                min-height: 60px;
+                /* 가로 5개 유지하면서 크기 확대 */
+                grid-template-columns: repeat(5, 1fr); 
+                min-height: 70px;
             }
 
             .all-items-grid { 
-                grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); 
-                max-height: 40vh; /* 모바일에서는 높이를 조금 줄임 */
+                /* 가로 8개 유지하면서 각 슬롯의 크기를 화면 너비에 맞게 최대로 키움 */
+                grid-template-columns: repeat(8, 1fr); 
+                max-height: 50vh;
+                gap: 4px; /* 슬롯 사이 간격을 살짝 줄여 이미지 공간 확보 */
             }
 
             .slot { 
-                width: 100%; /* 그리드 칸에 맞춤 */
-                height: auto;
-                aspect-ratio: 1 / 1; 
+                /* 기존 50px 고정 대신 너비 100%로 설정하여 그리드 칸을 꽉 채움 */
+                width: 100% !important; 
+                height: auto !important;
+                aspect-ratio: 1 / 1; /* 정사각형 유지 */
             }
 
-            /* 결과 카드 가독성 개선 */
-            .route-path { font-size: 16px; }
-            .item-tag { font-size: 11px; padding: 3px 6px; }
+            /* 이미지 자체의 크기 최적화 */
+            .slot img {
+                width: 90%; /* 슬롯 내부에서 꽉 차게 */
+                height: 90%;
+                object-fit: contain;
+            }
         }
+
 
 
         .grid-bg { background-color: #2a2c2e; padding: 10px; border-radius: 2px; border: 1px solid #4a4c4e; display: grid; gap: 5px; }
