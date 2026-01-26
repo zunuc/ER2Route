@@ -28,7 +28,7 @@
         .slot.selected { border: 2px solid #ffffff !important; }
 
         /* 데스크탑 그리드 크기 */
-        .role-grid, .weapon-grid { grid-template-columns: repeat(6, 50px); }
+        .role-grid, .type-grid, .weapon-grid { grid-template-columns: repeat(6, 50px); }
         .candidate-grid { grid-template-columns: repeat(5, 50px); grid-auto-rows: 50px; min-height: 50px; width: fit-content; align-content: start; }
         .all-items-grid { grid-template-columns: repeat(8, 50px); grid-auto-rows: 50px; max-height: 50vh; overflow-y: auto; padding-right: 10px; min-height: 350px; align-content: start; }
 
@@ -63,7 +63,7 @@
             }
 
             /* 2. 배경 박스에 맞게 버튼 크기 유동적 조절 (한 줄 6개) */
-            .role-grid, .weapon-grid, .candidate-grid, .all-items-grid { 
+            .role-grid, .type-grid, .weapon-grid, .candidate-grid, .all-items-grid { 
                 /* 양옆 여백을 주어 배경색이 살짝 보이게 조절 */
                 width: calc(100vw - 40px); 
                 grid-template-columns: repeat(6, 1fr) !important; 
@@ -145,7 +145,18 @@
                 </div>
             </div>
             <div>
-                <div class="title-wrapper"><h2 class="title">무기군 선택</h2></div>
+                <div class="title-wrapper"><h2 class="title">부위</h2></div>
+                <div class="grid-bg type-grid" id="typeFilters">
+                    <div class="slot active" id="type-all" onclick="setTypeFilter('all', this)">ALL</div>
+                    <div class="slot" onclick="setTypeFilter('weapon', this)"><img src="img/부위/weapon.png" title="무기"></div>
+                    <div class="slot" onclick="setTypeFilter('Cheat', this)"><img src="img/부위/chest.png" title="옷"></div>
+                    <div class="slot" onclick="setTypeFilter('Head', this)"><img src="img/부위/head.png" title="머리"></div>
+                    <div class="slot" onclick="setTypeFilter('Arm', this)"><img src="img/부위/arm.png" title="팔"></div>
+                    <div class="slot" onclick="setTypeFilter('leg', this)"><img src="img/부위/leg.png" title="다리"></div>
+                </div>
+            </div>
+            <div>
+                <div class="title-wrapper"><h2 class="title">무기군</h2></div>
                 <div class="grid-bg weapon-grid" id="weaponFilters">
                     <div class="slot active" id="weapon-all" onclick="setWeaponFilter('all', this)">ALL</div>
                     <div class="slot" onclick="setWeaponFilter('Glove', this)"><img src="img/무기 종류/대표 이미지/01. Glove.png"></div>
@@ -408,6 +419,7 @@
         let selectedItems = new Set();
         let activeRoles = new Set();
         let currentWeapon = 'all';
+        let currentType = 'all';
 
         function toggleRoleFilter(role, el) {
             activeRoles.has(role) ? activeRoles.delete(role) : activeRoles.add(role);
@@ -512,6 +524,64 @@
             });
             renderResults(finalResults);
         }
+        function setTypeFilter(type, el) {
+            // 이미 선택된 걸 다시 누르면 ALL로 초기화
+            if (currentType === type) {
+                currentType = 'all';
+            } else {
+                currentType = type;
+            }
+
+            // 모든 부위 슬롯에서 active 제거 후 해당 슬롯만 적용
+            document.querySelectorAll('#typeFilters .slot').forEach(s => s.classList.remove('active'));
+            if (currentType === 'all') {
+                document.getElementById('type-all').classList.add('active');
+            } else {
+                el.classList.add('active');
+            }
+            renderItems();
+        }
+
+        // 아이템 렌더링 함수 수정 (필터 조건 추가)
+        function renderItems() {
+            const display = document.getElementById('allItemsDisplay');
+            display.innerHTML = '';
+            
+            allItems.filter(item => {
+                // 1. 역할군 필터: 
+                // 아이템이 'weapon' 타입이면 역할군 필터를 무시하고 항상 true (무기는 역할군 상관없이 노출)
+                // 방어구 아이템만 선택된 역할군이 있을 때 필터링 적용
+                const roleMatch = (item.type === 'weapon') || 
+                                  (activeRoles.size === 0 || item.roles.some(role => activeRoles.has(role)));
+                
+                // 2. 부위 필터: (ALL이거나, 선택한 부위와 일치할 때)
+                const typeMatch = currentType === 'all' || item.type === currentType;
+
+                // 3. 무기군 필터:
+                // 아이템이 'weapon' 타입일 때만 선택된 무기군(Glove, Tonfa 등)과 비교
+                // 방어구(Chest, Head 등)는 무기군 필터를 무시하고 항상 true
+                let weaponMatch = true;
+                if (currentWeapon !== 'all') {
+                    if (item.type === 'weapon') {
+                        weaponMatch = item.weaponGroup === currentWeapon;
+                    } else {
+                        weaponMatch = true;
+                    }
+                }
+
+                return roleMatch && typeMatch && weaponMatch;
+            }).forEach(item => {
+                const div = document.createElement('div');
+                div.className = `slot epic ${selectedItems.has(item.name) ? 'selected' : ''}`;
+                div.onclick = () => { 
+                    selectedItems.has(item.name) ? selectedItems.delete(item.name) : selectedItems.add(item.name); 
+                    renderItems(); renderCandidateList(); 
+                };
+                div.innerHTML = `<img src="${item.image}" title="${item.name}">`;
+                display.appendChild(div);
+            });
+        }
+
 
         function renderResults(routes) {
             const container = document.getElementById('routeResults');
