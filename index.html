@@ -469,10 +469,28 @@
         function clearCandidates() { selectedItems.clear(); renderItems(); renderCandidateList(); }
         function addAllFiltered() {
             allItems.filter(item => {
-                if (item.type === 'weapon') return currentWeapon === 'all' || item.weaponGroup === currentWeapon;
-                return activeRoles.size === 0 || item.roles.some(role => activeRoles.has(role));
+                // 1. 역할군 필터: 무기는 통과, 방어구는 선택된 역할군이 있으면 필터링
+                const roleMatch = (item.type === 'weapon') || 
+                                  (activeRoles.size === 0 || item.roles.some(role => activeRoles.has(role)));
+                
+                // 2. 부위 필터: 선택된 부위가 ALL이 아니면 해당 부위만 필터링
+                const typeMatch = currentType === 'all' || item.type === currentType;
+
+                // 3. 무기군 필터: 무기 타입일 때만 해당 무기군 필터링
+                let weaponMatch = true;
+                if (currentWeapon !== 'all') {
+                    if (item.type === 'weapon') {
+                        weaponMatch = item.weaponGroup === currentWeapon;
+                    } else {
+                        weaponMatch = true;
+                    }
+                }
+
+                return roleMatch && typeMatch && weaponMatch;
             }).forEach(item => selectedItems.add(item.name));
-            renderItems(); renderCandidateList();
+
+            renderItems(); 
+            renderCandidateList();
         }
 
         function startRouteCalculation() {
