@@ -493,20 +493,24 @@
             renderCandidateList();
         }
 
-        function startRouteCalculation() {
+function startRouteCalculation() {
             const resultsDiv = document.getElementById('routeResults');
             resultsDiv.innerHTML = '<p style="padding:20px;">계산 중...</p>';
             if (selectedItems.size === 0) { resultsDiv.innerHTML = '<p style="padding:20px;">아이템을 선택해주세요.</p>'; return; }
+            
             const typeMap = { "weapon": "weapon", "Cheat": "chest", "Head": "head", "Arm": "arm", "leg": "leg" };
             const revTypeMap = { "weapon": "weapon", "chest": "Cheat", "head": "Head", "arm": "Arm", "leg": "leg" };
             const groups = { weapon: [], chest: [], head: [], arm: [], leg: [] };
+            
             selectedItems.forEach(name => {
                 const it = allItems.find(i => i.name === name);
                 const mapped = typeMap[it.type];
                 if (groups[mapped]) groups[mapped].push(it);
             });
+
             const activeSlots = Object.keys(groups).filter(s => groups[s].length > 0);
             const missingSlots = Object.keys(groups).filter(s => groups[s].length === 0);
+
             function getCombos(idx) {
                 if (idx === activeSlots.length) return [[]];
                 const res = [];
@@ -514,28 +518,68 @@
                 groups[activeSlots[idx]].forEach(item => { sub.forEach(s => res.push([item, ...s])); });
                 return res;
             }
+
             const combinations = getCombos(0);
             const areaNames = Object.keys(areaData);
             const finalResults = [];
+
             combinations.forEach(combo => {
-                const neededMats = new Set();
-                combo.forEach(it => it.materials.forEach(m => neededMats.add(m)));
+                // 1. 필요한 모든 재료 리스트 추출 (중복 포함)
+                const neededMatsList = [];
+                combo.forEach(it => {
+                    it.materials.forEach(m => neededMatsList.push(m));
+                });
+
                 for (let i = 0; i < areaNames.length; i++) {
                     for (let j = 0; j < areaNames.length; j++) {
                         if (i === j) continue;
                         const aName = areaNames[i], bName = areaNames[j], areaA = areaData[aName], areaB = areaData[bName];
                         if (!(areaA.hasLoop || areaA.near.includes(bName))) continue;
+
+                        // 2. 현재 경로(지역 A, B)에서 구할 수 없는 재료들 추출
                         let missingMatsList = [];
-                        neededMats.forEach(mat => { if (!areaA.items.includes(mat) && !areaB.items.includes(mat)) missingMatsList.push(mat); });
-                        if (missingMatsList.length <= 1) {
+                        neededMatsList.forEach(mat => {
+                            if (!areaA.items.includes(mat) && !areaB.items.includes(mat)) {
+                                missingMatsList.push(mat);
+                            }
+                        });
+
+                        // 3. 부족한 '개수' 계산 (고철 예외 처리)
+                        let scrapCount = 0;
+                        let otherMissCount = 0;
+                        let displayMissing = []; // 화면 표시용 (중복 제거)
+
+                        missingMatsList.forEach(m => {
+                            if (m === "고철") scrapCount++;
+                            else otherMissCount++;
+                            if (!displayMissing.includes(m)) displayMissing.push(m);
+                        });
+
+                        // 고철은 2개를 1세트로 취급 (1개면 1점, 2개면 1점, 3개면 2점...)
+                        let totalMissCount = otherMissCount + Math.ceil(scrapCount / 2);
+
+                        // 4. 부족한 개수가 1개 이하인 경우만 결과에 포함
+                        if (totalMissCount <= 1) {
                             let autoFill = {}, allPossible = true;
                             for (const slot of missingSlots) {
                                 const targetType = revTypeMap[slot];
-                                const possibleItems = allItems.filter(it => it.type === targetType && it.materials.length > 0 && it.materials.every(m => areaA.items.includes(m) || areaB.items.includes(m)));
+                                const possibleItems = allItems.filter(it => 
+                                    it.type === targetType && 
+                                    it.materials.length > 0 && 
+                                    it.materials.every(m => areaA.items.includes(m) || areaB.items.includes(m))
+                                );
                                 if (possibleItems.length === 0) { allPossible = false; break; }
                                 autoFill[slot] = possibleItems;
                             }
-                            if (allPossible) finalResults.push({ path: [aName, bName], selected: combo, auto: autoFill, missCount: missingMatsList.length, missingMats: missingMatsList });
+                            if (allPossible) {
+                                finalResults.push({ 
+                                    path: [aName, bName], 
+                                    selected: combo, 
+                                    auto: autoFill, 
+                                    missCount: totalMissCount, 
+                                    missingMats: displayMissing 
+                                });
+                            }
                         }
                     }
                 }
