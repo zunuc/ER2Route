@@ -550,17 +550,19 @@ function startRouteCalculation() {
 
                         // 3. 부족한 '개수' 계산 (고철 예외 처리)
                         let scrapCount = 0;
+			let flowerCount = 0;
                         let otherMissCount = 0;
                         let displayMissing = []; // 화면 표시용 (중복 제거)
 
                         missingMatsList.forEach(m => {
                             if (m === "고철") scrapCount++;
+			    else if (m === "꽃") flowerCount++;
                             else otherMissCount++;
                             if (!displayMissing.includes(m)) displayMissing.push(m);
                         });
 
                         // 고철은 2개를 1세트로 취급 (1개면 1점, 2개면 1점, 3개면 2점...)
-                        let totalMissCount = otherMissCount + Math.ceil(scrapCount / 2);
+                        let totalMissCount = otherMissCount + Math.ceil(scrapCount / 2) + Math.ceil(flowerCount / 2);
 
                         // 4. 부족한 개수가 1개 이하인 경우만 결과에 포함
                         if (totalMissCount <= 1) {
