@@ -367,7 +367,7 @@
             "모래사장": { items: ["쌍안경","나막신","쌍칼","야구공","보급형 기타","단창","바람막이","전신 수영복","운동화","실","플라스틱","곡괭이","유리병","거북이 등딱지","고무","고철","오일","원석","화학품"],near: ["호텔","숲","고급 주택가"], hasLoop: false },
             "고급 주택가": { items: ["트럼프 카드","꽃","식칼","채찍","화승총","바늘","보급형 기타","모자","자전거 헬멧","가면","손목시계","팔찌","타이즈","가위","만년필","리본","라이터","옷감","쇠구슬","피아노선"], near: ["창고", "모래사장","숲","성당"], hasLoop: true },
             "골목길": { items: ["리본","렌즈","운동화","야구공","유리구슬","팔찌","플라스틱","가위","만년필","곡괭이","유리병","십자가","못","라이터","원석","피아노선"], near: ["주유소","경찰서","절"], hasLoop: false },
-            "주유소": { items: ["라이터","레이저 포인터","목장갑","모자","자전거 헬멧","셔츠","손목시계","고무","고철","마패","배터리","오일","옷감","화학품"], near: ["양궁장", "학교","소방서","골목길"], hasLoop: true },
+            "주유소": { items: ["라이터","레이저 포인터","목장갑","모자","자전거 헬멧","셔츠","손목시계","고무","고철","마패","배터리","오일","옷감","화학품"], near: ["양궁장","학교","소방서","골목길"], hasLoop: true },
             "호텔": { items: ["셔츠","슬리퍼","식칼","면도칼","발터 PPK","페도로프 자동소총","바늘","렌즈","머리띠","팔찌","만년필","탄창","트럼프 카드","못","배터리","오일","옷감","종이","피아노선","얼음"], near: ["숲", "양궁장", "학교","모래사장"], hasLoop: true },
             "경찰서": { items: ["분필","석궁","발터 PPK","페도로프 자동소총","화승총","쇠사슬","손목시계","라이터","탄창","쌍안경","쇠구슬","레이저 포인터","마패","리본","종이","화약","흑연","피아노선"], near: ["골목길","절","개울","연못","소방서"], hasLoop: false },
             "소방서": { items: ["십자가","화약","쌍칼","망치","손도끼","목장갑","화승총","바늘","자전거 헬멧","붕대","실","플라스틱","쇠구슬","만년필","트럼프 카드","못","고무","고철","배터리","화학품"], near: ["학교","주유소","경찰서","연못"], hasLoop: true },
@@ -606,43 +606,50 @@ function startRouteCalculation() {
                 
                 for (let i = 0; i < itemList.length; i++) {
                     let it = itemList[i];
-                    if (!it || !it.materials) continue;
-                    let hasGlass = 0, hasGold = 0;
+                    if (!it) continue;
                     
-                    for (let j = 0; j < it.materials.length; j++) {
-                        let m = it.materials[j];
-                        if (m === "유리병" || m === "유리조각" || m === "유리 조각") {
-                            hasGlass = 1; continue;
-                        }
-                        if (m === "원석" || m === "곡괭이" || m === "금괴") {
-                            hasGold = 1; continue;
-                        }
-                        if (!availableMats.has(m)) {
-                            missingCounts[m] = (missingCounts[m] || 0) + 1;
+                    // 1. 플래그 기반으로 세트 요구치 합산
+                    let hasGlass = it.useGlass ? 1 : 0;
+                    let hasGold = (it.useGold || it.useStone) ? 1 : 0;
+                    
+                    if (it.materials) {
+                        for (let j = 0; j < it.materials.length; j++) {
+                            let m = it.materials[j];
+                            
+                            // 2. 금괴 세트 아이템인 경우에만 원석/곡괭이를 개별 계산에서 제외 (세트 로직에서 처리)
+                            if (hasGold && (m === "원석" || m === "곡괭이")) {
+                                continue;
+                            }
+                            
+                            // 3. 그 외 일반 재료들 부족 여부 체크
+                            if (!availableMats.has(m)) {
+                                missingCounts[m] = (missingCounts[m] || 0) + 1;
+                            }
                         }
                     }
                     reqGlass += hasGlass;
                     reqGold += hasGold;
                 }
                 
+                // 4. 세트 재료(2개당 1세트) 최종 부족분 계산
                 let glassSets = Math.ceil(reqGlass / 2);
                 let goldSets = Math.ceil(reqGold / 2);
                 
-                let extraMats = [];
-                for (let i = 0; i < goldSets; i++) { extraMats.push("원석", "곡괭이"); }
-                for (let k = 0; k < glassSets; k++) { extraMats.push("유리병"); }
-                
-                for (let j = 0; j < extraMats.length; j++) {
-                    let m = extraMats[j];
-                    if (!availableMats.has(m)) {
-                        missingCounts[m] = (missingCounts[m] || 0) + 1;
-                    }
+                // 금괴 세트: 원석 + 곡괭이
+                for (let i = 0; i < goldSets; i++) {
+                    if (!availableMats.has("원석")) missingCounts["원석"] = (missingCounts["원석"] || 0) + 1;
+                    if (!availableMats.has("곡괭이")) missingCounts["곡괭이"] = (missingCounts["곡괭이"] || 0) + 1;
+                }
+                // 유리조각 세트: 유리병
+                for (let k = 0; k < glassSets; k++) {
+                    if (!availableMats.has("유리병")) missingCounts["유리병"] = (missingCounts["유리병"] || 0) + 1;
                 }
                 
                 let effectiveMiss = 0;
                 let missingArr = [];
                 for (let m in missingCounts) {
                     missingArr.push(m);
+                    // 고철/꽃은 2개당 1개 부족으로 산정
                     if (m === "고철" || m === "꽃") effectiveMiss += Math.ceil(missingCounts[m] / 2);
                     else effectiveMiss += missingCounts[m];
                 }
