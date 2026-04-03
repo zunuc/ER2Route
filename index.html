@@ -524,9 +524,14 @@
             });
             selectHtml += `</select>`;
             
+            // '이상/이하'를 선택할 수 있는 드롭다운 추가
             row.innerHTML = `
                 ${selectHtml}
-                <input type="number" class="req-val" placeholder="최소치" value="0">
+                <select class="req-type" style="background: #3e4144; color: white; border: 1px solid #555; padding: 4px; outline: none;">
+                    <option value="min">이상</option>
+                    <option value="max">이하</option>
+                </select>
+                <input type="number" class="req-val" placeholder="수치" value="0">
                 <button class="btn-action" onclick="this.parentElement.remove()">X</button>
             `;
             container.appendChild(row);
@@ -536,8 +541,13 @@
             const reqs = [];
             document.querySelectorAll('#requirementContainer .filter-row').forEach(row => {
                 const stat = row.querySelector('.req-stat').value;
-                const val = parseInt(row.querySelector('.req-val').value) || 0;
-                if (val > 0) reqs.push({ stat, min: val });
+                const type = row.querySelector('.req-type').value; // 이상(min)인지 이하(max)인지 판별
+                const valStr = row.querySelector('.req-val').value;
+                
+                // 값이 비어있지 않으면 배열에 추가 (0도 입력 가능하도록 수정)
+                if (valStr !== '') {
+                    reqs.push({ stat, type, val: parseFloat(valStr) });
+                }
             });
             return reqs;
         }
@@ -703,9 +713,17 @@ function startRouteCalculation() {
                         
                         combo.forEach(sumStats);
                         
-                        let pass = true;
+		        let pass = true;
                         for (let req of reqs) {
-                            if ((totals[req.stat] || 0) < req.min) {
+                            let statVal = totals[req.stat] || 0;
+                            
+                            // '이상' 조건일 때 수치 미달이면 탈락
+                            if (req.type === 'min' && statVal < req.val) {
+                                pass = false;
+                                break;
+                            }
+                            // '이하' 조건일 때 수치 초과면 탈락
+                            if (req.type === 'max' && statVal > req.val) {
                                 pass = false;
                                 break;
                             }
