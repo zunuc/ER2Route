@@ -6,6 +6,7 @@
     <title>이터널리턴 2루트 계산기</title>
     <link rel="icon" href="img/icon.png" type="image/x-icon">
     
+    <link rel="icon" href="img/icon.png" type="image/png">
     <style>
         /* 기본 설정 및 데스크탑 스타일 */
         body { background-color: #3b3d3f; color: white; font-family: 'Malgun Gothic', sans-serif; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
@@ -13,99 +14,148 @@
         .header img { height: 50px; vertical-align: middle; }
         .header span { font-size: 24px; font-weight: bold; margin-left: 10px; }
         
-        /* 메인 레이아웃 */
+        /* 메인 레이아웃: 기본 가로 배치 */
         .main-layout { display: flex; gap: 30px; width: 100%; max-width: 1450px; justify-content: center; align-items: flex-start; }
-        .column { display: flex; flex-direction: column; gap: 25px; flex: 1; }
+        .column { display: flex; flex-direction: column; gap: 25px; }
         
         .title-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; height: 25px; }
         .title { font-size: 18px; font-weight: bold; margin: 0; }
-        .btn-action { background: #4a4c4e; color: #ccc; border: 1px solid #666; font-size: 12px; padding: 4px 10px; cursor: pointer; border-radius: 2px; }
+        .btn-action { background: #4a4c4e; color: #ccc; border: 1px solid #666; font-size: 11px; padding: 2px 8px; cursor: pointer; border-radius: 2px; }
         .btn-action:hover { background: #5a5c5e; color: white; }
 
-        .grid-bg { background-color: #2a2c2e; padding: 10px; border-radius: 2px; border: 1px solid #4a4c4e; display: grid; gap: 5px; box-sizing: border-box; }
-        .slot { width: 50px; height: 50px; background-color: #3e4144; border: 1px solid #555; display: flex; align-items: center; justify-content: center; cursor: pointer; box-sizing: border-box; position: relative; font-size: 11px; text-align: center; word-break: keep-all; }
+        .grid-bg { background-color: #2a2c2e; padding: 10px; border-radius: 2px; border: 1px solid #4a4c4e; display: grid; gap: 5px; }
+        .slot { width: 50px; height: 50px; background-color: #3e4144; border: 1px solid #555; display: flex; align-items: center; justify-content: center; cursor: pointer; box-sizing: border-box; position: relative; }
         .slot img { width: 100%; height: 100%; object-fit: contain; }
         .slot.active { border: 2px solid #ff4655; background-color: #5a2e32; }
+        .slot.epic { border: 2px solid #bc58ff; }
         .slot.selected { border: 2px solid #ffffff !important; }
 
-        /* 그리드 배열 설정 */
-        .type-grid, .weapon-grid { grid-template-columns: repeat(6, 50px); justify-content: center; width: 100%; }
-        .candidate-grid { grid-template-columns: repeat(auto-fill, 50px); grid-auto-rows: 50px; min-height: 60px; width: 100%; align-content: start; }
-        .all-items-grid { grid-template-columns: repeat(auto-fill, 50px); grid-auto-rows: 50px; max-height: 50vh; overflow-y: auto; padding-right: 10px; min-height: 350px; align-content: start; justify-content: start; }
+        /* 데스크탑 그리드 크기 */
+        .role-grid, .type-grid, .weapon-grid { grid-template-columns: repeat(6, 50px); }
+        .candidate-grid { grid-template-columns: repeat(5, 50px); grid-auto-rows: 50px; min-height: 50px; width: fit-content; align-content: start; }
+        .all-items-grid { grid-template-columns: repeat(8, 50px); grid-auto-rows: 50px; max-height: 50vh; overflow-y: auto; padding-right: 10px; min-height: 350px; align-content: start; }
 
-        /* 4x2 스탯 슬롯 디자인 */
-        .stat-grid { grid-template-columns: repeat(4, 1fr); width: 100%; justify-content: center; }
-        .stat-slot {
-            background-color: #3e4144; border: 1px solid #555; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; box-sizing: border-box; font-size: 12px; padding: 8px 4px; text-align: center; word-break: keep-all; height: 45px;
-        }
-        .stat-slot.active { border: 1px solid #ff4655; background-color: #5a2e32; color: #ffca28; font-weight: bold; }
-
-        /* 요구치 필터 관련 */
-        .requirement-container { display: flex; flex-direction: column; gap: 5px; width: 100%; min-height: 60px; }
-        .filter-row { display: flex; gap: 5px; align-items: center; width: 100%; }
-        .req-stat { background: #3e4144; color: white; border: 1px solid #555; padding: 4px; outline: none; flex: 1; }
-        .req-val { background: #3e4144; color: white; border: 1px solid #555; padding: 4px; width: 70px; text-align: center; outline: none; }
-
-        /* 결과 영역 (아코디언 UI 스타일 추가) */
+        /* 결과 영역 */
         .result-section { width: 100%; max-width: 1450px; margin-top: 30px; border-top: 1px solid #555; padding-top: 20px; }
-        .route-group-card { background: #2a2c2e; border: 1px solid #4a4c4e; margin-bottom: 15px; border-radius: 4px; overflow: hidden; }
-        .route-group-header { display: flex; justify-content: space-between; align-items: center; padding: 15px; cursor: pointer; background: #323538; user-select: none; }
-        .route-group-header:hover { background: #3e4144; }
+        .route-card { background: #2a2c2e; border: 1px solid #4a4c4e; padding: 15px; margin-bottom: 15px; border-radius: 4px; }
+        .route-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #444; padding-bottom: 8px; }
         .route-path { font-weight: bold; font-size: 18px; color: #ff4655; }
-        
-        .toggle-icon { font-size: 14px; margin-left: 15px; display: inline-block; transition: transform 0.3s; color: #aaa; }
-        .toggle-icon.open { transform: rotate(180deg); color: white; }
-        
-        .route-details { padding: 15px; border-top: 1px solid #4a4c4e; display: none; background: #242628; max-height: 600px; overflow-y: auto; }
-        .item-set-row { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed #444; }
-        .item-set-row:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-        
         .item-set-box { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
         .item-tag { background: #3e4144; padding: 4px 8px; border-radius: 3px; font-size: 12px; border: 1px solid #666; display: flex; align-items: center; gap: 5px; }
         .tag-auto { border-color: #bc58ff; color: #e0afff; background: #3b2a4a; }
-        .missing-info { font-size: 13px; font-weight: bold; display: block; }
-        
-        .total-stats-box { margin-top: 5px; font-size: 13px; color: #ddd; background: #1a1c1e; padding: 8px; border-radius: 4px; border: 1px solid #333; }
-        .total-stats-box span { display: inline-block; background: #333; padding: 2px 6px; border-radius: 3px; margin: 2px; }
+        .miss-badge { font-size: 12px; background: #555; padding: 2px 6px; border-radius: 10px; color: #eee; }
+        .missing-info { color: #ff6b6b; font-size: 12px; font-weight: bold; margin-top: 5px; display: block; }
 
+        /* ============================================================
+           모바일 환경 최적화 (768px 이하)
+           ============================================================ */
         @media (max-width: 768px) {
-            .main-layout { flex-direction: column; align-items: center; gap: 30px; }
-            .column { width: 100%; align-items: center; }
-            .type-grid, .weapon-grid { grid-template-columns: repeat(6, 1fr) !important; width: calc(100vw - 40px); gap: 5px !important; }
-            .candidate-grid, .requirement-container { width: calc(100vw - 40px); }
-            .all-items-grid { width: calc(100vw - 40px); grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); }
-            .stat-grid { grid-template-columns: repeat(4, 1fr); width: calc(100vw - 40px); gap: 5px; }
-            .slot { width: 100% !important; height: auto !important; aspect-ratio: 1 / 1 !important; }
-            .result-section { width: calc(100vw - 40px); }
+            body { padding: 15px 10px; }
+            .header span { font-size: 22px; }
+            
+            /* 1. 레이아웃 중앙 정렬 및 섹션 간격 */
+            .main-layout { 
+                flex-direction: column; 
+                align-items: center; 
+                gap: 30px; 
+            }
+
+            .column { 
+                width: 100%; 
+                align-items: center; 
+            }
+
+            /* 2. 배경 박스에 맞게 버튼 크기 유동적 조절 (한 줄 6개) */
+            .role-grid, .type-grid, .weapon-grid, .candidate-grid, .all-items-grid { 
+                /* 양옆 여백을 주어 배경색이 살짝 보이게 조절 */
+                width: calc(100vw - 40px); 
+                grid-template-columns: repeat(6, 1fr) !important; 
+                /* 가로/세로 간격을 8px로 통일 */
+                gap: 8px !important; 
+                padding: 12px !important; 
+                box-sizing: border-box;
+                /* 세로 높이 어긋남 방지 */
+                grid-auto-rows: unset !important;
+                align-content: start;
+            }
+
+            /* 3. 버튼(슬롯) 비율 고정 */
+            .slot { 
+                width: 100% !important; 
+                height: auto !important; 
+                /* 너비에 맞춰 높이를 1:1로 고정하여 정사각형 유지 */
+                aspect-ratio: 1 / 1 !important; 
+                min-width: 0;
+            }
+
+            /* 아이템 목록 영역 높이 및 스크롤 */
+            .all-items-grid { 
+                max-height: 50vh; 
+                overflow-y: auto;
+            }
+
+            /* 제목 영역 너비 맞춤 */
+            .title-wrapper {
+                width: calc(100vw - 40px);
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                margin-bottom: 12px;
+                padding: 0; /* 여백 제거하여 공간 확보 */
+            }
+
+            .title { 
+                font-size: 18px; 
+                white-space: nowrap; /* 제목 줄바꿈 절대 방지 */
+                flex-shrink: 0; /* 제목이 눌리지 않도록 설정 */
+            }
+
+            /* 루트 계산 실행 버튼 크기 미세 조정 */
+            .btn-action[onclick="startRouteCalculation()"] {
+                width: auto !important; /* 너비를 글자 크기에 맞춤 */
+                padding: 8px 15px !important; /* 상하좌우 여백 조절 */
+                font-size: 14px !important; /* 텍스트 크기를 살짝 줄임 */
+                margin: 0 !important;
+                white-space: nowrap; /* 버튼 내 텍스트 줄바꿈 방지 */
+            }
+
+            /* 결과 섹션 전체 너비 */
+            .result-section {
+                width: calc(100vw - 40px);
+                margin-top: 20px;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <img src="img/logo__white.png" alt="Logo" onerror="this.style.display='none'">
+        <img src="img/logo__white.png" alt="Logo">
         <span>2루트 계산기</span>
     </div>
 
     <div class="main-layout">
-        <div class="column" style="max-width: 360px;">
+        <div class="column">
             <div>
-                <div class="title-wrapper">
-                    <h2 class="title">보유 스탯</h2>
-                    <button class="btn-action" id="statConditionToggle" onclick="toggleStatCondition()">조건: OR</button>
+                <div class="title-wrapper"><h2 class="title">역할군</h2></div>
+                <div class="grid-bg role-grid" id="roleFilters">
+                    <div class="slot" onclick="toggleRoleFilter('탱', this)"><img src="img/역할군/탱.webp"></div>
+                    <div class="slot" onclick="toggleRoleFilter('전사', this)"><img src="img/역할군/전사.webp"></div>
+                    <div class="slot" onclick="toggleRoleFilter('암살자', this)"><img src="img/역할군/암살자.webp"></div>
+                    <div class="slot" onclick="toggleRoleFilter('스증', this)"><img src="img/역할군/스증.webp"></div>
+                    <div class="slot" onclick="toggleRoleFilter('원딜', this)"><img src="img/역할군/원딜.webp"></div>
+                    <div class="slot" onclick="toggleRoleFilter('서폿', this)"><img src="img/역할군/서폿.webp"></div>
                 </div>
-                <div class="grid-bg stat-grid" id="statFilters"></div>
             </div>
             <div>
                 <div class="title-wrapper"><h2 class="title">부위</h2></div>
                 <div class="grid-bg type-grid" id="typeFilters">
                     <div class="slot active" id="type-all" onclick="setTypeFilter('all', this)">ALL</div>
-                    <div class="slot" onclick="setTypeFilter('weapon', this)"><img src="img/부위/weapon.png" title="무기" onerror="this.style.display='none'"></div>
-                    <div class="slot" onclick="setTypeFilter('Cheat', this)"><img src="img/부위/chest.png" title="옷" onerror="this.style.display='none'"></div>
-                    <div class="slot" onclick="setTypeFilter('Head', this)"><img src="img/부위/head.png" title="머리" onerror="this.style.display='none'"></div>
-                    <div class="slot" onclick="setTypeFilter('Arm', this)"><img src="img/부위/arm.png" title="팔" onerror="this.style.display='none'"></div>
-                    <div class="slot" onclick="setTypeFilter('leg', this)"><img src="img/부위/leg.png" title="다리" onerror="this.style.display='none'"></div>
+                    <div class="slot" onclick="setTypeFilter('weapon', this)"><img src="img/부위/weapon.png" title="무기"></div>
+                    <div class="slot" onclick="setTypeFilter('Cheat', this)"><img src="img/부위/chest.png" title="옷"></div>
+                    <div class="slot" onclick="setTypeFilter('Head', this)"><img src="img/부위/head.png" title="머리"></div>
+                    <div class="slot" onclick="setTypeFilter('Arm', this)"><img src="img/부위/arm.png" title="팔"></div>
+                    <div class="slot" onclick="setTypeFilter('leg', this)"><img src="img/부위/leg.png" title="다리"></div>
                 </div>
             </div>
             <div>
@@ -139,23 +189,15 @@
             </div>
         </div>
 
-        <div class="column" style="max-width: 350px;">
+        <div class="column">
             <div class="title-wrapper">
                 <h2 class="title">후보군</h2>
                 <button class="btn-action" onclick="clearCandidates()">전체 삭제</button>
             </div>
             <div class="grid-bg candidate-grid" id="candidateList"></div>
-
-            <div style="margin-top: 20px;">
-                <div class="title-wrapper">
-                    <h2 class="title">최소 스탯 요구치 필터</h2>
-                    <button class="btn-action" onclick="addRequirement()">+ 추가</button>
-                </div>
-                <div class="grid-bg requirement-container" id="requirementContainer"></div>
-            </div>
         </div>
 
-        <div class="column" style="max-width: 600px;">
+        <div class="column">
             <div class="title-wrapper">
                 <h2 class="title">아이템</h2>
                 <button class="btn-action" onclick="addAllFiltered()">전체 추가</button>
@@ -167,15 +209,35 @@
     <div class="result-section">
         <div class="title-wrapper">
             <h2 class="title">계산 결과</h2>
-            <button class="btn-action" style="padding: 10px 25px; background: #ff4655; color: white; border: none; font-weight: bold; font-size: 14px;" onclick="startRouteCalculation()">루트 계산 실행</button>
+            <button class="btn-action" style="padding: 10px 25px; background: #ff4655; color: white; border: none; font-weight: bold;" onclick="startRouteCalculation()">루트 계산 실행</button>
         </div>
         <div id="routeResults"></div>
     </div>
 
     <script>
-        // =====================================================================
-        // 데이터 영역: 기존의 const allItems 와 const areaData 를 여기에 붙여넣으세요.
-        // =====================================================================
+        /* 데이터 및 스크립트 부분은 기존과 동일하므로 생략하지 않고 유지합니다 */
+        const areaData = {
+            "항구": { items: ["만년필","식칼","쌍칼","쇠사슬","전신 수영복","바람막이","손목시계","붕대","실","가위","깃털","거북이 등딱지","고철","라이터","마패","원석"], near: ["창고", "성당", "공장"], hasLoop: false },
+            "창고": { items: ["종이","망치","목장갑","발터 PPK","페도로프 자동소총","머리띠","모자","팔찌","슬리퍼","플라스틱","곡괭이","유리병","깃털","리본","얼음","고무","배터리"], near: ["고급 주택가", "성당", "항구"], hasLoop: false },
+            "연못": { items: ["바람막이","야구공","꽃","대나무","석궁","양궁","전신 수영복","머리띠","나막신","실","깃털","리본","거북이 등딱지","오일","원석","종이","흑연","약초"], near: ["소방서","경찰서","개울","병원","묘지"], hasLoop: false },
+            "개울": { items: ["깃털","전신 수영복","꽃","망치","양궁","머리띠","셔츠","슬리퍼","플라스틱","쇠구슬","트럼프 카드","분필","얼음","거북이 등딱지","고철","원석","화약","피아노선","약초"], near: ["절", "연못", "경찰서","병원"], hasLoop: true },
+            "모래사장": { items: ["쌍안경","나막신","쌍칼","야구공","보급형 기타","단창","바람막이","전신 수영복","운동화","실","플라스틱","곡괭이","유리병","거북이 등딱지","고무","고철","오일","원석","화학품"],near: ["호텔","숲","고급 주택가"], hasLoop: false },
+            "고급 주택가": { items: ["트럼프 카드","꽃","식칼","채찍","화승총","바늘","보급형 기타","모자","자전거 헬멧","가면","손목시계","팔찌","타이즈","가위","만년필","리본","라이터","옷감","쇠구슬","피아노선"], near: ["창고", "모래사장","숲","성당"], hasLoop: true },
+            "골목길": { items: ["리본","렌즈","운동화","야구공","유리구슬","팔찌","플라스틱","가위","만년필","곡괭이","유리병","십자가","못","라이터","원석","피아노선"], near: ["주유소","경찰서","절"], hasLoop: false },
+            "주유소": { items: ["라이터","레이저 포인터","목장갑","모자","자전거 헬멧","셔츠","손목시계","고무","고철","마패","배터리","오일","옷감","화학품"], near: ["양궁장", "학교","소방서","골목길"], hasLoop: true },
+            "호텔": { items: ["셔츠","슬리퍼","식칼","면도칼","발터 PPK","페도로프 자동소총","바늘","렌즈","머리띠","팔찌","만년필","탄창","트럼프 카드","못","배터리","오일","옷감","종이","피아노선","얼음"], near: ["숲", "양궁장", "학교","모래사장"], hasLoop: true },
+            "경찰서": { items: ["분필","석궁","발터 PPK","페도로프 자동소총","화승총","쇠사슬","손목시계","라이터","탄창","쌍안경","쇠구슬","레이저 포인터","마패","리본","종이","화약","흑연","피아노선"], near: ["골목길","절","개울","연못","소방서"], hasLoop: false },
+            "소방서": { items: ["십자가","화약","쌍칼","망치","손도끼","목장갑","화승총","바늘","자전거 헬멧","붕대","실","플라스틱","쇠구슬","만년필","트럼프 카드","못","고무","고철","배터리","화학품"], near: ["학교","주유소","경찰서","연못"], hasLoop: true },
+            "병원": { items: ["옷감","얼음","면도칼","바늘","붕대","팔찌","손목시계","타이즈","가위","유리병","레이저 포인터","배터리","오일","고무","종이","화학품"], near: ["개울","연못","묘지","공장"], hasLoop: true },
+            "절": { items: ["탄창","타이즈","꽃","녹슨 검","쌍칼","단창","대나무","렌즈","유리구슬","모자","머리띠","승복","나막신","곡괭이","깃털","거북이 등딱지","마패","배터리","옷감","원석","약초"], near: ["골목길","경찰서","개울"], hasLoop: true },
+            "양궁장": { items: ["녹슨 검","단창","단봉","대나무","채찍","양궁","석궁","모자","승복","운동화","실","쌍안경","쇠구슬","유리병","깃털","못","가위","화약","흑연","피아노선"], near: ["호텔","학교","주유소"], hasLoop: false },
+            "묘지": { items: ["플라스틱","가면","꽃","단봉","채찍","쇠사슬","승복","팔찌","곡괭이","리본","십자가","라이터","마패","옷감","화약","화학품","흑연"], near: ["연못","병원","공장","성당","숲"], hasLoop: false },
+            "숲": { items: ["쇠사슬","승복","꽃","녹슨 검","손도끼","대나무","석궁","모자","자전거 헬멧","붕대","나막신","타이즈","라이터","쌍안경","곡괭이","깃털","얼음","거북이 등딱지","레이저 포인터","원석","흑연","약초"], near: ["학교","호텔","모래사장","고급 주택가","성당"], hasLoop: true },
+            "공장": { items: ["마패","망치","손도끼","단창","목장갑","면도칼","발터 PPK","페도로프 자동소총","자전거 헬멧","손목시계","붕대","운동화","화학품","플라스틱","탄창","가면","쇠구슬","분필","못","고무","고철","배터리","오일","종이"], near: ["병원","묘지","성당","항구"], hasLoop: true },
+            "성당": { items: ["단봉","손도끼","녹슨 검","채찍","면도칼","양궁","화승총","보급형 기타","렌즈","유리구슬","머리띠","셔츠","트럼프 카드","분필","유리병","십자가","못","옷감","화약","흑연","피아노선"], near: ["묘지","공장","항구","창고","고급 주택가","숲"], hasLoop: true },
+            "학교": { items: ["원석","단봉","식칼","야구공","보급형 기타","유리구슬","바람막이","붕대","슬리퍼","십자가","가면","실","가위","만년필","분필","리본","고철","라이터","레이저 포인터","종이","흑연"], near: ["양궁장","주유소","소방서","숲","호텔"], hasLoop: true }
+        };
+
         const allItems = [
             { name: "단영촌천투", type: "weapon", roles: [], weaponGroup: "Glove", image: "img/무기 종류/글러브/008. One Inch Punch.png", materials: ["거북이 등딱지", "깃털"], stats: { ad:64, am:6, as:20} },
             { name: "디바인 피스트", type: "weapon", roles: [], weaponGroup: "Glove", image: "img/무기 종류/글러브/009. Divine Fist.png", materials: ["고철", "옷감", "십자가"], stats: {ad:41, sk:72, hp:100} },
@@ -323,7 +385,7 @@
             { name: "여우 가면", type: "Head", roles: ["원딜"], weaponGroup: null, image: "img/머리/Fox Mask.png", materials: ["머리띠","깃털","꽃","원석"],stats:{ad:10,as:32,cp:28} },
             { name: "스포츠 선글라스", type: "Head", roles: ["스증"], weaponGroup: null, image: "img/머리/Sport Sunglasses.png", materials: ["머리띠","배터리","피아노선","고철"],stats:{sk:53,hp:100,as:25,cd:10},skill:"치유 감소" },
             { name: "마린 햇", type: "Head", roles: ["탱"], weaponGroup: null, image: "img/머리/The Sailor.png", materials: ["모자","가위","꽃","원석"],stats:{am:15,hp:200} },
-            { name: "만개하는 선율", type: "Head", roles: ["전용"], weaponGroup: null, image: "img/머리/Harmony in Full Bloom.png", materials: [],stats:{sk:73,cd:15} },
+            { name: "만개하는 선율", type: "Head", roles: ["스증","전용"], weaponGroup: null, image: "img/머리/Harmony in Full Bloom.png", materials: [],stats:{sk:73,cd:15} },
             { name: "포이즌드", type: "Arm", roles: ["스증"], weaponGroup: null, image: "img/팔/Corrupting Touch.png", materials: ["오일","붕대","화학품","유리병"],stats:{sk:62,cd:10},skill:"치유 감소" },
             { name: "소드 스토퍼", type: "Arm", roles: ["탱"], weaponGroup: null, image: "img/팔/Sword Stopper.png", materials: ["붕대","고철","못"],stats:{am:13,hp:120,cd:10},skill:"리플렉션" },
             { name: "드라우프니르", type: "Arm", roles: ["스증"], weaponGroup: null, image: "img/팔/Draupnir.png", useGold: true, materials: ["팔찌","곡괭이","원석","붕대"],stats:{sk:75} },
@@ -359,126 +421,62 @@
             { name: "델타 레드", type: "leg", roles: ["스증"], weaponGroup: null, image: "img/다리/Delta Red.png", materials: ["쇠구슬","라이터","원석"],stats:{sk:18,sp:0.22,cd:10} }
         ];
 
-        const areaData = {
-            "항구": { items: ["만년필","식칼","쌍칼","쇠사슬","전신 수영복","바람막이","손목시계","붕대","실","가위","깃털","거북이 등딱지","고철","라이터","마패","원석"], near: ["창고", "성당", "공장"], hasLoop: false },
-            "창고": { items: ["종이","망치","목장갑","발터 PPK","페도로프 자동소총","머리띠","모자","팔찌","슬리퍼","플라스틱","곡괭이","유리병","깃털","리본","얼음","고무","배터리"], near: ["고급 주택가", "성당", "항구"], hasLoop: false },
-            "연못": { items: ["바람막이","야구공","꽃","대나무","석궁","양궁","전신 수영복","머리띠","나막신","실","깃털","리본","거북이 등딱지","오일","원석","종이","흑연","약초"], near: ["소방서","경찰서","개울","병원","묘지"], hasLoop: false },
-            "개울": { items: ["깃털","전신 수영복","꽃","망치","양궁","머리띠","셔츠","슬리퍼","플라스틱","쇠구슬","트럼프 카드","분필","얼음","거북이 등딱지","고철","원석","화약","피아노선","약초"], near: ["절", "연못", "경찰서","병원"], hasLoop: true },
-            "모래사장": { items: ["쌍안경","나막신","쌍칼","야구공","보급형 기타","단창","바람막이","전신 수영복","운동화","실","플라스틱","곡괭이","유리병","거북이 등딱지","고무","고철","오일","원석","화학품"],near: ["호텔","숲","고급 주택가"], hasLoop: false },
-            "고급 주택가": { items: ["트럼프 카드","꽃","식칼","채찍","화승총","바늘","보급형 기타","모자","자전거 헬멧","가면","손목시계","팔찌","타이즈","가위","만년필","리본","라이터","옷감","쇠구슬","피아노선"], near: ["창고", "모래사장","숲","성당"], hasLoop: true },
-            "골목길": { items: ["리본","렌즈","운동화","야구공","유리구슬","팔찌","플라스틱","가위","만년필","곡괭이","유리병","십자가","못","라이터","원석","피아노선"], near: ["주유소","경찰서","절"], hasLoop: false },
-            "주유소": { items: ["라이터","레이저 포인터","목장갑","모자","자전거 헬멧","셔츠","손목시계","고무","고철","마패","배터리","오일","옷감","화학품"], near: ["양궁장", "학교","소방서","골목길"], hasLoop: true },
-            "호텔": { items: ["셔츠","슬리퍼","식칼","면도칼","발터 PPK","페도로프 자동소총","바늘","렌즈","머리띠","팔찌","만년필","탄창","트럼프 카드","못","배터리","오일","옷감","종이","피아노선","얼음"], near: ["숲", "양궁장", "학교","모래사장"], hasLoop: true },
-            "경찰서": { items: ["분필","석궁","발터 PPK","페도로프 자동소총","화승총","쇠사슬","손목시계","라이터","탄창","쌍안경","쇠구슬","레이저 포인터","마패","리본","종이","화약","흑연","피아노선"], near: ["골목길","절","개울","연못","소방서"], hasLoop: false },
-            "소방서": { items: ["십자가","화약","쌍칼","망치","손도끼","목장갑","화승총","바늘","자전거 헬멧","붕대","실","플라스틱","쇠구슬","만년필","트럼프 카드","못","고무","고철","배터리","화학품"], near: ["학교","주유소","경찰서","연못"], hasLoop: true },
-            "병원": { items: ["옷감","얼음","면도칼","바늘","붕대","팔찌","손목시계","타이즈","가위","유리병","레이저 포인터","배터리","오일","고무","종이","화학품"], near: ["개울","연못","묘지","공장"], hasLoop: true },
-            "절": { items: ["탄창","타이즈","꽃","녹슨 검","쌍칼","단창","대나무","렌즈","유리구슬","모자","머리띠","승복","나막신","곡괭이","깃털","거북이 등딱지","마패","배터리","옷감","원석","약초"], near: ["골목길","경찰서","개울"], hasLoop: true },
-            "양궁장": { items: ["녹슨 검","단창","단봉","대나무","채찍","양궁","석궁","모자","승복","운동화","실","쌍안경","쇠구슬","유리병","깃털","못","가위","화약","흑연","피아노선"], near: ["호텔","학교","주유소"], hasLoop: false },
-            "묘지": { items: ["플라스틱","가면","꽃","단봉","채찍","쇠사슬","승복","팔찌","곡괭이","리본","십자가","라이터","마패","옷감","화약","화학품","흑연"], near: ["연못","병원","공장","성당","숲"], hasLoop: false },
-            "숲": { items: ["쇠사슬","승복","꽃","녹슨 검","손도끼","대나무","석궁","모자","자전거 헬멧","붕대","나막신","타이즈","라이터","쌍안경","곡괭이","깃털","얼음","거북이 등딱지","레이저 포인터","원석","흑연","약초"], near: ["학교","호텔","모래사장","고급 주택가","성당"], hasLoop: true },
-            "공장": { items: ["마패","망치","손도끼","단창","목장갑","면도칼","발터 PPK","페도로프 자동소총","자전거 헬멧","손목시계","붕대","운동화","화학품","플라스틱","탄창","가면","쇠구슬","분필","못","고무","고철","배터리","오일","종이"], near: ["병원","묘지","성당","항구"], hasLoop: true },
-            "성당": { items: ["단봉","손도끼","녹슨 검","채찍","면도칼","양궁","화승총","보급형 기타","렌즈","유리구슬","머리띠","셔츠","트럼프 카드","분필","유리병","십자가","못","옷감","화약","흑연","피아노선"], near: ["묘지","공장","항구","창고","고급 주택가","숲"], hasLoop: true },
-            "학교": { items: ["원석","단봉","식칼","야구공","보급형 기타","유리구슬","바람막이","붕대","슬리퍼","십자가","가면","실","가위","만년필","분필","리본","고철","라이터","레이저 포인터","종이","흑연"], near: ["양궁장","주유소","소방서","숲","호텔"], hasLoop: true }
-        };
-        // =====================================================================
+		let selectedItems = new Set();
+        let activeRoles = new Set();
+        let currentWeapon = 'all';
+        let currentType = 'all';
 
-        const statLabels = {
-            ad: "공격력", sk: "스킬 증폭", as: "공격 속도", hp: "최대 체력", am: "방어력",
-            cd: "쿨다운 감소", cp: "치명타 확률", ca: "치명타 피해", sp: "이동 속도",
-            mh: "모든 피해 흡혈", sh: "생명력 흡수", lvad: "레벨 당 공격력",
-            lvsk: "레벨 당 스증", lvhp: "레벨 당 체력", ap: "방어 관통"
-        };
-
-        const percentStats = ["as", "cp", "ca", "mh", "sh"];
-        const displayFilterStats = ["ad", "sk", "as", "hp", "am", "cd", "cp", "ap"];
-
-        let currentTypeFilter = 'all';
-        let currentWeaponFilter = 'all';
-        let selectedStats = new Set();
-        let statCondition = 'OR';
-        let selectedItems = new Set();
-
-        function initStats() {
-            const container = document.getElementById('statFilters');
-            displayFilterStats.forEach(k => {
-                const div = document.createElement('div');
-                div.className = 'stat-slot';
-                div.innerText = statLabels[k];
-                div.onclick = function() { toggleStatFilter(k, this); };
-                container.appendChild(div);
-            });
+        /* 필터링 및 UI 관련 함수 */
+        function toggleRoleFilter(role, el) {
+            activeRoles.has(role) ? activeRoles.delete(role) : activeRoles.add(role);
+            el.classList.toggle('active');
             renderItems();
         }
 
-        function toggleStatCondition() {
-            statCondition = statCondition === 'OR' ? 'AND' : 'OR';
-            document.getElementById('statConditionToggle').innerText = `조건: ${statCondition}`;
+        function setWeaponFilter(wp, el) {
+            currentWeapon = (currentWeapon === wp) ? 'all' : wp;
+            document.querySelectorAll('#weaponFilters .slot').forEach(s => s.classList.remove('active'));
+            if(currentWeapon === 'all') document.getElementById('weapon-all').classList.add('active');
+            else el.classList.add('active');
             renderItems();
         }
 
-        function toggleStatFilter(statKey, element) {
-            if (selectedStats.has(statKey)) {
-                selectedStats.delete(statKey);
-                element.classList.remove('active');
-            } else {
-                selectedStats.add(statKey);
-                element.classList.add('active');
-            }
+        // 추가된 부위 필터 함수
+        function setTypeFilter(type, el) {
+            currentType = type;
+            document.querySelectorAll('#typeFilters .slot').forEach(s => s.classList.remove('active'));
+            el.classList.add('active');
             renderItems();
         }
+		function renderItems() {
+			const display = document.getElementById('allItemsDisplay');
+			display.innerHTML = '';
+			
+			allItems.filter(item => {
+				// 1. 역할 필터 (탱커, 딜러 등) - 무기는 무조건 통과, 방어구는 선택된 역할이 있으면 해당되는 것만
+				const roleMatch = (item.type === 'weapon') || (activeRoles.size === 0 || item.roles.some(role => activeRoles.has(role)));
+				
+				// 2. 부위 필터 (무기, 옷, 머리 등)
+				const typeMatch = (currentType === 'all' || item.type === currentType);
+				
+				// 3. 무기군 필터 (수정된 핵심 로직)
+				// - 아이템이 무기가 아니면(옷, 머리 등) 무기군 필터를 무시하고 통과(true)
+				// - 아이템이 무기라면, 'all'이거나 선택된 무기군과 일치해야 함
+				const weaponMatch = (item.type !== 'weapon') || (currentWeapon === 'all') || (item.weaponGroup === currentWeapon);
 
-        function setTypeFilter(type, element) {
-            currentTypeFilter = type;
-            document.querySelectorAll('#typeFilters .slot').forEach(el => el.classList.remove('active'));
-            element.classList.add('active');
-            renderItems();
-        }
-
-        function setWeaponFilter(group, element) {
-            currentWeaponFilter = group;
-            document.querySelectorAll('#weaponFilters .slot').forEach(el => el.classList.remove('active'));
-            element.classList.add('active');
-            renderItems();
-        }
-
-        function renderItems() {
-            const display = document.getElementById('allItemsDisplay');
-            display.innerHTML = '';
-
-            let filtered = allItems.filter(item => {
-                if (currentTypeFilter !== 'all' && item.type !== currentTypeFilter) return false;
-                if (currentWeaponFilter !== 'all' && item.type === 'weapon' && item.weaponGroup !== currentWeaponFilter) return false;
-
-                if (selectedStats.size > 0) {
-                    const itemStats = Object.keys(item.stats || {});
-                    if (statCondition === 'OR') {
-                        let hasOne = false;
-                        for (let s of selectedStats) {
-                            if (itemStats.includes(s)) { hasOne = true; break; }
-                        }
-                        if (!hasOne) return false;
-                    } else { 
-                        for (let s of selectedStats) {
-                            if (!itemStats.includes(s)) return false;
-                        }
-                    }
-                }
-                return true;
-            });
-
-            filtered.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'slot' + (selectedItems.has(item.name) ? ' selected' : '');
-                div.onclick = () => {
-                    if (selectedItems.has(item.name)) selectedItems.delete(item.name);
-                    else selectedItems.add(item.name);
-                    renderItems();
-                    renderCandidateList();
-                };
-                div.innerHTML = `<img src="${item.image}" title="${item.name}" onerror="this.style.display='none'; this.parentElement.innerText='${item.name}';">`;
-                display.appendChild(div);
-            });
-        }
+				return roleMatch && typeMatch && weaponMatch;
+			}).forEach(item => {
+				const div = document.createElement('div');
+				div.className = `slot epic ${selectedItems.has(item.name) ? 'selected' : ''}`;
+				div.onclick = () => { 
+					selectedItems.has(item.name) ? selectedItems.delete(item.name) : selectedItems.add(item.name); 
+					renderItems(); 
+					renderCandidateList(); 
+				};
+				div.innerHTML = `<img src="${item.image}" title="${item.name}">`;
+				display.appendChild(div);
+			});
+		}
 
         function renderCandidateList() {
             const list = document.getElementById('candidateList');
@@ -487,340 +485,218 @@
                 const item = allItems.find(i => i.name === name);
                 const div = document.createElement('div');
                 div.className = 'slot selected';
-                div.onclick = () => {
-                    selectedItems.delete(name);
-                    renderItems();
-                    renderCandidateList();
-                };
-                div.innerHTML = `<img src="${item.image}" title="${item.name}" onerror="this.style.display='none'; this.parentElement.innerText='${item.name}';">`;
+                div.onclick = () => { selectedItems.delete(name); renderItems(); renderCandidateList(); };
+                div.innerHTML = `<img src="${item.image}" title="${item.name}">`;
                 list.appendChild(div);
             });
         }
 
-        function clearCandidates() {
-            selectedItems.clear();
-            renderItems();
-            renderCandidateList();
-        }
+        function clearCandidates() { selectedItems.clear(); renderItems(); renderCandidateList(); }
+		
+		function addAllFiltered() {
+			allItems.filter(item => {
+				const roleMatch = (item.type === 'weapon') || (activeRoles.size === 0 || item.roles.some(role => activeRoles.has(role)));
+				const typeMatch = (currentType === 'all' || item.type === currentType);
+				const weaponMatch = (item.type !== 'weapon') || (currentWeapon === 'all') || (item.weaponGroup === currentWeapon);
+				return roleMatch && typeMatch && weaponMatch;
+			}).forEach(item => selectedItems.add(item.name));
+			renderItems(); 
+			renderCandidateList();
+		}
 
-        function addAllFiltered() {
-            const displaySlots = document.querySelectorAll('#allItemsDisplay .slot');
-            displaySlots.forEach(slot => {
-                const name = slot.querySelector('img') ? slot.querySelector('img').title : slot.innerText;
-                selectedItems.add(name);
-            });
-            renderItems();
-            renderCandidateList();
-        }
+        /* 루트 계산 로직 */
+		function startRouteCalculation() {
+			const resultsDiv = document.getElementById('routeResults');
+			resultsDiv.innerHTML = '<p style="padding:20px;">계산 중...</p>';
+			
+			if (selectedItems.size === 0) {
+				resultsDiv.innerHTML = '<p style="padding:20px;">아이템을 선택해주세요.</p>';
+				return;
+			}
 
-        function addRequirement() {
-            const container = document.getElementById('requirementContainer');
-            const row = document.createElement('div');
-            row.className = 'filter-row';
-            
-            let selectHtml = `<select class="req-stat">`;
-            displayFilterStats.forEach(k => {
-                selectHtml += `<option value="${k}">${statLabels[k]}</option>`;
-            });
-            selectHtml += `</select>`;
-            
-            row.innerHTML = `
-                ${selectHtml}
-                <input type="number" class="req-val" placeholder="최소치" value="0">
-                <button class="btn-action" onclick="this.parentElement.remove()">X</button>
-            `;
-            container.appendChild(row);
-        }
+			const typeMap = { "weapon": "weapon", "Cheat": "chest", "Head": "head", "Arm": "arm", "leg": "leg" };
+			const revTypeMap = { "weapon": "weapon", "chest": "Cheat", "head": "Head", "arm": "Arm", "leg": "leg" };
+			const groups = { weapon: [], chest: [], head: [], arm: [], leg: [] };
 
-        function getRequirements() {
-            const reqs = [];
-            document.querySelectorAll('#requirementContainer .filter-row').forEach(row => {
-                const stat = row.querySelector('.req-stat').value;
-                const val = parseInt(row.querySelector('.req-val').value) || 0;
-                if (val > 0) reqs.push({ stat, min: val });
-            });
-            return reqs;
-        }
+			selectedItems.forEach(name => {
+				const it = allItems.find(i => i.name === name);
+				if (it) {
+					const mapped = typeMap[it.type];
+					if (groups[mapped]) groups[mapped].push(it);
+				}
+			});
 
-        // 재귀를 이용한 다중 배열 조합(경우의 수) 생성 함수
-        function getCombinations(options) {
-            if (options.length === 0) return [[]];
-            let result = [];
-            let rest = getCombinations(options.slice(1));
-            for (let item of options[0]) {
-                for (let r of rest) {
-                    result.push([item, ...r]);
-                }
-            }
-            return result;
-        }
+			const activeSlots = Object.keys(groups).filter(s => groups[s].length > 0);
+			const missingSlots = Object.keys(groups).filter(s => groups[s].length === 0);
 
-function startRouteCalculation() {
-            const selected = Array.from(selectedItems).map(name => allItems.find(i => i.name === name));
-            if (selected.length === 0) {
-                alert("후보군에 아이템을 하나 이상 추가해주세요.");
-                return;
-            }
+			const getCombos = (idx) => {
+				if (idx === activeSlots.length) return [[]];
+				const res = [], slot = activeSlots[idx], sub = getCombos(idx + 1);
+				groups[slot].forEach(it => sub.forEach(s => res.push([it, ...s])));
+				return res;
+			};
 
-            // [핵심 최적화] 아이템 리스트와 현재 경로의 획득 가능 재료를 비교하여 부족한 재료 개수를 정확히 반환하는 통합 함수
-            function calculateMissCount(itemList, availableMats) {
-                let reqGlass = 0, reqGold = 0;
-                let mats = [];
-                
-                itemList.forEach(it => {
-                    let hasGlass = 0, hasGold = 0;
-                    if (it.materials) {
-                        it.materials.forEach(m => {
-                            if (m === "유리병" || m === "유리조각" || m === "유리 조각") { hasGlass = 1; return; }
-                            if (m === "원석" || m === "곡괭이" || m === "금괴") { hasGold = 1; return; }
-                            mats.push(m);
-                        });
-                    }
-                    reqGlass += hasGlass;
-                    reqGold += hasGold;
-                });
-                
-                let glassSets = Math.ceil(reqGlass / 2);
-                let goldSets = Math.ceil(reqGold / 2);
-                
-                for (let i = 0; i < goldSets; i++) mats.push("원석", "곡괭이");
-                for (let k = 0; k < glassSets; k++) mats.push("유리병");
-                
-                let missingCounts = {};
-                let missingArr = [];
-                for (let m of mats) {
-                    if (!availableMats.has(m)) {
-                        missingArr.push(m);
-                        missingCounts[m] = (missingCounts[m] || 0) + 1;
-                    }
-                }
-                
-                let effectiveMiss = 0;
-                for (let m in missingCounts) {
-                    if (m === "고철" || m === "꽃") effectiveMiss += Math.ceil(missingCounts[m] / 2);
-                    else effectiveMiss += missingCounts[m];
-                }
-                
-                return { count: effectiveMiss, mats: missingArr };
-            }
+			const combinations = getCombos(0);
+			const areaNames = Object.keys(areaData);
+			const finalResults = [];
 
-            const areaNames = Object.keys(areaData);
-            let results = [];
-            const reqs = getRequirements();
+			combinations.forEach(combo => {
+				let goldCraftRequired = 0;   
+				let glassCraftRequired = 0;  
+				let basicMats = [];          
 
-            for (let i = 0; i < areaNames.length; i++) {
-                for (let j = 0; j < areaNames.length; j++) {
-                    if (i === j) continue;
-                    const aName = areaNames[i];
-                    const bName = areaNames[j];
-                    
-                    const isNear = areaData[aName].near && areaData[aName].near.includes(bName);
-                    const hasLoop = areaData[aName].hasLoop === true;
-                    
-                    if (!isNear && !hasLoop) continue;
+				combo.forEach(it => {
+					if (it.useGold) {
+						goldCraftRequired++;
+						it.materials.forEach(m => { if (m !== "원석" && m !== "곡괭이") basicMats.push(m); });
+					} else if (it.useGlass) {
+						glassCraftRequired++;
+						it.materials.forEach(m => { if (m !== "유리병") basicMats.push(m); });
+					} else {
+						it.materials.forEach(m => basicMats.push(m));
+					}
+				});
 
-                    const availableMats = new Set([...areaData[aName].items, ...areaData[bName].items]);
+				let neededMatsList = [...basicMats];
+				const actualGoldSets = Math.ceil(goldCraftRequired / 2);
+				for (let k = 0; k < actualGoldSets; k++) neededMatsList.push("원석", "곡괭이");
+				const actualGlassSets = Math.ceil(glassCraftRequired / 2);
+				for (let k = 0; k < actualGlassSets; k++) neededMatsList.push("유리병");
 
-                    // 1. 내가 고른 아이템만으로 이미 재료가 2개 이상 부족하면 이 경로는 버림
-                    let selectedMissInfo = calculateMissCount(selected, availableMats);
-                    if (selectedMissInfo.count >= 2) continue;
+				for (let i = 0; i < areaNames.length; i++) {
+					for (let j = 0; j < areaNames.length; j++) {
+						if (i === j) continue;
+						const aName = areaNames[i], bName = areaNames[j], areaA = areaData[aName], areaB = areaData[bName];
+						if (!(areaA.hasLoop || areaA.near.includes(bName))) continue;
 
-                    let usedTypes = selected.map(it => it.type);
-                    let slotsToFill = ["Cheat", "Head", "Arm", "leg"].filter(t => !usedTypes.includes(t));
-                    let hasEmptySlot = false; 
+						let missingMatsList = [];
+						neededMatsList.forEach(mat => {
+							if (!areaA.items.includes(mat) && !areaB.items.includes(mat)) missingMatsList.push(mat);
+						});
 
-                    if (!usedTypes.some(t => t.toLowerCase() === 'weapon')) {
-                        hasEmptySlot = true;
-                    }
-                    
-                    let autoCandidatesMap = {};
+						let scrapCount = 0, flowerCount = 0, otherMissCount = 0;
+						let displayMissing = [];
+						missingMatsList.forEach(m => {
+							if (m === "고철") scrapCount++;
+							else if (m === "꽃") flowerCount++;
+							else otherMissCount++;
+							if (!displayMissing.includes(m)) displayMissing.push(m);
+						});
+						let totalMissCount = otherMissCount + Math.ceil(scrapCount / 2) + Math.ceil(flowerCount / 2);
 
-                    // 2. 각 빈 부위별 후보군 탐색
-                    slotsToFill.forEach(t => {
-                        let candidates = allItems.filter(item => {
-                            if (item.type !== t || !item.materials) return false;
-                            if (item.roles && item.roles.includes("전용")) return false;
-                            
-                            // 선택한 아이템 + 이 자동 추천 아이템을 합쳤을 때 2개 이상 부족해지면 후보에서 즉시 제외
-                            let testMissInfo = calculateMissCount([...selected, item], availableMats);
-                            return testMissInfo.count < 2;
-                        });
-                        
-                        autoCandidatesMap[t] = candidates;
-                        if (candidates.length === 0) {
-                            hasEmptySlot = true;
-                        }
-                    });
+						if (totalMissCount <= 1) {
+							const autoFill = {};
+							let isValidPath = true; 
 
-                    if (hasEmptySlot) continue;
+							// 빈 슬롯(missingSlots)에 대해 루프를 돌며 유효한 아이템이 있는지 체크
+							for (let k = 0; k < missingSlots.length; k++) {
+								const slot = missingSlots[k];
+								const candidates = allItems.filter(it => it.type === revTypeMap[slot]);
+								
+								const possible = candidates.filter(it => {
+									// "전용" 아이템은 후보에서 아예 제외
+									if (it.roles && Array.isArray(it.roles) && it.roles.includes("전용")) return false;
 
-                    let options = slotsToFill.map(t => autoCandidatesMap[t]);
-                    let allCombinations = getCombinations(options);
-                    
-                    let validCombinations = [];
+									let mCount = 0;
+									it.materials.forEach(m => {
+										if (!areaA.items.includes(m) && !areaB.items.includes(m)) mCount++;
+									});
+									return mCount === 0;
+								});
 
-                    // 3. 만들어진 아이템 세팅(경우의 수) 최종 검증
-                    for (let combo of allCombinations) {
-                        // 세팅 전체(선택 + 자동추천)를 합쳐서 최종적으로 부족한 재료 계산
-                        let comboMissInfo = calculateMissCount([...selected, ...combo], availableMats);
-                        if (comboMissInfo.count >= 2) continue; // 총 부족 재료가 2개 이상이면 탈락
+								if (possible.length > 0) {
+									autoFill[slot] = possible;
+								} else {
+									// 일반 아이템으로 채울 수 없는 슬롯이 하나라도 있다면 이 경로는 무효
+									isValidPath = false;
+									break; 
+								}
+							}
 
-                        let totals = {};
-                        const sumStats = (item) => {
-                            if (!item || !item.stats) return;
-                            for (let k in item.stats) {
-                                totals[k] = (totals[k] || 0) + item.stats[k];
-                            }
-                        };
-                        
-                        selected.forEach(sumStats);
-                        combo.forEach(sumStats);
-                        
-                        let pass = true;
-                        for (let req of reqs) {
-                            if ((totals[req.stat] || 0) < req.min) {
-                                pass = false;
-                                break;
-                            }
-                        }
-                        
-                        if (pass) {
-                            validCombinations.push({
-                                autoItems: combo,
-                                totalStats: totals,
-                                comboMissCount: comboMissInfo.count,
-                                comboMissingMats: Array.from(new Set(comboMissInfo.mats)) // 중복 이름 제거
-                            });
-                        }
-                    }
+							if (isValidPath) {
+								finalResults.push({
+									path: [aName, bName],
+									selected: combo,
+									auto: autoFill,
+									missingMats: displayMissing,
+									missCount: totalMissCount
+								});
+							}
+						}
+					}
+				}
+			});
+			renderResults(finalResults);
+		}
 
-                    if (validCombinations.length > 0) {
-                        // 가장 재료가 덜 부족한 세팅의 부족 개수를 해당 경로의 대표 결괏값으로 설정
-                        let bestCombo = validCombinations.reduce((prev, curr) => prev.comboMissCount < curr.comboMissCount ? prev : curr);
-                        results.push({
-                            path: [aName, bName],
-                            selected: selected,
-                            validCombinations: validCombinations,
-                            missCount: bestCombo.comboMissCount,
-                            missingMats: bestCombo.comboMissingMats
-                        });
-                    }
-                }
-            }
+        // 결과 화면을 그리는 함수 (추가됨)
+		function renderResults(results) {
+			const resultsDiv = document.getElementById('routeResults');
+			resultsDiv.innerHTML = '';
 
-            results.sort((a, b) => a.missCount - b.missCount);
-            renderResults(results.slice(0, 20)); // 상위 20개 노출
-        }
+			if (results.length === 0) {
+				resultsDiv.innerHTML = '<p style="padding:20px;">조건에 맞는 2루트가 없습니다. 후보 아이템을 줄이거나 다른 아이템을 선택해보세요.</p>';
+				return;
+			}
 
-        // 경로 아코디언 토글
-        function toggleRoute(index) {
-            const details = document.getElementById(`details-${index}`);
-            const icon = document.getElementById(`icon-${index}`);
-            if (details.style.display === 'none' || details.style.display === '') {
-                details.style.display = 'block';
-                icon.classList.add('open');
-            } else {
-                details.style.display = 'none';
-                icon.classList.remove('open');
-            }
-        }
+			// 미스 개수가 적은 순으로 정렬
+			results.sort((a, b) => a.missCount - b.missCount);
 
-        function renderResults(results) {
-            const container = document.getElementById('routeResults');
-            container.innerHTML = '';
-            
-            if (results.length === 0) {
-                container.innerHTML = '<div style="padding: 20px;">조건을 만족하는 2루트 결과가 없습니다. (빈 부위가 발생했거나, 요구치 필터를 충족하지 못함)</div>';
-                return;
-            }
+			results.forEach(res => {
+				const card = document.createElement('div');
+				card.className = 'route-card';
 
-            results.forEach((res, index) => {
-                let missingInfoHtml = res.missCount > 0 
-                    ? `<span class="missing-info" style="color:#ff6b6b;">부족한 재료 최소: ${res.missingMats.join(', ')} (${res.missCount}개)</span>`
-                    : `<span class="missing-info" style="color:#4caf50;">모든 재료 확보 가능!</span>`;
+				// 루트 경로 및 부족한 재료 정보
+				let missingInfoHtml = '';
+				if (res.missCount > 0) {
+					missingInfoHtml = `<span class="missing-info">부족한 재료: ${res.missingMats.join(', ')} (${res.missCount}개)</span>`;
+				} else {
+					missingInfoHtml = `<span class="missing-info" style="color:#4caf50;">모든 재료 확보 가능!</span>`;
+				}
 
-                let html = `
-                    <div class="route-group-card">
-                        <div class="route-group-header" onclick="toggleRoute(${index})">
-                            <div class="route-path">${res.path[0]} ➔ ${res.path[1]}</div>
-                            <div style="display: flex; align-items: center;">
-                                ${missingInfoHtml}
-                                <span class="toggle-icon" id="icon-${index}">▼</span>
-                            </div>
-                        </div>
-                        <div class="route-details" id="details-${index}">
-                `;
+				let html = `
+					<div class="route-header">
+						<div class="route-path">${res.path[0]} ➔ ${res.path[1]}</div>
+						${missingInfoHtml}
+					</div>
+					<div class="item-set-box">
+				`;
 
-                // 1. 부족한 재료가 적은 순(0개 우선) 2. 총합 스탯이 높은 순으로 정렬
-                res.validCombinations.sort((a, b) => {
-                    if (a.comboMissCount !== b.comboMissCount) {
-                        return a.comboMissCount - b.comboMissCount;
-                    }
-                    let sumA = Object.values(a.totalStats).reduce((acc, v) => acc + v, 0);
-                    let sumB = Object.values(b.totalStats).reduce((acc, v) => acc + v, 0);
-                    return sumB - sumA;
-                });
+				// 1. 내가 선택한 아이템들 표시
+				res.selected.forEach(it => {
+					html += `
+						<div class="item-tag">
+							<img src="${it.image}" style="width:20px; height:20px; object-fit:contain;">
+							<span>${it.name}</span>
+						</div>
+					`;
+				});
 
-                const displayCombos = res.validCombinations.slice(0, 50);
+				// 2. [수정 포인트] 추천 부위(autoFill) 아이템 표시 - 이미지 포함
+				Object.entries(res.auto).forEach(([slot, items]) => {
+					if (items.length > 0) {
+						const bestItem = items[0]; // 가장 첫 번째 추천 아이템 표시
+						html += `
+							<div class="item-tag tag-auto">
+								<img src="${bestItem.image}" style="width:20px; height:20px; object-fit:contain;">
+								<span>[${slot}] ${bestItem.name}</span>
+							</div>
+						`;
+					}
+				});
 
-                displayCombos.forEach(comboInfo => {
-                    let statStrings = [];
-                    for (let k in comboInfo.totalStats) {
-                        const label = statLabels[k] || k;
-                        let val = Number.isInteger(comboInfo.totalStats[k]) ? comboInfo.totalStats[k] : comboInfo.totalStats[k].toFixed(2);
-                        
-                        if (percentStats.includes(k)) {
-                            val += "%";
-                        }
-                        
-                        statStrings.push(`<span>${label}: ${val}</span>`);
-                    }
-                    
-                    // 각 세팅별 부족한 재료 상태 표기 UI
-                    let comboMissHtml = comboInfo.comboMissCount > 0 
-                        ? `<span style="color:#ff6b6b; font-size:12px; margin-left:10px;">(부족: ${comboInfo.comboMissingMats.join(', ')})</span>` 
-                        : `<span style="color:#4caf50; font-size:12px; margin-left:10px;">(재료 완성)</span>`;
-                        
-                    let totalStatsHtml = `<div class="total-stats-box"><strong>총합 스탯 ➔ </strong> ${statStrings.length > 0 ? statStrings.join(' ') : '없음'} ${comboMissHtml}</div>`;
+				html += `</div>`;
+				card.innerHTML = html;
+				resultsDiv.appendChild(card);
+			});
+		}
 
-                    html += `
-                        <div class="item-set-row">
-                            <div class="item-set-box">
-                    `;
-
-                    res.selected.forEach(it => {
-                        html += `
-                            <div class="item-tag">
-                                <img src="${it.image}" style="width:20px; height:20px; object-fit:contain;" onerror="this.style.display='none'">
-                                <span>${it.name}</span>
-                            </div>
-                        `;
-                    });
-
-                    comboInfo.autoItems.forEach(autoItem => {
-                        html += `
-                            <div class="item-tag tag-auto">
-                                <img src="${autoItem.image}" style="width:20px; height:20px; object-fit:contain;" onerror="this.style.display='none'">
-                                <span>${autoItem.name} (추천)</span>
-                            </div>
-                        `;
-                    });
-
-                    html += `</div>${totalStatsHtml}</div>`;
-                });
-
-                if (res.validCombinations.length > 50) {
-                    html += `<div style="text-align: center; padding-top: 10px; color: #888; font-size: 12px;">외 ${res.validCombinations.length - 50}개의 조합이 더 있습니다...</div>`;
-                }
-
-                html += `</div></div>`;
-                container.innerHTML += html;
-            });
-        }
-
+        /* 페이지 로드 시 초기 실행 */
         window.onload = () => {
-            initStats();
+            renderItems();
+            renderCandidateList();
         };
+
     </script>
 </body>
 </html>
