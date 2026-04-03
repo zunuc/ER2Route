@@ -148,7 +148,7 @@
 
             <div style="margin-top: 20px;">
                 <div class="title-wrapper">
-                    <h2 class="title">최소 스탯 요구치 필터</h2>
+                    <h2 class="title">스탯 필터</h2>
                     <button class="btn-action" onclick="addRequirement()">+ 추가</button>
                 </div>
                 <div class="grid-bg requirement-container" id="requirementContainer"></div>
@@ -311,7 +311,7 @@
             { name: "오토바이 헬멧", type: "Head", roles: ["스증"], weaponGroup: null, image: "img/머리/Motorcycle Helmet.png", materials: ["자전거 헬멧","배터리","피아노선","고철"],stats:{sk:55,as:30,cd:10},skill:"포톤 런처" },
             { name: "전술-OPS 헬멧", type: "Head", roles: ["전사"], weaponGroup: null, image: "img/머리/Tactical OPS Helmet.png", materials: ["모자","가위","자전거 헬멧","배터리"],stats:{hp:120,as:30,cd:15},skill:"전자기 충격" },
             { name: "기사단장의 투구", type: "Head", roles: ["탱"], weaponGroup: null, image: "img/머리/Helm of Banneret.png", materials: ["머리띠","고철","화학품","흑연"],stats:{am:12,hp:100,cd:15} },
-            { name: "제국 왕관", type: "Head", roles: ["스증"], weaponGroup: null, image: "img/머리/Imperial Crown.png", useGold: true, materials: ["모자","곡괭이","원석","리본"],stats:{ak:63,cd:15} },
+            { name: "제국 왕관", type: "Head", roles: ["스증"], weaponGroup: null, image: "img/머리/Imperial Crown.png", useGold: true, materials: ["모자","곡괭이","원석","리본"],stats:{sk:63,cd:15} },
             { name: "황실 부르고넷", type: "Head", roles: ["스증"], weaponGroup: null, image: "img/머리/Imperial Burgonet.png", materials: ["머리띠","고철","화학품","깃털"],stats:{sk:80,sp:2} },
             { name: "모호크 헬멧", type: "Head", roles: ["탱"], weaponGroup: null, image: "img/머리/Mohawk Headgear.png", materials: ["자전거 헬멧","플라스틱","못"],stats:{am:12,hp:100,cd:10},skill:"리플렉션" },
             { name: "비질란테", type: "Head", roles: ["스증"], weaponGroup: null, image: "img/머리/Vigilante.png", materials: ["자전거 헬멧","플라스틱","화약"],stats:{sk:50,hp:100,cd:10},skill:"부패"},
@@ -524,9 +524,14 @@
             });
             selectHtml += `</select>`;
             
+            // '이상/이하'를 선택할 수 있는 드롭다운 추가
             row.innerHTML = `
                 ${selectHtml}
-                <input type="number" class="req-val" placeholder="최소치" value="0">
+                <select class="req-type" style="background: #3e4144; color: white; border: 1px solid #555; padding: 4px; outline: none;">
+                    <option value="min">이상</option>
+                    <option value="max">이하</option>
+                </select>
+                <input type="number" class="req-val" placeholder="수치" value="0">
                 <button class="btn-action" onclick="this.parentElement.remove()">X</button>
             `;
             container.appendChild(row);
@@ -536,8 +541,13 @@
             const reqs = [];
             document.querySelectorAll('#requirementContainer .filter-row').forEach(row => {
                 const stat = row.querySelector('.req-stat').value;
-                const val = parseInt(row.querySelector('.req-val').value) || 0;
-                if (val > 0) reqs.push({ stat, min: val });
+                const type = row.querySelector('.req-type').value; // 이상(min)인지 이하(max)인지 판별
+                const valStr = row.querySelector('.req-val').value;
+                
+                // 값이 비어있지 않으면 배열에 추가 (0도 입력 가능하도록 수정)
+                if (valStr !== '') {
+                    reqs.push({ stat, type, val: parseFloat(valStr) });
+                }
             });
             return reqs;
         }
@@ -556,47 +566,72 @@
         }
 
 function startRouteCalculation() {
-            const selected = Array.from(selectedItems).map(name => allItems.find(i => i.name === name));
-            if (selected.length === 0) {
+            const selectedList = Array.from(selectedItems).map(name => allItems.find(i => i.name === name));
+            if (selectedList.length === 0) {
                 alert("후보군에 아이템을 하나 이상 추가해주세요.");
                 return;
             }
 
-            // [핵심 최적화] 아이템 리스트와 현재 경로의 획득 가능 재료를 비교하여 부족한 재료 개수를 정확히 반환하는 통합 함수
+            // 1. 유저가 선택한 후보군 아이템들을 부위별로 분류하여 옵션화
+            let userChoices = { weapon: [], Cheat: [], Head: [], Arm: [], leg: [] };
+            selectedList.forEach(it => {
+                let t = it.type;
+                if (t && t.toLowerCase() === 'weapon') t = 'weapon'; // 대소문자 예외 처리
+                if (userChoices[t] !== undefined) {
+                    userChoices[t].push(it);
+                }
+            });
+
+            // 무기가 하나도 없으면 루트 성립이 안 되므로 알림
+            if (userChoices.weapon.length === 0) {
+                alert("무기를 최소 1개 이상 후보군에 추가해주세요.");
+                return;
+            }
+
+            // [핵심 최적화] 수만 개의 경우의 수를 빠르게 처리하기 위한 고속 연산 함수
             function calculateMissCount(itemList, availableMats) {
                 let reqGlass = 0, reqGold = 0;
-                let mats = [];
+                let missingCounts = {};
                 
-                itemList.forEach(it => {
+                for (let i = 0; i < itemList.length; i++) {
+                    let it = itemList[i];
+                    if (!it || !it.materials) continue;
                     let hasGlass = 0, hasGold = 0;
-                    if (it.materials) {
-                        it.materials.forEach(m => {
-                            if (m === "유리병" || m === "유리조각" || m === "유리 조각") { hasGlass = 1; return; }
-                            if (m === "원석" || m === "곡괭이" || m === "금괴") { hasGold = 1; return; }
-                            mats.push(m);
-                        });
+                    
+                    for (let j = 0; j < it.materials.length; j++) {
+                        let m = it.materials[j];
+                        if (m === "유리병" || m === "유리조각" || m === "유리 조각") {
+                            hasGlass = 1; continue;
+                        }
+                        if (m === "원석" || m === "곡괭이" || m === "금괴") {
+                            hasGold = 1; continue;
+                        }
+                        if (!availableMats.has(m)) {
+                            missingCounts[m] = (missingCounts[m] || 0) + 1;
+                        }
                     }
                     reqGlass += hasGlass;
                     reqGold += hasGold;
-                });
+                }
                 
                 let glassSets = Math.ceil(reqGlass / 2);
                 let goldSets = Math.ceil(reqGold / 2);
                 
-                for (let i = 0; i < goldSets; i++) mats.push("원석", "곡괭이");
-                for (let k = 0; k < glassSets; k++) mats.push("유리병");
+                let extraMats = [];
+                for (let i = 0; i < goldSets; i++) { extraMats.push("원석", "곡괭이"); }
+                for (let k = 0; k < glassSets; k++) { extraMats.push("유리병"); }
                 
-                let missingCounts = {};
-                let missingArr = [];
-                for (let m of mats) {
+                for (let j = 0; j < extraMats.length; j++) {
+                    let m = extraMats[j];
                     if (!availableMats.has(m)) {
-                        missingArr.push(m);
                         missingCounts[m] = (missingCounts[m] || 0) + 1;
                     }
                 }
                 
                 let effectiveMiss = 0;
+                let missingArr = [];
                 for (let m in missingCounts) {
+                    missingArr.push(m);
                     if (m === "고철" || m === "꽃") effectiveMiss += Math.ceil(missingCounts[m] / 2);
                     else effectiveMiss += missingCounts[m];
                 }
@@ -621,49 +656,52 @@ function startRouteCalculation() {
 
                     const availableMats = new Set([...areaData[aName].items, ...areaData[bName].items]);
 
-                    // 1. 내가 고른 아이템만으로 이미 재료가 2개 이상 부족하면 이 경로는 버림
-                    let selectedMissInfo = calculateMissCount(selected, availableMats);
-                    if (selectedMissInfo.count >= 2) continue;
+                    let slotOptions = { weapon: [], Cheat: [], Head: [], Arm: [], leg: [] };
+                    let pathValid = true;
 
-                    let usedTypes = selected.map(it => it.type);
-                    let slotsToFill = ["Cheat", "Head", "Arm", "leg"].filter(t => !usedTypes.includes(t));
-                    let hasEmptySlot = false; 
-
-                    if (!usedTypes.some(t => t.toLowerCase() === 'weapon')) {
-                        hasEmptySlot = true;
-                    }
-                    
-                    let autoCandidatesMap = {};
-
-                    // 2. 각 빈 부위별 후보군 탐색
-                    slotsToFill.forEach(t => {
-                        let candidates = allItems.filter(item => {
-                            if (item.type !== t || !item.materials) return false;
-                            if (item.roles && item.roles.includes("전용")) return false;
+                    // 2. 각 부위별로 경우의 수 풀(Pool) 생성 (유저 선택이 있으면 그것만, 없으면 자동 추천 검색)
+                    for (let slot in userChoices) {
+                        if (userChoices[slot].length > 0) {
+                            slotOptions[slot] = userChoices[slot]; // 유저가 선택한 아이템들
+                        } else {
+                            // 유저가 선택하지 않은 빈 부위는 재료가 다 있는 아이템으로 후보군 생성
+                            let candidates = allItems.filter(item => {
+                                let itType = item.type;
+                                if (itType && itType.toLowerCase() === 'weapon') itType = 'weapon';
+                                if (itType !== slot || !item.materials) return false;
+                                if (item.roles && item.roles.includes("전용")) return false;
+                                
+                                // 자동 추천 아이템은 단독으로 제작 시 재료가 하나도 부족하지 않아야 함
+                                let missInfo = calculateMissCount([item], availableMats);
+                                return missInfo.count === 0;
+                            });
                             
-                            // 선택한 아이템 + 이 자동 추천 아이템을 합쳤을 때 2개 이상 부족해지면 후보에서 즉시 제외
-                            let testMissInfo = calculateMissCount([...selected, item], availableMats);
-                            return testMissInfo.count < 2;
-                        });
-                        
-                        autoCandidatesMap[t] = candidates;
-                        if (candidates.length === 0) {
-                            hasEmptySlot = true;
+                            if (candidates.length === 0) {
+                                pathValid = false;
+                                break;
+                            }
+                            slotOptions[slot] = candidates;
                         }
-                    });
+                    }
 
-                    if (hasEmptySlot) continue;
+                    if (!pathValid) continue;
 
-                    let options = slotsToFill.map(t => autoCandidatesMap[t]);
-                    let allCombinations = getCombinations(options);
+                    let optionsArray = [
+                        slotOptions.weapon,
+                        slotOptions.Cheat,
+                        slotOptions.Head,
+                        slotOptions.Arm,
+                        slotOptions.leg
+                    ];
                     
+                    // 3. 부위별 후보군을 곱하여 모든 5부위 아이템 조합(경우의 수) 생성
+                    let allCombinations = getCombinations(optionsArray);
                     let validCombinations = [];
 
-                    // 3. 만들어진 아이템 세팅(경우의 수) 최종 검증
                     for (let combo of allCombinations) {
-                        // 세팅 전체(선택 + 자동추천)를 합쳐서 최종적으로 부족한 재료 계산
-                        let comboMissInfo = calculateMissCount([...selected, ...combo], availableMats);
-                        if (comboMissInfo.count >= 2) continue; // 총 부족 재료가 2개 이상이면 탈락
+                        // 생성된 전체 5부위 조합을 합쳐서 최종적으로 재료가 몇 개 부족한지 판별
+                        let comboMissInfo = calculateMissCount(combo, availableMats);
+                        if (comboMissInfo.count >= 2) continue; // 재료가 2개 이상 부족한 조합은 탈락
 
                         let totals = {};
                         const sumStats = (item) => {
@@ -673,35 +711,54 @@ function startRouteCalculation() {
                             }
                         };
                         
-                        selected.forEach(sumStats);
                         combo.forEach(sumStats);
                         
-                        let pass = true;
+		        let pass = true;
                         for (let req of reqs) {
-                            if ((totals[req.stat] || 0) < req.min) {
+                            let statVal = totals[req.stat] || 0;
+                            
+                            // '이상' 조건일 때 수치 미달이면 탈락
+                            if (req.type === 'min' && statVal < req.val) {
+                                pass = false;
+                                break;
+                            }
+                            // '이하' 조건일 때 수치 초과면 탈락
+                            if (req.type === 'max' && statVal > req.val) {
                                 pass = false;
                                 break;
                             }
                         }
                         
                         if (pass) {
+                            // 출력할 때 유저가 고른 아이템과 자동 추천된 아이템을 시각적으로 구분하기 위해 분리
+                            let selectedInCombo = [];
+                            let autoInCombo = [];
+                            
+                            combo.forEach(item => {
+                                if (selectedList.some(s => s.name === item.name)) {
+                                    selectedInCombo.push(item);
+                                } else {
+                                    autoInCombo.push(item);
+                                }
+                            });
+
                             validCombinations.push({
-                                autoItems: combo,
+                                selectedItems: selectedInCombo, // 이 조합에서 사용된 유저의 선택 아이템
+                                autoItems: autoInCombo,         // 이 조합에서 사용된 자동 추천 아이템
                                 totalStats: totals,
                                 comboMissCount: comboMissInfo.count,
-                                comboMissingMats: Array.from(new Set(comboMissInfo.mats)) // 중복 이름 제거
+                                comboMissingMats: Array.from(new Set(comboMissInfo.mats))
                             });
                         }
                     }
 
+                    // 조건을 통과한 조합이 하나라도 있다면 해당 경로를 결과에 노출
                     if (validCombinations.length > 0) {
-                        // 가장 재료가 덜 부족한 세팅의 부족 개수를 해당 경로의 대표 결괏값으로 설정
                         let bestCombo = validCombinations.reduce((prev, curr) => prev.comboMissCount < curr.comboMissCount ? prev : curr);
                         results.push({
                             path: [aName, bName],
-                            selected: selected,
                             validCombinations: validCombinations,
-                            missCount: bestCombo.comboMissCount,
+                            missCount: bestCombo.comboMissCount, // 가장 재료가 안 부족한 세팅 기준 표시
                             missingMats: bestCombo.comboMissingMats
                         });
                     }
@@ -788,7 +845,8 @@ function startRouteCalculation() {
                             <div class="item-set-box">
                     `;
 
-                    res.selected.forEach(it => {
+                    // 내가 선택한 아이템들 (회색 테두리)
+                    comboInfo.selectedItems.forEach(it => {
                         html += `
                             <div class="item-tag">
                                 <img src="${it.image}" style="width:20px; height:20px; object-fit:contain;" onerror="this.style.display='none'">
@@ -797,6 +855,7 @@ function startRouteCalculation() {
                         `;
                     });
 
+                    // 빈 부위를 채운 자동 추천 아이템들 (보라색 테두리)
                     comboInfo.autoItems.forEach(autoItem => {
                         html += `
                             <div class="item-tag tag-auto">
