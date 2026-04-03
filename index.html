@@ -674,8 +674,24 @@ function startRouteCalculation() {
 
                     const availableMats = new Set([...areaData[aName].items, ...areaData[bName].items]);
 
+                    // ================= [디버그 추적기 시작] =================
+                    const isDebugTarget = (aName === "주유소" && bName === "양궁장");
+                    if (isDebugTarget) {
+                        console.log(`\n🔎 [%c주유소 ➔ 양궁장%c] 경로 정밀 추적 시작`, "color: #ff4655; font-weight: bold;", "");
+                    }
+                    // =======================================================
+
                     let slotOptions = { weapon: [], Cheat: [], Head: [], Arm: [], leg: [] };
                     let pathValid = true;
+
+                    // 1차 관문: 내가 고른 아이템이 이미 2개 이상 부족한지 확인
+                    let myChoiceMissInfo = calculateMissCount(selectedList, availableMats);
+                    if (isDebugTarget) {
+                        console.log(`👉 1. 선택한 후보군 아이템 부족 재료: ${myChoiceMissInfo.count}개 (${myChoiceMissInfo.mats.join(', ')})`);
+                        if (myChoiceMissInfo.count >= 2) console.log(`❌ [탈락] 유저가 선택한 아이템만으로 이미 재료가 2개 이상 부족합니다.`);
+                    }
+
+                    if (myChoiceMissInfo.count >= 2) continue;
 
                     for (let slot in userChoices) {
                         if (userChoices[slot].length > 0) {
@@ -692,6 +708,9 @@ function startRouteCalculation() {
                             });
                             
                             if (candidates.length === 0) {
+                                if (isDebugTarget) {
+                                    console.log(`❌ [탈락] '${slot}' 부위에 자동으로 채울 수 있는 아이템이 없습니다. (주유소+양궁장 재료만으로 완벽히 만들 수 있는 ${slot} 아이템이 없음)`);
+                                }
                                 pathValid = false;
                                 break;
                             }
@@ -716,7 +735,6 @@ function startRouteCalculation() {
                         let comboMissInfo = calculateMissCount(combo, availableMats);
                         if (comboMissInfo.count >= 2) continue;
 
-                        // [신규 기능] 전체 사용 재료 개수 카운팅 (4세트 이상 과다 요구 파악)
                         let allMatsCount = {};
                         let reqGl = 0, reqGo = 0;
                         combo.forEach(it => {
@@ -742,7 +760,6 @@ function startRouteCalculation() {
 
                         let warningMats = [];
                         for (let m in allMatsCount) {
-                            // 고철과 꽃은 8개 이상일 때, 나머지는 4개 이상일 때 경고
                             let limit = (m === "고철" || m === "꽃") ? 8 : 4;
                             if (allMatsCount[m] >= limit) {
                                 warningMats.push(m);
@@ -791,8 +808,17 @@ function startRouteCalculation() {
                                 totalStats: totals,
                                 comboMissCount: comboMissInfo.count,
                                 comboMissingMats: Array.from(new Set(comboMissInfo.mats)),
-                                warningMsg: warningMsg // 경고 메시지 데이터 추가
+                                warningMsg: warningMsg
                             });
+                        }
+                    }
+
+                    if (isDebugTarget) {
+                        console.log(`👉 2. 필터를 통과한 최종 조합 개수: ${validCombinations.length}개`);
+                        if (validCombinations.length === 0 && pathValid) {
+                            console.log(`❌ [탈락] 아이템 세트를 맞췄으나, 전체 요구 재료가 2개 이상 부족하거나 스탯 요구치 필터를 통과하지 못했습니다.`);
+                        } else if (validCombinations.length > 0) {
+                            console.log(`✅ [성공] 정상적으로 결과 배열에 등록되었습니다.`);
                         }
                     }
 
