@@ -445,6 +445,13 @@
             const display = document.getElementById('allItemsDisplay');
             display.innerHTML = '';
 
+            // [추가된 부분] 기본 스탯을 선택했을 때 레벨 비례 스탯도 함께 인식하도록 그룹화
+            const statEquivalents = {
+                'ad': ['ad', 'lvad'],
+                'sk': ['sk', 'lvsk'],
+                'hp': ['hp', 'lvhp']
+            };
+
             let filtered = allItems.filter(item => {
                 if (currentTypeFilter !== 'all' && item.type !== currentTypeFilter) return false;
                 if (currentWeaponFilter !== 'all' && item.type === 'weapon' && item.weaponGroup !== currentWeaponFilter) return false;
@@ -454,12 +461,19 @@
                     if (statCondition === 'OR') {
                         let hasOne = false;
                         for (let s of selectedStats) {
-                            if (itemStats.includes(s)) { hasOne = true; break; }
+                            // statEquivalents에 정의된 배열을 가져오고, 없으면 자기 자신[s]만 사용
+                            let equivs = statEquivalents[s] || [s];
+                            // 해당 아이템이 equivs(예: ['ad', 'lvad']) 중 하나라도 가지고 있는지 확인
+                            if (equivs.some(eq => itemStats.includes(eq))) { 
+                                hasOne = true; 
+                                break; 
+                            }
                         }
                         if (!hasOne) return false;
                     } else { 
                         for (let s of selectedStats) {
-                            if (!itemStats.includes(s)) return false;
+                            let equivs = statEquivalents[s] || [s];
+                            if (!equivs.some(eq => itemStats.includes(eq))) return false;
                         }
                     }
                 }
@@ -808,13 +822,13 @@ function startRouteCalculation() {
             container.innerHTML = '';
             
             if (results.length === 0) {
-                container.innerHTML = '<div style="padding: 20px;">조건을 만족하는 2루트 결과가 없습니다. (빈 부위가 발생했거나, 요구치 필터를 충족하지 못함)</div>';
+                container.innerHTML = '<div style="padding: 20px;">조건을 만족하는 2루트 결과가 없습니다.</div>';
                 return;
             }
 
             results.forEach((res, index) => {
                 let missingInfoHtml = res.missCount > 0 
-                    ? `<span class="missing-info" style="color:#ff6b6b;">부족한 재료 최소: ${res.missingMats.join(', ')} (${res.missCount}개)</span>`
+                    ? `<span class="missing-info" style="color:#ff6b6b;">부족한 재료 ${res.missingMats.join(', ')} (${res.missCount}개)</span>`
                     : `<span class="missing-info" style="color:#4caf50;">모든 재료 확보 가능!</span>`;
 
                 let html = `
