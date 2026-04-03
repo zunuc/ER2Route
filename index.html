@@ -737,17 +737,33 @@ function startRouteCalculation() {
 
                         let allMatsCount = {};
                         let reqGl = 0, reqGo = 0;
+                        
+                        // 스탯 계산용 변수 (전체 합계 및 무기 제외 합계)
+                        let totals = {};
+                        let nonWeaponTotals = {};
+
                         combo.forEach(it => {
-                            let hasGl = 0, hasGo = 0;
+                            // 1. 재료 및 세트 계산 로직
+                            let hasGo = (it.useGold || it.useStone) ? 1 : 0;
                             if (it.materials) {
                                 it.materials.forEach(m => {
-                                    if (m === "유리병" || m === "유리조각" || m === "유리 조각") { hasGl = 1; return; }
-                                    if (m === "원석" || m === "곡괭이" || m === "금괴") { hasGo = 1; return; }
+                                    if (hasGo && (m === "원석" || m === "곡괭이")) return;
                                     allMatsCount[m] = (allMatsCount[m] || 0) + 1;
                                 });
                             }
-                            reqGl += hasGl;
-                            reqGo += hasGo;
+                            if (it.useGlass) reqGl++;
+                            if (hasGo) reqGo++;
+
+                            // 2. 스탯 합산 로직 (무기 여부 판별)
+                            if (it.stats) {
+                                const isWeapon = (it.type && it.type.toLowerCase() === 'weapon');
+                                for (let k in it.stats) {
+                                    totals[k] = (totals[k] || 0) + it.stats[k];
+                                    if (!isWeapon) {
+                                        nonWeaponTotals[k] = (nonWeaponTotals[k] || 0) + it.stats[k];
+                                    }
+                                }
+                            }
                         });
                         
                         let glSets = Math.ceil(reqGl / 2);
@@ -761,32 +777,31 @@ function startRouteCalculation() {
                         let warningMats = [];
                         for (let m in allMatsCount) {
                             let limit = (m === "고철" || m === "꽃") ? 8 : 4;
-                            if (allMatsCount[m] >= limit) {
-                                warningMats.push(m);
-                            }
+                            if (allMatsCount[m] >= limit) warningMats.push(m);
                         }
                         let warningMsg = warningMats.length > 0 ? `⚠️ 동일 재료 과다(${warningMats.join(', ')})` : "";
 
-                        let totals = {};
-                        const sumStats = (item) => {
-                            if (!item || !item.stats) return;
-                            for (let k in item.stats) {
-                                totals[k] = (totals[k] || 0) + item.stats[k];
-                            }
-                        };
-                        
-                        combo.forEach(sumStats);
-                        
+                        // 3. 스탯 필터링 검증
                         let pass = true;
                         for (let req of reqs) {
-                            let statVal = totals[req.stat] || 0;
-                            if (req.type === 'min' && statVal < req.val) {
-                                pass = false;
-                                break;
-                            }
-                            if (req.type === 'max' && statVal > req.val) {
-                                pass = false;
-                                break;
+                            if (req.type === 'min') {
+                                // '이상' 필터: 무기 포함 전체 스탯 기준
+                                let statVal = totals[req.stat] || 0;
+                                if (statVal < req.val) { pass = false; break; }
+                            } else {
+                                // '이하' 필터: 무기 제외 스탯 기준
+                                let statVal = nonWeaponTotals[req.stat] || 0;
+                                if (statVal > req.val) { pass = false; break; }
+
+                                // [추가] 0 이하 필터 시 레벨당 스탯(lv)도 0이어야 함 (무기 제외 기준)
+                                if (req.val <= 0) {
+                                    const scalingMap = { 'ad': 'lvad', 'sk': 'lvsk', 'hp': 'lvhp' };
+                                    let sStat = scalingMap[req.stat];
+                                    if (sStat && (nonWeaponTotals[sStat] || 0) > 0) {
+                                        pass = false;
+                                        break;
+                                    }
+                                }
                             }
                         }
                         
@@ -805,7 +820,7 @@ function startRouteCalculation() {
                             validCombinations.push({
                                 selectedItems: selectedInCombo,
                                 autoItems: autoInCombo,
-                                totalStats: totals,
+                                totalStats: totals, // 결과 창에는 무기 포함 전체 스탯 표시
                                 comboMissCount: comboMissInfo.count,
                                 comboMissingMats: Array.from(new Set(comboMissInfo.mats)),
                                 warningMsg: warningMsg
