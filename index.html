@@ -580,278 +580,278 @@
         }
 
 function startRouteCalculation() {
-            const selectedList = Array.from(selectedItems).map(name => allItems.find(i => i.name === name));
-            if (selectedList.length === 0) {
-                alert("후보군에 아이템을 하나 이상 추가해주세요.");
-                return;
-            }
+    const selectedList = Array.from(selectedItems).map(name => allItems.find(i => i.name === name));
+    if (selectedList.length === 0) {
+        alert("후보군에 아이템을 하나 이상 추가해주세요.");
+        return;
+    }
 
-            let userChoices = { weapon: [], Cheat: [], Head: [], Arm: [], leg: [] };
-            selectedList.forEach(it => {
-                let t = it.type;
-                if (t && t.toLowerCase() === 'weapon') t = 'weapon';
-                if (userChoices[t] !== undefined) {
-                    userChoices[t].push(it);
-                }
-            });
-
-            if (userChoices.weapon.length === 0) {
-                alert("무기를 최소 1개 이상 후보군에 추가해주세요.");
-                return;
-            }
-
-            function calculateMissCount(itemList, availableMats) {
-                let reqGlass = 0, reqGold = 0;
-                let missingCounts = {};
-                
-                for (let i = 0; i < itemList.length; i++) {
-                    let it = itemList[i];
-                    if (!it) continue;
-                    
-                    // 1. 플래그 기반으로 세트 요구치 합산
-                    let hasGlass = it.useGlass ? 1 : 0;
-                    let hasGold = (it.useGold || it.useStone) ? 1 : 0;
-                    
-                    if (it.materials) {
-                        for (let j = 0; j < it.materials.length; j++) {
-                            let m = it.materials[j];
-                            
-                            // 2. 금괴 세트 아이템인 경우에만 원석/곡괭이를 개별 계산에서 제외 (세트 로직에서 처리)
-                            if (hasGold && (m === "원석" || m === "곡괭이")) {
-                                continue;
-                            }
-                            
-                            // 3. 그 외 일반 재료들 부족 여부 체크
-                            if (!availableMats.has(m)) {
-                                missingCounts[m] = (missingCounts[m] || 0) + 1;
-                            }
-                        }
-                    }
-                    reqGlass += hasGlass;
-                    reqGold += hasGold;
-                }
-                
-                // 4. 세트 재료(2개당 1세트) 최종 부족분 계산
-                let glassSets = Math.ceil(reqGlass / 2);
-                let goldSets = Math.ceil(reqGold / 2);
-                
-                // 금괴 세트: 원석 + 곡괭이
-                for (let i = 0; i < goldSets; i++) {
-                    if (!availableMats.has("원석")) missingCounts["원석"] = (missingCounts["원석"] || 0) + 1;
-                    if (!availableMats.has("곡괭이")) missingCounts["곡괭이"] = (missingCounts["곡괭이"] || 0) + 1;
-                }
-                // 유리조각 세트: 유리병
-                for (let k = 0; k < glassSets; k++) {
-                    if (!availableMats.has("유리병")) missingCounts["유리병"] = (missingCounts["유리병"] || 0) + 1;
-                }
-                
-                let effectiveMiss = 0;
-                let missingArr = [];
-                for (let m in missingCounts) {
-                    missingArr.push(m);
-                    // 고철/꽃은 2개당 1개 부족으로 산정
-                    if (m === "고철" || m === "꽃") effectiveMiss += Math.ceil(missingCounts[m] / 2);
-                    else effectiveMiss += missingCounts[m];
-                }
-                
-                return { count: effectiveMiss, mats: missingArr };
-            }
-
-            const areaNames = Object.keys(areaData);
-            let results = [];
-            const reqs = getRequirements();
-
-            for (let i = 0; i < areaNames.length; i++) {
-                for (let j = 0; j < areaNames.length; j++) {
-                    if (i === j) continue;
-                    const aName = areaNames[i];
-                    const bName = areaNames[j];
-                    
-                    const isNear = areaData[aName].near && areaData[aName].near.includes(bName);
-                    const hasLoop = areaData[aName].hasLoop === true;
-                    
-                    if (!isNear && !hasLoop) continue;
-
-                    const availableMats = new Set([...areaData[aName].items, ...areaData[bName].items]);
-
-                    // ================= [디버그 추적기 시작] =================
-                    const isDebugTarget = (aName === "주유소" && bName === "양궁장");
-                    if (isDebugTarget) {
-                        console.log(`\n🔎 [%c주유소 ➔ 양궁장%c] 경로 정밀 추적 시작`, "color: #ff4655; font-weight: bold;", "");
-                    }
-                    // =======================================================
-
-                    let slotOptions = { weapon: [], Cheat: [], Head: [], Arm: [], leg: [] };
-                    let pathValid = true;
-
-                    // 1차 관문: 내가 고른 아이템이 이미 2개 이상 부족한지 확인
-                    let myChoiceMissInfo = calculateMissCount(selectedList, availableMats);
-                    if (isDebugTarget) {
-                        console.log(`👉 1. 선택한 후보군 아이템 부족 재료: ${myChoiceMissInfo.count}개 (${myChoiceMissInfo.mats.join(', ')})`);
-                        if (myChoiceMissInfo.count >= 2) console.log(`❌ [탈락] 유저가 선택한 아이템만으로 이미 재료가 2개 이상 부족합니다.`);
-                    }
-
-                    if (myChoiceMissInfo.count >= 2) continue;
-
-                    for (let slot in userChoices) {
-                        if (userChoices[slot].length > 0) {
-                            slotOptions[slot] = userChoices[slot];
-                        } else {
-                            let candidates = allItems.filter(item => {
-                                let itType = item.type;
-                                if (itType && itType.toLowerCase() === 'weapon') itType = 'weapon';
-                                if (itType !== slot || !item.materials) return false;
-                                if (item.roles && item.roles.includes("전용")) return false;
-                                
-                                let missInfo = calculateMissCount([item], availableMats);
-                                return missInfo.count === 0;
-                            });
-                            
-                            if (candidates.length === 0) {
-                                if (isDebugTarget) {
-                                    console.log(`❌ [탈락] '${slot}' 부위에 자동으로 채울 수 있는 아이템이 없습니다. (주유소+양궁장 재료만으로 완벽히 만들 수 있는 ${slot} 아이템이 없음)`);
-                                }
-                                pathValid = false;
-                                break;
-                            }
-                            slotOptions[slot] = candidates;
-                        }
-                    }
-
-                    if (!pathValid) continue;
-
-                    let optionsArray = [
-                        slotOptions.weapon,
-                        slotOptions.Cheat,
-                        slotOptions.Head,
-                        slotOptions.Arm,
-                        slotOptions.leg
-                    ];
-                    
-                    let allCombinations = getCombinations(optionsArray);
-                    let validCombinations = [];
-
-                    for (let combo of allCombinations) {
-                        let comboMissInfo = calculateMissCount(combo, availableMats);
-                        if (comboMissInfo.count >= 2) continue;
-
-                        let allMatsCount = {};
-                        let reqGl = 0, reqGo = 0;
-                        
-                        // 스탯 계산용 변수 (전체 합계 및 무기 제외 합계)
-                        let totals = {};
-                        let nonWeaponTotals = {};
-
-                        combo.forEach(it => {
-                            // 1. 재료 및 세트 계산 로직
-                            let hasGo = (it.useGold || it.useStone) ? 1 : 0;
-                            if (it.materials) {
-                                it.materials.forEach(m => {
-                                    if (hasGo && (m === "원석" || m === "곡괭이")) return;
-                                    allMatsCount[m] = (allMatsCount[m] || 0) + 1;
-                                });
-                            }
-                            if (it.useGlass) reqGl++;
-                            if (hasGo) reqGo++;
-
-                            // 2. 스탯 합산 로직 (무기 여부 판별)
-                            if (it.stats) {
-                                const isWeapon = (it.type && it.type.toLowerCase() === 'weapon');
-                                for (let k in it.stats) {
-                                    totals[k] = (totals[k] || 0) + it.stats[k];
-                                    if (!isWeapon) {
-                                        nonWeaponTotals[k] = (nonWeaponTotals[k] || 0) + it.stats[k];
-                                    }
-                                }
-                            }
-                        });
-                        
-                        let glSets = Math.ceil(reqGl / 2);
-                        let goSets = Math.ceil(reqGo / 2);
-                        if (glSets > 0) allMatsCount["유리병"] = (allMatsCount["유리병"] || 0) + glSets;
-                        if (goSets > 0) {
-                            allMatsCount["원석"] = (allMatsCount["원석"] || 0) + goSets;
-                            allMatsCount["곡괭이"] = (allMatsCount["곡괭이"] || 0) + goSets;
-                        }
-
-                        let warningMats = [];
-                        for (let m in allMatsCount) {
-                            let limit = (m === "고철" || m === "꽃") ? 8 : 4;
-                            if (allMatsCount[m] >= limit) warningMats.push(m);
-                        }
-                        let warningMsg = warningMats.length > 0 ? `⚠️ 동일 재료 과다(${warningMats.join(', ')})` : "";
-
-                        // 3. 스탯 필터링 검증
-                        let pass = true;
-                        for (let req of reqs) {
-                            if (req.type === 'min') {
-                                // '이상' 필터: 무기 포함 전체 스탯 기준
-                                let statVal = totals[req.stat] || 0;
-                                if (statVal < req.val) { pass = false; break; }
-                            } else {
-                                // '이하' 필터: 무기 제외 스탯 기준
-                                let statVal = nonWeaponTotals[req.stat] || 0;
-                                if (statVal > req.val) { pass = false; break; }
-
-                                // [추가] 0 이하 필터 시 레벨당 스탯(lv)도 0이어야 함 (무기 제외 기준)
-                                if (req.val <= 0) {
-                                    const scalingMap = { 'ad': 'lvad', 'sk': 'lvsk', 'hp': 'lvhp' };
-                                    let sStat = scalingMap[req.stat];
-                                    if (sStat && (nonWeaponTotals[sStat] || 0) > 0) {
-                                        pass = false;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        
-                        if (pass) {
-                            let selectedInCombo = [];
-                            let autoInCombo = [];
-                            
-                            combo.forEach(item => {
-                                if (selectedList.some(s => s.name === item.name)) {
-                                    selectedInCombo.push(item);
-                                } else {
-                                    autoInCombo.push(item);
-                                }
-                            });
-
-                            validCombinations.push({
-                                selectedItems: selectedInCombo,
-                                autoItems: autoInCombo,
-                                totalStats: totals, // 결과 창에는 무기 포함 전체 스탯 표시
-                                comboMissCount: comboMissInfo.count,
-                                comboMissingMats: Array.from(new Set(comboMissInfo.mats)),
-                                warningMsg: warningMsg
-                            });
-                        }
-                    }
-
-                    if (isDebugTarget) {
-                        console.log(`👉 2. 필터를 통과한 최종 조합 개수: ${validCombinations.length}개`);
-                        if (validCombinations.length === 0 && pathValid) {
-                            console.log(`❌ [탈락] 아이템 세트를 맞췄으나, 전체 요구 재료가 2개 이상 부족하거나 스탯 요구치 필터를 통과하지 못했습니다.`);
-                        } else if (validCombinations.length > 0) {
-                            console.log(`✅ [성공] 정상적으로 결과 배열에 등록되었습니다.`);
-                        }
-                    }
-
-                    if (validCombinations.length > 0) {
-                        let bestCombo = validCombinations.reduce((prev, curr) => prev.comboMissCount < curr.comboMissCount ? prev : curr);
-                        results.push({
-                            path: [aName, bName],
-                            validCombinations: validCombinations,
-                            missCount: bestCombo.comboMissCount,
-                            missingMats: bestCombo.comboMissingMats
-                        });
-                    }
-                }
-            }
-
-            results.sort((a, b) => a.missCount - b.missCount);
-            renderResults(results.slice(0, 20));
+    let userChoices = { weapon: [], Cheat: [], Head: [], Arm: [], leg: [] };
+    selectedList.forEach(it => {
+        let t = it.type;
+        if (t && t.toLowerCase() === 'weapon') t = 'weapon';
+        if (userChoices[t] !== undefined) {
+            userChoices[t].push(it);
         }
+    });
+
+    if (userChoices.weapon.length === 0) {
+        alert("무기를 최소 1개 이상 후보군에 추가해주세요.");
+        return;
+    }
+
+    // 1. 유저가 선택한 후보군으로 만들 수 있는 '모든 경우의 수(아이템 조합)'를 미리 생성 (기존 로직 복구)
+    const activeSlots = Object.keys(userChoices).filter(s => userChoices[s].length > 0);
+    const missingSlots = Object.keys(userChoices).filter(s => userChoices[s].length === 0);
+
+    const getUserCombos = (idx) => {
+        if (idx === activeSlots.length) return [[]];
+        const res = [], slot = activeSlots[idx], sub = getUserCombos(idx + 1);
+        userChoices[slot].forEach(it => sub.forEach(s => res.push([it, ...s])));
+        return res;
+    };
+    const userCombos = getUserCombos(0);
+
+    // 재료 부족분 계산 함수 (유지)
+    function calculateMissCount(itemList, availableMats) {
+        let reqGlass = 0, reqGold = 0;
+        let missingCounts = {};
+        
+        for (let i = 0; i < itemList.length; i++) {
+            let it = itemList[i];
+            if (!it) continue;
+            
+            let hasGlass = it.useGlass ? 1 : 0;
+            let hasGold = (it.useGold || it.useStone) ? 1 : 0;
+            
+            if (it.materials) {
+                for (let j = 0; j < it.materials.length; j++) {
+                    let m = it.materials[j];
+                    if (hasGold && (m === "원석" || m === "곡괭이")) continue;
+                    
+                    if (!availableMats.has(m)) {
+                        missingCounts[m] = (missingCounts[m] || 0) + 1;
+                    }
+                }
+            }
+            reqGlass += hasGlass;
+            reqGold += hasGold;
+        }
+        
+        let glassSets = Math.ceil(reqGlass / 2);
+        let goldSets = Math.ceil(reqGold / 2);
+        
+        for (let i = 0; i < goldSets; i++) {
+            if (!availableMats.has("원석")) missingCounts["원석"] = (missingCounts["원석"] || 0) + 1;
+            if (!availableMats.has("곡괭이")) missingCounts["곡괭이"] = (missingCounts["곡괭이"] || 0) + 1;
+        }
+        for (let k = 0; k < glassSets; k++) {
+            if (!availableMats.has("유리병")) missingCounts["유리병"] = (missingCounts["유리병"] || 0) + 1;
+        }
+        
+        let effectiveMiss = 0;
+        let missingArr = [];
+        for (let m in missingCounts) {
+            missingArr.push(m);
+            if (m === "고철" || m === "꽃") effectiveMiss += Math.ceil(missingCounts[m] / 2);
+            else effectiveMiss += missingCounts[m];
+        }
+        
+        return { count: effectiveMiss, mats: missingArr };
+    }
+
+    const areaNames = Object.keys(areaData);
+    let results = [];
+    const reqs = getRequirements();
+
+    // 지역 순회 시작
+    for (let i = 0; i < areaNames.length; i++) {
+        for (let j = 0; j < areaNames.length; j++) {
+            if (i === j) continue;
+            const aName = areaNames[i];
+            const bName = areaNames[j];
+            
+            const isNear = areaData[aName].near && areaData[aName].near.includes(bName);
+            const hasLoop = areaData[aName].hasLoop === true;
+            
+            if (!isNear && !hasLoop) continue;
+
+            const availableMats = new Set([...areaData[aName].items, ...areaData[bName].items]);
+            const isDebugTarget = (aName === "주유소" && bName === "양궁장");
+            
+            if (isDebugTarget) {
+                console.log(`\n🔎 [%c${aName} ➔ ${bName}%c] 경로 정밀 추적 시작`, "color: #ff4655; font-weight: bold;", "");
+            }
+
+            let validCombinationsForThisRoute = [];
+
+            // 2. 미리 만들어둔 '유저 아이템 조합(userCombos)'을 하나씩 꺼내서 검사
+            for (let uIdx = 0; uIdx < userCombos.length; uIdx++) {
+                let currentCombo = userCombos[uIdx];
+
+                // 1차 관문: '현재 조합'이 이 2루트에서 재료가 2개 이상 부족한지 확인
+                let myChoiceMissInfo = calculateMissCount(currentCombo, availableMats);
+                
+                if (isDebugTarget && uIdx === 0) {
+                    console.log(`👉 1. 첫 번째 유저 조합(${currentCombo.map(i=>i.name).join(', ')}) 부족 재료: ${myChoiceMissInfo.count}개`);
+                }
+
+                if (myChoiceMissInfo.count >= 2) continue; // 이 조합은 불가능하므로 다음 조합으로 넘어감
+
+                let slotOptions = { weapon: [], Cheat: [], Head: [], Arm: [], leg: [] };
+                let pathValid = true;
+
+                // 유저가 고른 슬롯은 해당 아이템으로 고정
+                activeSlots.forEach(slot => {
+                    let itemForSlot = currentCombo.find(it => {
+                        let t = it.type && it.type.toLowerCase() === 'weapon' ? 'weapon' : it.type;
+                        return t === slot;
+                    });
+                    slotOptions[slot] = [itemForSlot];
+                });
+
+                // 빈 슬롯은 자동 완성 후보군 찾기
+                for (let mIdx = 0; mIdx < missingSlots.length; mIdx++) {
+                    let slot = missingSlots[mIdx];
+                    let candidates = allItems.filter(item => {
+                        let itType = item.type && item.type.toLowerCase() === 'weapon' ? 'weapon' : item.type;
+                        if (itType !== slot || !item.materials) return false;
+                        if (item.roles && item.roles.includes("전용")) return false;
+                        
+                        let missInfo = calculateMissCount([item], availableMats);
+                        return missInfo.count === 0;
+                    });
+                    
+                    if (candidates.length === 0) {
+                        pathValid = false;
+                        break; // 빈 슬롯을 채울 아이템이 하나도 없으면 이 조합은 무효화
+                    }
+                    slotOptions[slot] = candidates;
+                }
+
+                if (!pathValid) continue;
+
+                // 현재 조합과 빈 슬롯 후보군을 합쳐 최종 5부위 생성
+                let optionsArray = [
+                    slotOptions.weapon,
+                    slotOptions.Cheat,
+                    slotOptions.Head,
+                    slotOptions.Arm,
+                    slotOptions.leg
+                ];
+                
+                let allCombinations = getCombinations(optionsArray);
+
+                for (let combo of allCombinations) {
+                    let comboMissInfo = calculateMissCount(combo, availableMats);
+                    if (comboMissInfo.count >= 2) continue;
+
+                    let allMatsCount = {};
+                    let reqGl = 0, reqGo = 0;
+                    let totals = {};
+                    let nonWeaponTotals = {};
+
+                    combo.forEach(it => {
+                        let hasGo = (it.useGold || it.useStone) ? 1 : 0;
+                        if (it.materials) {
+                            it.materials.forEach(m => {
+                                if (hasGo && (m === "원석" || m === "곡괭이")) return;
+                                allMatsCount[m] = (allMatsCount[m] || 0) + 1;
+                            });
+                        }
+                        if (it.useGlass) reqGl++;
+                        if (hasGo) reqGo++;
+
+                        if (it.stats) {
+                            const isWeapon = (it.type && it.type.toLowerCase() === 'weapon');
+                            for (let k in it.stats) {
+                                totals[k] = (totals[k] || 0) + it.stats[k];
+                                if (!isWeapon) {
+                                    nonWeaponTotals[k] = (nonWeaponTotals[k] || 0) + it.stats[k];
+                                }
+                            }
+                        }
+                    });
+                    
+                    let glSets = Math.ceil(reqGl / 2);
+                    let goSets = Math.ceil(reqGo / 2);
+                    if (glSets > 0) allMatsCount["유리병"] = (allMatsCount["유리병"] || 0) + glSets;
+                    if (goSets > 0) {
+                        allMatsCount["원석"] = (allMatsCount["원석"] || 0) + goSets;
+                        allMatsCount["곡괭이"] = (allMatsCount["곡괭이"] || 0) + goSets;
+                    }
+
+                    let warningMats = [];
+                    for (let m in allMatsCount) {
+                        let limit = (m === "고철" || m === "꽃") ? 8 : 4;
+                        if (allMatsCount[m] >= limit) warningMats.push(m);
+                    }
+                    let warningMsg = warningMats.length > 0 ? `⚠️ 동일 재료 과다(${warningMats.join(', ')})` : "";
+
+                    // 스탯 필터링 검증
+                    let pass = true;
+                    for (let req of reqs) {
+                        if (req.type === 'min') {
+                            let statVal = totals[req.stat] || 0;
+                            if (statVal < req.val) { pass = false; break; }
+                        } else {
+                            let statVal = nonWeaponTotals[req.stat] || 0;
+                            if (statVal > req.val) { pass = false; break; }
+
+                            if (req.val <= 0) {
+                                const scalingMap = { 'ad': 'lvad', 'sk': 'lvsk', 'hp': 'lvhp' };
+                                let sStat = scalingMap[req.stat];
+                                if (sStat && (nonWeaponTotals[sStat] || 0) > 0) {
+                                    pass = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    
+                    if (pass) {
+                        let selectedInCombo = [];
+                        let autoInCombo = [];
+                        
+                        combo.forEach(item => {
+                            if (selectedList.some(s => s.name === item.name)) {
+                                selectedInCombo.push(item);
+                            } else {
+                                autoInCombo.push(item);
+                            }
+                        });
+
+                        validCombinationsForThisRoute.push({
+                            selectedItems: selectedInCombo,
+                            autoItems: autoInCombo,
+                            totalStats: totals,
+                            comboMissCount: comboMissInfo.count,
+                            comboMissingMats: Array.from(new Set(comboMissInfo.mats)),
+                            warningMsg: warningMsg
+                        });
+                    }
+                }
+            } // 유저 조합(userCombos) 순회 끝
+
+            if (isDebugTarget) {
+                console.log(`👉 2. 이 경로의 최종 유효 조합 개수: ${validCombinationsForThisRoute.length}개`);
+            }
+
+            if (validCombinationsForThisRoute.length > 0) {
+                let bestCombo = validCombinationsForThisRoute.reduce((prev, curr) => prev.comboMissCount < curr.comboMissCount ? prev : curr);
+                results.push({
+                    path: [aName, bName],
+                    validCombinations: validCombinationsForThisRoute,
+                    missCount: bestCombo.comboMissCount,
+                    missingMats: bestCombo.comboMissingMats
+                });
+            }
+        }
+    }
+
+    results.sort((a, b) => a.missCount - b.missCount);
+    renderResults(results.slice(0, 20));
+}
 
         function toggleRoute(index) {
             const details = document.getElementById(`details-${index}`);
