@@ -443,16 +443,16 @@
             hp: "체력",
             as: "공격 속도",
             cd: "쿨다운 감소",
-            cp: "치명타 피해량",
-            ca: "치명타 확률",
+            cp: "치명타 확률",
+            ca: "치명타 피해량",
             ap: "방어 관통",
             sp: "이동 속도",
             mh: "모든 피해 흡혈",
-            sh: "보호막",
+            sh: "생명력 흡수",
             st: "시야",
             lvad: "레벨 당 공격력",
             lvhp: "레벨 당 체력",
-            lvsk: "레벨 당 스증"
+            lvsk: "레벨 당 스킬증폭"
         };
 
         const typeNames = {
@@ -526,6 +526,10 @@
             document.getElementById("itemTooltip").style.display = "none";
         }
 
+        function isMobile() {
+            return window.matchMedia("(max-width: 768px)").matches ||
+                   ('ontouchstart' in window);
+        }
 
         const statLabels = {
             ad: "공격력", sk: "스킬 증폭", as: "공격 속도", hp: "최대 체력", am: "방어력",
@@ -644,17 +648,20 @@
                 };
 
                 // 툴팁 이벤트
-                div.addEventListener("mouseenter", (e) => {
-                    showTooltip(item, e);
-                });
+                if (!isMobile()) {
+                    div.addEventListener("mouseenter", (e) => {
+                        showTooltip(item, e);
+                    });
 
-                div.addEventListener("mousemove", (e) => {
-                    moveTooltip(e);
-                });
+                    div.addEventListener("mousemove", (e) => {
+                        moveTooltip(e);
+                    });
 
-                div.addEventListener("mouseleave", () => {
-                    hideTooltip();
-                });
+                    div.addEventListener("mouseleave", () => {
+                        hideTooltip();
+                    });
+                }
+
 
                 div.innerHTML = `
                     <img src="${item.image}"
@@ -671,19 +678,46 @@
         function renderCandidateList() {
             const list = document.getElementById('candidateList');
             list.innerHTML = '';
+
             selectedItems.forEach(name => {
+
                 const item = allItems.find(i => i.name === name);
+
                 const div = document.createElement('div');
                 div.className = 'slot selected';
+
                 div.onclick = () => {
                     selectedItems.delete(name);
                     renderItems();
                     renderCandidateList();
                 };
-                div.innerHTML = `<img src="${item.image}" title="${item.name}" onerror="this.style.display='none'; this.parentElement.innerText='${item.name}';">`;
+
+                // 후보군에도 툴팁 적용
+                if (!isMobile()) {
+                    div.addEventListener("mouseenter", (e) => {
+                        showTooltip(item, e);
+                    });
+
+                    div.addEventListener("mousemove", (e) => {
+                        moveTooltip(e);
+                    });
+
+                    div.addEventListener("mouseleave", () => {
+                        hideTooltip();
+                    });
+                }
+
+                div.innerHTML = `
+                    <img src="${item.image}"
+                         title="${item.name}"
+                         onerror="this.style.display='none';
+                         this.parentElement.innerText='${item.name}';">
+                `;
+
                 list.appendChild(div);
             });
         }
+
 
         function clearCandidates() {
             selectedItems.clear();
