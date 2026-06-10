@@ -153,11 +153,11 @@
                 <div class="title-wrapper"><h2 class="title">부위</h2></div>
                 <div class="grid-bg type-grid" id="typeFilters">
                     <div class="slot active" id="type-all" onclick="setTypeFilter('all', this)">ALL</div>
-                    <div class="slot" onclick="setTypeFilter('weapon', this)"><img src="img/부위/weapon.png" title="무기" onerror="this.style.display='none'"></div>
-                    <div class="slot" onclick="setTypeFilter('Cheat', this)"><img src="img/부위/chest.png" title="옷" onerror="this.style.display='none'"></div>
-                    <div class="slot" onclick="setTypeFilter('Head', this)"><img src="img/부위/head.png" title="머리" onerror="this.style.display='none'"></div>
-                    <div class="slot" onclick="setTypeFilter('Arm', this)"><img src="img/부위/arm.png" title="팔" onerror="this.style.display='none'"></div>
-                    <div class="slot" onclick="setTypeFilter('leg', this)"><img src="img/부위/leg.png" title="다리" onerror="this.style.display='none'"></div>
+                    <div class="slot" onclick="setTypeFilter('weapon', this)"><img src="img/부위/weapon.png" onerror="this.style.display='none'"></div>
+                    <div class="slot" onclick="setTypeFilter('Cheat', this)"><img src="img/부위/chest.png" onerror="this.style.display='none'"></div>
+                    <div class="slot" onclick="setTypeFilter('Head', this)"><img src="img/부위/head.png" onerror="this.style.display='none'"></div>
+                    <div class="slot" onclick="setTypeFilter('Arm', this)"><img src="img/부위/arm.png" onerror="this.style.display='none'"></div>
+                    <div class="slot" onclick="setTypeFilter('leg', this)"><img src="img/부위/leg.png" onerror="this.style.display='none'"></div>
                 </div>
             </div>
             <div>
@@ -666,7 +666,7 @@
 
                 div.innerHTML = `
                     <img src="${item.image}"
-                         title="${item.name}"
+			 data-name="${item.name}"
                          onerror="this.style.display='none';
                          this.parentElement.innerText='${item.name}';">
                 `;
@@ -710,7 +710,7 @@
 
                 div.innerHTML = `
                     <img src="${item.image}"
-                         title="${item.name}"
+			 data-name="${item.name}"
                          onerror="this.style.display='none';
                          this.parentElement.innerText='${item.name}';">
                 `;
@@ -729,7 +729,7 @@
         function addAllFiltered() {
             const displaySlots = document.querySelectorAll('#allItemsDisplay .slot');
             displaySlots.forEach(slot => {
-                const name = slot.querySelector('img') ? slot.querySelector('img').title : slot.innerText;
+                const name = slot.querySelector('img') ? slot.querySelector('img').dataset.name : slot.innerText;
                 selectedItems.add(name);
             });
             renderItems();
