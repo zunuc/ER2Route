@@ -79,6 +79,58 @@
             .slot { width: 100% !important; height: auto !important; aspect-ratio: 1 / 1 !important; }
             .result-section { width: calc(100vw - 40px); }
         }
+        /* 아이템 툴팁 */
+        .item-tooltip {
+            position: fixed;
+            display: none;
+            z-index: 9999;
+
+            min-width: 280px;
+            max-width: 350px;
+
+            background: rgba(18, 18, 30, 0.97);
+            border-left: 4px solid #a855f7;
+
+            padding: 14px;
+            color: white;
+
+            box-shadow: 0 0 15px rgba(0,0,0,0.7);
+            pointer-events: none;
+        }
+
+        .item-tooltip-header {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .item-tooltip-header img {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+        }
+
+        .item-tooltip-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .item-tooltip-type {
+            color: #b56cff;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .item-tooltip-stats {
+            margin-top: 8px;
+        }
+
+        .item-tooltip-stat {
+            color: #45ff45;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
     </style>
 </head>
 <body>
@@ -384,6 +436,97 @@
 
         // =====================================================================
 
+        const statNames = {
+            ad: "공격력",
+            am: "방어력",
+            sk: "스킬 증폭",
+            hp: "체력",
+            as: "공격 속도",
+            cd: "쿨다운 감소",
+            cp: "치명타 피해량",
+            ca: "치명타 확률",
+            ap: "방어 관통",
+            sp: "이동 속도",
+            mh: "모든 피해 흡혈",
+            sh: "보호막",
+            st: "시야",
+            lvad: "레벨 당 공격력",
+            lvhp: "레벨 당 체력",
+            lvsk: "레벨 당 스증"
+        };
+
+        const typeNames = {
+            weapon: "무기",
+            Cheat: "옷",
+            Head: "머리",
+            Arm: "팔",
+            leg: "다리"
+        };
+
+        function showTooltip(item, event) {
+
+            const tooltip = document.getElementById("itemTooltip");
+
+            let statsHtml = "";
+
+            if (item.stats) {
+                Object.entries(item.stats).forEach(([key, value]) => {
+                    statsHtml += `
+                        <div class="item-tooltip-stat">
+                            ${statNames[key] || key} +${value}
+                        </div>
+                    `;
+                });
+            }
+
+            if (item.skill) {
+
+                const skillText =
+                    Array.isArray(item.skill)
+                        ? item.skill.join("<br>")
+                        : item.skill;
+
+                statsHtml += `
+                    <div class="item-tooltip-stat" style="color:#ffd54f;">
+                        ${skillText}
+                    </div>
+                `;
+            }
+
+            tooltip.innerHTML = `
+                <div class="item-tooltip-header">
+                    <img src="${item.image}">
+                    <div>
+                        <div class="item-tooltip-name">${item.name}</div>
+                        <div class="item-tooltip-type">
+                            ${typeNames[item.type] || item.type}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item-tooltip-stats">
+                    ${statsHtml}
+                </div>
+            `;
+
+            tooltip.style.display = "block";
+
+            tooltip.style.left = (event.clientX + 20) + "px";
+            tooltip.style.top = (event.clientY + 20) + "px";
+        }
+
+        function moveTooltip(event) {
+            const tooltip = document.getElementById("itemTooltip");
+
+            tooltip.style.left = (event.clientX + 20) + "px";
+            tooltip.style.top = (event.clientY + 20) + "px";
+        }
+
+        function hideTooltip() {
+            document.getElementById("itemTooltip").style.display = "none";
+        }
+
+
         const statLabels = {
             ad: "공격력", sk: "스킬 증폭", as: "공격 속도", hp: "최대 체력", am: "방어력",
             cd: "쿨다운 감소", cp: "치명타 확률", ca: "치명타 피해", sp: "이동 속도",
@@ -483,17 +626,46 @@
             });
 
             filtered.forEach(item => {
+
                 const div = document.createElement('div');
-                div.className = 'slot' + (selectedItems.has(item.name) ? ' selected' : '');
+
+                div.className =
+                    'slot' +
+                    (selectedItems.has(item.name) ? ' selected' : '');
+
                 div.onclick = () => {
-                    if (selectedItems.has(item.name)) selectedItems.delete(item.name);
-                    else selectedItems.add(item.name);
+                    if (selectedItems.has(item.name))
+                        selectedItems.delete(item.name);
+                    else
+                        selectedItems.add(item.name);
+
                     renderItems();
                     renderCandidateList();
                 };
-                div.innerHTML = `<img src="${item.image}" title="${item.name}" onerror="this.style.display='none'; this.parentElement.innerText='${item.name}';">`;
+
+                // 툴팁 이벤트
+                div.addEventListener("mouseenter", (e) => {
+                    showTooltip(item, e);
+                });
+
+                div.addEventListener("mousemove", (e) => {
+                    moveTooltip(e);
+                });
+
+                div.addEventListener("mouseleave", () => {
+                    hideTooltip();
+                });
+
+                div.innerHTML = `
+                    <img src="${item.image}"
+                         title="${item.name}"
+                         onerror="this.style.display='none';
+                         this.parentElement.innerText='${item.name}';">
+                `;
+
                 display.appendChild(div);
             });
+
         }
 
         function renderCandidateList() {
@@ -967,5 +1139,6 @@ function startRouteCalculation() {
             initStats();
         };
     </script>
+<div id="itemTooltip" class="item-tooltip"></div>
 </body>
 </html>
