@@ -31,10 +31,7 @@
         /* 그리드 배열 설정 */
         .type-grid, .weapon-grid { grid-template-columns: repeat(6, 50px); justify-content: center; width: 100%; }
         .candidate-grid { grid-template-columns: repeat(auto-fill, 50px); grid-auto-rows: 50px; min-height: 60px; width: 100%; align-content: start; }
-        .all-items-grid { grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); grid-auto-rows: 82px; max-height: 50vh; overflow-y: auto; padding-right: 10px; min-height: 350px; align-content: start; justify-content: start; }
-        .all-items-grid .item-card { width: 100%; height: 82px; flex-direction: column; justify-content: flex-start; border-color: #754194; background: #352240; overflow: hidden; }
-        .all-items-grid .item-card img { width: 54px; height: 54px; flex: 0 0 54px; border-bottom: 2px solid #b45cdb; }
-        .all-items-grid .item-card .item-name { width: 100%; padding: 3px 2px; box-sizing: border-box; overflow: hidden; color: #f1defa; font-size: 10px; line-height: 13px; text-overflow: ellipsis; white-space: nowrap; }
+        .all-items-grid { grid-template-columns: repeat(auto-fill, 50px); grid-auto-rows: 50px; max-height: 50vh; overflow-y: auto; padding-right: 10px; min-height: 350px; align-content: start; justify-content: start; }
 
         /* 4x2 스탯 슬롯 디자인 */
         .stat-grid { grid-template-columns: repeat(4, 1fr); width: 100%; justify-content: center; }
@@ -134,48 +131,6 @@
             font-size: 14px;
         }
 
-        /* 지역으로 계산 화면 */
-        .mode-button-stack { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
-        .area-mode-button { background: #237aa2; border-color: #4eb3df; color: #fff; font-weight: bold; }
-        .area-mode-button:hover { background: #3297c6; }
-        .calculation-mode-row { width: min(1480px, 100%); display: flex; justify-content: flex-end; margin: -25px 0 20px; }
-        .area-planner { display: none; position: relative; width: min(1480px, 100%); min-height: 720px; grid-template-columns: minmax(480px, 1.1fr) minmax(430px, .9fr); gap: 34px; align-items: start; }
-        body.area-mode .main-layout, body.area-mode .result-section { display: none; }
-        body.area-mode .area-planner { display: grid; }
-        .map-column { display: flex; flex-direction: column; align-items: center; }
-        .planner-heading { width: 100%; margin: 0 0 13px; padding: 12px 15px; box-sizing: border-box; background: rgba(20, 24, 31, .92); border-left: 3px solid #2d9ee0; color: #edf6ff; font-size: 17px; font-weight: bold; }
-        .map-help { width: 100%; margin: 0 0 12px; color: #b9c4cd; font-size: 13px; }
-        .map-frame { width: min(100%, 670px); position: relative; filter: drop-shadow(0 8px 20px rgba(0,0,0,.55)); }
-        .satellite-map { display: block; width: 100%; height: auto; }
-        .area-label { position: absolute; transform: translate(-50%, -50%); min-width: 54px; padding: 5px 8px; border: 1px solid rgba(230, 242, 248, .8); border-radius: 2px; background: rgba(11, 18, 25, .82); color: #fff; font-family: 'Malgun Gothic', sans-serif; font-size: 14px; font-weight: bold; text-align: center; white-space: nowrap; cursor: pointer; box-shadow: 0 1px 5px rgba(0,0,0,.75); transition: .15s ease; }
-        .area-label:hover { border-color: #56c4f3; background: rgba(25, 94, 124, .94); transform: translate(-50%, -50%) scale(1.06); }
-        .area-label.active { border-color: #98f25a; background: #2d7d25; color: #fff; box-shadow: 0 0 0 2px rgba(152,242,90,.22), 0 0 12px rgba(152,242,90,.8); }
-        .area-label.active::after { content: '✓'; margin-left: 5px; color: #dbffbd; }
-        .selected-area-list { width: 100%; min-height: 39px; padding: 7px 10px; box-sizing: border-box; background: rgba(21, 26, 32, .86); border: 1px solid #4b5661; color: #cbd6dd; font-size: 13px; }
-        .selected-area-list b { color: #8fdbff; }
-        .craft-panel { min-height: 590px; background: rgba(29, 34, 42, .94); border: 1px solid #48525d; box-shadow: 0 8px 25px rgba(0,0,0,.24); }
-        .craft-panel-header { display: flex; align-items: center; justify-content: space-between; padding: 15px 17px; border-bottom: 1px solid #4a5662; background: rgba(20, 25, 31, .82); }
-        .craft-panel-header h2 { margin: 0; font-size: 19px; }
-        .area-weapon-filter { background: #303a45; border: 1px solid #6186a1; color: #edf7ff; padding: 6px 8px; border-radius: 2px; font-family: inherit; font-size: 12px; }
-        .craft-count { color: #8fdbff; font-size: 13px; }
-        .empty-craft { padding: 80px 25px; color: #aeb8c1; text-align: center; line-height: 1.8; }
-        .craft-group { padding: 12px 14px 4px; }
-        .craft-group-title { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; padding: 9px 10px; background: #242b34; border-left: 3px solid #288bc1; font-weight: bold; }
-        .craft-group-title img { width: 27px; height: 27px; object-fit: contain; }
-        .craft-items { display: flex; flex-wrap: wrap; gap: 8px; padding: 2px 4px 10px; }
-        .craft-item { width: 58px; min-height: 78px; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 3px; color: #dbe5ed; font-size: 10px; text-align: center; cursor: default; }
-        .craft-item img { width: 52px; height: 52px; object-fit: contain; background: #29252f; border-bottom: 3px solid #a657d1; }
-        .craft-item span { max-width: 64px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .craft-item.near-craft img { background: #243e3e; border-bottom-color: #30c6a1; }
-        .craft-item.near-craft span { color: #b8f4e3; }
-        .missing-material-badge { position: absolute; z-index: 1; top: -6px; right: -6px; width: 28px !important; height: 28px !important; padding: 2px; box-sizing: border-box; border: 1px solid #d8f6ee; border-radius: 50%; background: #163b35 !important; object-fit: contain; }
-        .near-craft-toggle { width: 54px; height: 54px; margin: 0; padding: 0; border: 1px dashed #3ad4b0; background: #1c3b3c; color: #91f6dc; font-size: 26px; line-height: 1; cursor: pointer; }
-        .near-craft-toggle:hover { background: #285d59; color: #fff; }
-        .near-craft-toggle:disabled { border-color: #59656a; background: #30373a; color: #778286; cursor: not-allowed; }
-        .near-craft-note { width: 100%; margin: 2px 0 0; color: #7ce1c5; font-size: 11px; }
-        @media (max-width: 950px) { .area-planner { grid-template-columns: 1fr; } .map-column { order: 1; } .craft-panel { order: 2; } }
-        @media (max-width: 768px) { .area-planner { width: calc(100vw - 40px); } .area-label { font-size: 10px; min-width: 38px; padding: 3px 4px; } .calculation-mode-row { width: calc(100vw - 40px); } .mode-button-stack { flex-direction: row-reverse; } }
-
     </style>
 </head>
 <body>
@@ -183,9 +138,6 @@
     <div class="header">
         <img src="img/logo__white.png" alt="Logo" onerror="this.style.display='none'">
         <span>2루트 계산기</span>
-    </div>
-    <div class="calculation-mode-row">
-        <button class="btn-action area-mode-button" id="calculationModeButton" onclick="toggleCalculationMode()">지역으로 계산</button>
     </div>
 
     <div class="main-layout">
@@ -271,29 +223,6 @@
         </div>
         <div id="routeResults"></div>
     </div>
-
-    <section class="area-planner" aria-label="지역으로 제작 가능 장비 계산기">
-        <div class="map-column">
-            <h2 class="planner-heading">지역 선택</h2>
-            <p class="map-help">지역 이름을 클릭해 선택하세요. 다시 클릭하면 선택이 해제되며, 선택 개수에는 제한이 없습니다.</p>
-            <div class="map-frame" id="mapFrame">
-                <img class="satellite-map" src="img/Satellite Map.png" alt="루미아 섬 위성 지도">
-            </div>
-            <div class="selected-area-list" id="selectedAreaList">선택된 지역이 없습니다.</div>
-        </div>
-        <aside class="craft-panel">
-            <div class="craft-panel-header">
-                <h2>제작 가능 장비</h2>
-                <div>
-                    <select class="area-weapon-filter" id="areaWeaponFilter" onchange="setAreaWeaponFilter(this.value)">
-                        <option value="all">무기군: 전체</option>
-                    </select>
-                    <span class="craft-count" id="craftCount">지역을 선택하세요</span>
-                </div>
-            </div>
-            <div id="craftResults" aria-live="polite"></div>
-        </aside>
-    </section>
 
     <script>
         // =====================================================================
@@ -582,24 +511,16 @@ const areaData = {
             `;
 
             tooltip.style.display = "block";
-            positionTooltip(event);
+
+            tooltip.style.left = (event.clientX + 20) + "px";
+            tooltip.style.top = (event.clientY + 20) + "px";
         }
 
         function moveTooltip(event) {
-            positionTooltip(event);
-        }
-
-        function positionTooltip(event) {
             const tooltip = document.getElementById("itemTooltip");
-            const gap = 18;
-            const maxLeft = window.innerWidth - tooltip.offsetWidth - 8;
-            const left = Math.max(8, Math.min(event.clientX + gap, maxLeft));
-            const below = event.clientY + gap;
-            const top = below + tooltip.offsetHeight > window.innerHeight - 8
-                ? Math.max(8, event.clientY - tooltip.offsetHeight - gap)
-                : below;
-            tooltip.style.left = left + "px";
-            tooltip.style.top = top + "px";
+
+            tooltip.style.left = (event.clientX + 20) + "px";
+            tooltip.style.top = (event.clientY + 20) + "px";
         }
 
         function hideTooltip() {
@@ -714,7 +635,7 @@ const areaData = {
                 const div = document.createElement('div');
 
                 div.className =
-                    'slot item-card' +
+                    'slot' +
                     (selectedItems.has(item.name) ? ' selected' : '');
 
                 div.onclick = () => {
@@ -747,8 +668,7 @@ const areaData = {
                     <img src="${item.image}"
 			 data-name="${item.name}"
                          onerror="this.style.display='none';
-                         this.parentElement.querySelector('.item-name').style.display='block';">
-                    <span class="item-name" title="${item.name}">${item.name}</span>
+                         this.parentElement.innerText='${item.name}';">
                 `;
 
                 display.appendChild(div);
@@ -1250,159 +1170,8 @@ function startRouteCalculation() {
             });
         }
 
-        // 지역 선택 화면: 지도 원본의 좌표 비율에 맞춰 라벨을 배치한다.
-        const mapAreaPositions = [
-            ['골목길', 54, 12], ['주유소', 36, 17], ['양궁장', 21, 24], ['학교', 36, 36],
-            ['호텔', 14, 43], ['모래사장', 12, 57], ['숲', 36, 56], ['고급 주택가', 30, 70],
-            ['창고', 45, 80], ['항구', 57, 86], ['바지선', 61, 92], ['경찰서', 66, 25],
-            ['소방서', 54, 34], ['절', 84, 27], ['개울', 84, 41], ['연못', 65, 46],
-            ['병원', 92, 55], ['묘지', 66, 61], ['공장', 83, 75], ['성당', 51, 52]
-        ];
-        const craftTypeOrder = ['weapon', 'Cheat', 'Head', 'Arm', 'leg'];
-        const craftTypeIcons = { weapon: 'img/부위/weapon.png', Cheat: 'img/부위/chest.png', Head: 'img/부위/head.png', Arm: 'img/부위/arm.png', leg: 'img/부위/leg.png' };
-        const weaponGroupKoreanNames = {
-            'Glove': '글러브', 'Tonfa': '톤파', 'Bat': '방망이', 'Hammer': '망치', 'Whip': '채찍',
-            'Throwing': '투척', 'Shuriken': '암기', 'Bow': '활', 'Crossbow': '석궁', 'Pistol': '권총',
-            'Assault Rifle': '돌격 소총', 'Sniper Rifle': '저격총', 'Axe': '도끼', 'Dagger': '단검',
-            'Twohanded Sword': '양손검', 'Dual Sword': '쌍검', 'Spear': '창', 'Nunchaku': '쌍절곤',
-            'Rapier': '레이피어', 'Guitar': '기타', 'Camera': '카메라', 'Arcana': '아르카나', 'VF Prosthetic': 'VF의수'
-        };
-        const weaponGroupOrder = ['Glove', 'Tonfa', 'Bat', 'Hammer', 'Whip', 'Throwing', 'Shuriken', 'Bow', 'Crossbow', 'Pistol', 'Assault Rifle', 'Sniper Rifle', 'Axe', 'Dagger', 'Twohanded Sword', 'Dual Sword', 'Spear', 'Nunchaku', 'Rapier', 'Guitar', 'Camera', 'Arcana', 'VF Prosthetic'];
-        const selectedAreas = new Set();
-        let areaWeaponFilter = 'all';
-        const expandedNearCraftTypes = new Set();
-
-        function toggleCalculationMode() {
-            const enabled = document.body.classList.toggle('area-mode');
-            document.getElementById('calculationModeButton').textContent = enabled ? '아이템으로 계산' : '지역으로 계산';
-            if (enabled) renderCraftableItems();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function initAreaMap() {
-            const frame = document.getElementById('mapFrame');
-            mapAreaPositions.forEach(([name, left, top]) => {
-                const label = document.createElement('button');
-                label.type = 'button';
-                label.className = 'area-label';
-                label.dataset.area = name;
-                label.textContent = name;
-                label.style.left = `${left}%`;
-                label.style.top = `${top}%`;
-                label.addEventListener('click', () => toggleArea(name));
-                frame.appendChild(label);
-            });
-            const weaponFilter = document.getElementById('areaWeaponFilter');
-            const availableWeaponGroups = new Set(allItems.filter(item => item.type === 'weapon').map(item => item.weaponGroup));
-            weaponGroupOrder
-                .filter(group => availableWeaponGroups.has(group))
-                .forEach(group => weaponFilter.insertAdjacentHTML('beforeend', `<option value="${group}">${weaponGroupKoreanNames[group] || group}</option>`));
-            renderCraftableItems();
-        }
-
-        function setAreaWeaponFilter(group) {
-            areaWeaponFilter = group;
-            renderCraftableItems();
-        }
-
-        function toggleNearCraft(type) {
-            if (expandedNearCraftTypes.has(type)) expandedNearCraftTypes.delete(type);
-            else expandedNearCraftTypes.add(type);
-            renderCraftableItems();
-        }
-
-        function toggleArea(areaName) {
-            if (selectedAreas.has(areaName)) selectedAreas.delete(areaName);
-            else selectedAreas.add(areaName);
-            document.querySelector(`[data-area="${areaName}"]`).classList.toggle('active', selectedAreas.has(areaName));
-            expandedNearCraftTypes.clear();
-            renderCraftableItems();
-        }
-
-        function renderCraftableItems() {
-            const result = document.getElementById('craftResults');
-            const count = document.getElementById('craftCount');
-            const selectedList = document.getElementById('selectedAreaList');
-            const areaNames = [...selectedAreas];
-            selectedList.innerHTML = areaNames.length
-                ? `<b>선택 지역 (${areaNames.length})</b> · ${areaNames.join(', ')}`
-                : '선택된 지역이 없습니다.';
-
-            if (!areaNames.length) {
-                count.textContent = '지역을 선택하세요';
-                result.innerHTML = '<div class="empty-craft">지도에서 지역 이름을 선택하면<br>해당 지역의 재료만으로 제작 가능한 장비가 표시됩니다.</div>';
-                return;
-            }
-
-            const availableMaterials = new Set(areaNames.flatMap(name => areaData[name].items));
-            const isAllowedItem = item =>
-                item.name !== '만개하는 선율' &&
-                (item.type !== 'weapon' || areaWeaponFilter === 'all' || item.weaponGroup === areaWeaponFilter);
-            const getMissingMaterials = item => (item.materials || []).filter(material => !availableMaterials.has(material));
-            const craftable = allItems.filter(item => isAllowedItem(item) && getMissingMaterials(item).length === 0);
-            const nearCraftable = allItems.filter(item => isAllowedItem(item) && getMissingMaterials(item).length === 1);
-            count.textContent = `${craftable.length}개 제작 가능`;
-
-            if (!craftable.length && !nearCraftable.length) {
-                result.innerHTML = '<div class="empty-craft">선택한 지역의 재료만으로는 제작 가능한 장비가 없습니다.<br>다른 지역을 추가로 선택해 보세요.</div>';
-                return;
-            }
-
-            result.innerHTML = '';
-            craftTypeOrder.forEach(type => {
-                const items = craftable.filter(item => item.type === type).sort((a, b) => a.name.localeCompare(b.name, 'ko'));
-                const nearItems = nearCraftable.filter(item => item.type === type).sort((a, b) => a.name.localeCompare(b.name, 'ko'));
-                if (!items.length && !nearItems.length) return;
-                const group = document.createElement('section');
-                group.className = 'craft-group';
-                group.innerHTML = `<div class="craft-group-title"><img src="${craftTypeIcons[type]}" alt=""><span>${typeNames[type]}</span><small>(${items.length})</small></div><div class="craft-items"></div>`;
-                const itemContainer = group.querySelector('.craft-items');
-                items.forEach(item => {
-                    itemContainer.appendChild(createCraftItemCard(item));
-                });
-                const moreButton = document.createElement('button');
-                moreButton.type = 'button';
-                moreButton.className = 'near-craft-toggle';
-                moreButton.textContent = expandedNearCraftTypes.has(type) ? '−' : '+';
-                moreButton.title = nearItems.length ? `재료 1개가 부족한 ${nearItems.length}개 장비 보기` : '재료 1개 부족 장비 없음';
-                moreButton.disabled = nearItems.length === 0;
-                moreButton.addEventListener('click', () => toggleNearCraft(type));
-                itemContainer.appendChild(moreButton);
-                if (expandedNearCraftTypes.has(type)) {
-                    nearItems.forEach(item => itemContainer.appendChild(createCraftItemCard(item, getMissingMaterials(item)[0])));
-                    const note = document.createElement('div');
-                    note.className = 'near-craft-note';
-                    note.textContent = `추가 표시: 재료 1개만 더 있으면 제작 가능한 장비 ${nearItems.length}개`;
-                    itemContainer.appendChild(note);
-                }
-                result.appendChild(group);
-            });
-        }
-
-        function createCraftItemCard(item, missingMaterial = null) {
-            const card = document.createElement('div');
-            card.className = `craft-item${missingMaterial ? ' near-craft' : ''}`;
-            card.innerHTML = `<img src="${item.image}" alt="${item.name}"><span title="${item.name}">${item.name}</span>`;
-            if (missingMaterial) {
-                const badge = document.createElement('img');
-                badge.className = 'missing-material-badge';
-                badge.src = `img/재료/${missingMaterial}.png`;
-                badge.alt = `${missingMaterial} 부족`;
-                badge.title = `부족한 재료: ${missingMaterial}`;
-                badge.onerror = () => { badge.style.display = 'none'; };
-                card.appendChild(badge);
-            }
-            if (!isMobile()) {
-                card.addEventListener('mouseenter', event => showTooltip(item, event));
-                card.addEventListener('mousemove', moveTooltip);
-                card.addEventListener('mouseleave', hideTooltip);
-            }
-            return card;
-        }
-
         window.onload = () => {
             initStats();
-            initAreaMap();
         };
     </script>
 <div id="itemTooltip" class="item-tooltip"></div>
