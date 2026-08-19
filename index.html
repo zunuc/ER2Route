@@ -173,6 +173,42 @@
         .near-craft-toggle:hover { background: #285d59; color: #fff; }
         .near-craft-toggle:disabled { border-color: #59656a; background: #30373a; color: #778286; cursor: not-allowed; }
         .near-craft-note { width: 100%; margin: 2px 0 0; color: #7ce1c5; font-size: 11px; }
+
+        /* 아이템으로 계산: backup.html의 기본 레이아웃 + 소제목 배경 */
+        body:not(.area-mode) .header { width: auto; margin-bottom: 40px; padding: 0; border: 0; text-align: center; }
+        body:not(.area-mode) .header img { height: 50px; }
+        body:not(.area-mode) .header span { color: white; font-size: 24px; letter-spacing: normal; }
+        body:not(.area-mode) .main-layout { gap: 30px; max-width: 1450px; align-items: flex-start; }
+        body:not(.area-mode) .stats-column { max-width: 360px; }
+        body:not(.area-mode) .candidates-column { max-width: 350px; }
+        body:not(.area-mode) .items-column { max-width: 600px; }
+        body:not(.area-mode) .main-layout > .column { min-width: auto; padding: 0; border: 0; background: transparent; box-shadow: none; }
+        body:not(.area-mode) .main-layout > .column > div { margin-bottom: 0; }
+        body:not(.area-mode) .title-wrapper { height: 42px; min-height: 0; margin: 0 0 12px; padding: 0 10px; box-sizing: border-box; border-left: 3px solid #21b9eb; background: #1d242a; }
+        body:not(.area-mode) .title { color: white; font-size: 18px; }
+        body:not(.area-mode) .btn-action { border-color: #666; background: #4a4c4e; color: #ccc; }
+        body:not(.area-mode) .btn-action:hover { border-color: #666; background: #5a5c5e; color: white; }
+        body:not(.area-mode) .grid-bg { border-color: #4a4c4e; background: #2a2c2e; border-radius: 2px; }
+        body:not(.area-mode) .type-grid, body:not(.area-mode) .weapon-grid { grid-template-columns: repeat(6, 50px); justify-content: center; padding: 10px; }
+        body:not(.area-mode) .type-grid .slot, body:not(.area-mode) .weapon-grid .slot { width: 50px; height: 50px; aspect-ratio: auto; }
+        body:not(.area-mode) .slot { border-color: #555; background: #3e4144; }
+        body:not(.area-mode) .slot.active { border-color: #ff4655; background: #5a2e32; }
+        body:not(.area-mode) .all-items-grid { min-height: 350px; max-height: 50vh; }
+        body:not(.area-mode) .candidate-grid { min-height: 60px; }
+        body:not(.area-mode) .candidates-column > .title-wrapper, body:not(.area-mode) .items-column > .title-wrapper { width: 100%; }
+        body:not(.area-mode) .result-section { margin-top: 30px; padding: 20px 0 0; border: 0; border-top: 1px solid #555; background: transparent; box-shadow: none; }
+        @media (max-width: 768px) {
+            body:not(.area-mode) .main-layout { flex-direction: column; align-items: center; gap: 30px; }
+            body:not(.area-mode) .column { width: 100%; align-items: center; }
+            body:not(.area-mode) .stats-column, body:not(.area-mode) .candidates-column, body:not(.area-mode) .items-column { max-width: 100%; }
+            body:not(.area-mode) .type-grid, body:not(.area-mode) .weapon-grid { grid-template-columns: repeat(6, 1fr); width: calc(100vw - 40px); gap: 5px; }
+            body:not(.area-mode) .candidate-grid, body:not(.area-mode) .requirement-container { width: calc(100vw - 40px); }
+            body:not(.area-mode) .all-items-grid { width: calc(100vw - 40px); grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); }
+            body:not(.area-mode) .all-items-grid .item-card { height: 82px !important; aspect-ratio: auto !important; }
+            body:not(.area-mode) .stat-grid { grid-template-columns: repeat(4, 1fr); width: calc(100vw - 40px); gap: 5px; }
+            body:not(.area-mode) .slot { width: 100% !important; height: auto !important; aspect-ratio: 1 / 1 !important; }
+            body:not(.area-mode) .result-section { width: calc(100vw - 40px); }
+        }
         @media (max-width: 950px) { .area-planner { grid-template-columns: 1fr; } .map-column { order: 1; } .craft-panel { order: 2; } }
         @media (max-width: 768px) { .area-planner { width: calc(100vw - 40px); } .area-label { font-size: 10px; min-width: 38px; padding: 3px 4px; } .calculation-mode-row { width: calc(100vw - 40px); } .mode-button-stack { flex-direction: row-reverse; } }
 
@@ -189,7 +225,7 @@
     </div>
 
     <div class="main-layout">
-        <div class="column" style="max-width: 360px;">
+        <div class="column stats-column">
             <div>
                 <div class="title-wrapper">
                     <h2 class="title">보유 스탯</h2>
@@ -239,7 +275,7 @@
             </div>
         </div>
 
-        <div class="column" style="max-width: 350px;">
+        <div class="column candidates-column">
             <div class="title-wrapper">
                 <h2 class="title">후보군</h2>
                 <button class="btn-action" onclick="clearCandidates()">전체 삭제</button>
@@ -255,7 +291,7 @@
             </div>
         </div>
 
-        <div class="column" style="max-width: 600px;">
+        <div class="column items-column">
             <div class="title-wrapper">
                 <h2 class="title">아이템</h2>
                 <button class="btn-action" onclick="addAllFiltered()">전체 추가</button>
@@ -1408,3 +1444,4 @@ function startRouteCalculation() {
 <div id="itemTooltip" class="item-tooltip"></div>
 </body>
 </html>
+
