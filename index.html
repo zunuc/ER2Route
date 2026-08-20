@@ -356,7 +356,7 @@
             { name: "다그다의 망치", type: "weapon", roles: [], weaponGroup: "Hammer", image: "img/무기 종류/망치/007. Hammer of Dagda.png", materials: ["못","흑연","라이터"],stats:{ad:80,am:10} },
             { name: "토르의 망치", type: "weapon", roles: [], weaponGroup: "Hammer", image: "img/무기 종류/망치/008. Hammer of Thor.png", materials: ["고무","트럼프 카드","배터리"],stats:{ad:95,as:30} },
             { name: "천근추", type: "weapon", roles: [], weaponGroup: "Hammer", image: "img/무기 종류/망치/009. Weight of the World.png", materials: ["고무","트럼프 카드","유리병"],stats:{ad:82,cd:10} },
-            { name: "아는 것이 힘", type: "weapon", roles: [], weaponGroup: "Hammer", image: "img/무기 종류/망치/010. Bookmaster.png", materials: ["고무","종이"],stats:{ad:34,sk:65,cd:10},skill:"치유 감소" },
+            { name: "아는 것이 힘", type: "weapon", roles: [], weaponGroup: "Hammer", image: "img/무기 종류/망치/010. Bookmaster.png", materials: ["덧댄 가죽","고무","종이"],stats:{ad:34,sk:65,cd:10},skill:"치유 감소" },
             { name: "뇌룡편", type: "weapon", roles: [], weaponGroup: "Whip", image: "img/무기 종류/채찍/005. Thunder Whip.png", useGold: true, materials: ["마패","곡괭이","원석"],stats:{ad:40,sk:65,cd:10},skill:"치유 감소" },
             { name: "글레이프니르", type: "weapon", roles: [], weaponGroup: "Whip", image: "img/무기 종류/채찍/006. Gleipnir.png", materials: ["마패","오일","붕대"],stats:{ad:40,sk:78,sp:2} },
             { name: "플라즈마 윕", type: "weapon", roles: [], weaponGroup: "Whip", image: "img/무기 종류/채찍/007. Plasma Whip.png", materials: ["못","배터리","만년필"],stats:{ad:40,sk:78,as:30} },
@@ -366,7 +366,7 @@
             { name: "연막탄", type: "weapon", roles: [], weaponGroup: "Throwing", image: "img/무기 종류/투척/010. Smoke Bomb.png", materials: ["종이","라이터","화학품"],stats:{ad:65,as:20},skill:"열정" },
             { name: "점착폭탄", type: "weapon", roles: [], weaponGroup: "Throwing", image: "img/무기 종류/투척/011. Sticky Bomb.png", materials: ["화약","배터리","만년필"],stats:{ad:33,sk:68,as:20},skill:"충전 - 섬광"},
             { name: "루테늄 구슬", type: "weapon", roles: [], weaponGroup: "Throwing", image: "img/무기 종류/투척/012. Ruthenium Marble.png", useGold: true, materials: ["만년필","곡괭이","원석"],stats:{ad:33,sk:81,as:15}},
-            { name: "미치광이 왕의 카드", type: "weapon", roles: [], weaponGroup: "Shuriken", image: "img/무기 종류/암기/010. Cards of Tyranny.png", materials: ["트럼프 카드","종이"],stats:{ad:62,as:40}},
+            { name: "미치광이 왕의 카드", type: "weapon", roles: [], weaponGroup: "Shuriken", image: "img/무기 종류/암기/010. Cards of Tyranny.png", materials: ["덧댄 가죽","트럼프 카드","종이"],stats:{ad:62,as:40}},
             { name: "옥전결", type: "weapon", roles: [], weaponGroup: "Shuriken", image: "img/무기 종류/암기/011. Mystic Jade Charm.png", materials: ["트럼프 카드","만년필","종이"],stats:{ad:31,sk:72},skill:"저주"},
             { name: "풍마 수리검", type: "weapon", roles: [], weaponGroup: "Shuriken", image: "img/무기 종류/암기/012. Fuhma Shuriken.png", materials: ["피아노선","마패","흑연"],stats:{ad:31,sk:61,cd:15}},
             { name: "푸른색 단도", type: "weapon", roles: [], weaponGroup: "Shuriken", image: "img/무기 종류/암기/013. Azure Dagger.png", materials: ["깃털","화학품"],stats:{ad:30,sk:64,cd:10},skill:"치유 감소"},
@@ -1288,11 +1288,11 @@ function startRouteCalculation() {
 
         // 지역 선택 화면: 지도 원본의 좌표 비율에 맞춰 라벨을 배치한다.
         const mapAreaPositions = [
-            ['골목길', 54, 12], ['주유소', 36, 17], ['양궁장', 21, 24], ['학교', 36, 36],
+            ['골목길', 54, 12], ['주유소', 40, 17], ['양궁장', 21, 24], ['학교', 36, 36],
             ['호텔', 14, 43], ['모래사장', 12, 57], ['숲', 36, 56], ['고급 주택가', 30, 70],
-            ['창고', 45, 80], ['항구', 57, 86], ['바지선', 61, 92], ['경찰서', 66, 25],
-            ['소방서', 54, 34], ['절', 84, 27], ['개울', 84, 41], ['연못', 65, 46],
-            ['병원', 92, 55], ['묘지', 66, 61], ['공장', 83, 75], ['성당', 51, 52]
+            ['창고', 45, 78], ['항구', 57, 83], ['바지선', 65, 90], ['경찰서', 66, 25],
+            ['소방서', 54, 34], ['절', 84, 27], ['개울', 81, 41], ['연못', 65, 45],
+            ['병원', 85, 54], ['묘지', 65, 59], ['공장', 80, 73], ['성당', 57, 70]
         ];
         const craftTypeOrder = ['weapon', 'Cheat', 'Head', 'Arm', 'leg'];
         const craftTypeIcons = { weapon: 'img/부위/weapon.png', Cheat: 'img/부위/chest.png', Head: 'img/부위/head.png', Arm: 'img/부위/arm.png', leg: 'img/부위/leg.png' };
