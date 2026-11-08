@@ -105,8 +105,9 @@
             tab.append(button(name, () => { active = set; render(); }, set === active));
             if (sets.length > 1) {
                 const close = button("×", () => {
-                    sets.splice(index, 1);
-                    if (active === set) active = sets[Math.min(index, sets.length - 1)];
+                    const i = sets.indexOf(set);
+                    sets.splice(i, 1);
+                    if (active === set) active = sets[Math.min(i, sets.length - 1)];
                     render();
                     tabs.querySelector('[aria-pressed="true"]').focus({preventScroll:true});
                 });
@@ -115,6 +116,14 @@
                 tab.append(close);
             }
             return tab;
+        }));
+        if (sets.length > 1) tabs.append(button("현재 세트 삭제", () => {
+            const i = sets.indexOf(active);
+            sets.splice(i,1);
+            active = sets[Math.min(i,sets.length-1)];
+            render();
+            tabs.querySelector('[aria-pressed="true"]').focus({preventScroll:true});
+        }));
         }));
         equipped.replaceChildren();
         for (const slot of slots) {
