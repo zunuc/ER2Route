@@ -101,6 +101,13 @@
             pointer-events: none;
         }
 
+        body.comparing .item-tooltip {
+            box-sizing: border-box;
+            width: max-content;
+            min-width: min(312px, calc(100% - 16px));
+            max-width: min(382px, calc(100% - 16px));
+        }
+
         .item-tooltip-effect {
             line-height: 1.45;
             overflow-wrap: anywhere;
@@ -224,13 +231,13 @@
             body:not(.area-mode) .all-items-grid .item-card { height: 82px !important; aspect-ratio: auto !important; }
             body:not(.area-mode) .stat-grid { grid-template-columns: repeat(4, 1fr); width: calc(100vw - 40px); gap: 5px; }
             body:not(.area-mode) .slot { width: 100% !important; height: auto !important; aspect-ratio: 1 / 1 !important; }
-            body:not(.area-mode) .result-section { width: calc(100vw - 40px); }
+            body:not(.area-mode) .result-section { width: calc(100vw - 40px); padding-bottom: calc(78px + 0.5lh + max(20px, env(safe-area-inset-bottom))); }
         }
         @media (max-width: 950px) { .area-planner { grid-template-columns: 1fr; } .map-column { order: 1; } .craft-panel { order: 2; } }
         @media (max-width: 768px) { .area-planner { width: calc(100vw - 40px); } .area-label { font-size: 10px; min-width: 38px; padding: 3px 4px; } .calculation-mode-row { width: calc(100vw - 40px); } .mode-button-stack { flex-direction: row-reverse; } }
 
     </style>
-    <link rel="stylesheet" href="comparison.css">
+    <link rel="stylesheet" href="comparison.css?v=alex-icons-2">
 </head>
 <body>
 
@@ -1596,6 +1603,7 @@ function startRouteCalculation() {
     <section id="setDifferences" hidden></section>
     <section id="skillComparison"><h2>스킬 상세</h2>
         <div class="skill-controls">
+            <label id="alexWeaponLabel" hidden>현재 장착 무기 <select id="alexWeapon"></select></label>
             <label id="skillConditionLabel" hidden><span></span> <input id="skillCondition" type="number" min="0" step="1" value="0"></label>
         </div>
         <div id="skillOutput"></div>
@@ -1605,7 +1613,7 @@ function startRouteCalculation() {
 <script src="comparison-data.js"></script>
 <script src="skill-data.js"></script>
 <script src="skill-values.js"></script>
-<script src="comparison.js"></script>
+<script src="comparison.js?v=alex-icons-2"></script>
 </body>
 </html>
 

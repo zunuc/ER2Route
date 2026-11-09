@@ -8,11 +8,31 @@
     }));
     const catalog = [...heroes, ...[...legendarySearchItems, ...additionalLegendaryItems].map(item => ({...item, image:"img/전설/"+item.name+".webp", rarity:"전설"}))];
     const slotOf = item => weaponBases[item.slot] ? "무기" : item.slot;
-    const variants = characterData.flatMap(c => Object.keys(c.weapons).map(weapon => ({...c, weapon})))
+    const alexWeapons = ["양손검", "톤파", "권총", "암기"];
+    const variants = characterData.flatMap(c => (c.name === "알렉스" ? alexWeapons.slice(0,1) : Object.keys(c.weapons)).map(weapon => ({...c, weapon})))
         .sort((a,b) => a.name.localeCompare(b.name,"ko") || a.weapon.localeCompare(b.weapon,"ko"));
     let character = variants[0], level = 1, serial = 1, selectedSlot = "무기", returnScroll = 0;
     const sets = [{id:1, gear:{}, adjustments:{}}];
     let active = sets[0];
+    const isAlex = () => character.name === "알렉스";
+    function itemAt(set, slot) {
+        if (!isAlex()) return set.gear[slot];
+        const type = slot === "무기" ? character.weapon : slot;
+        if (!alexWeapons.includes(type)) return set.gear[slot];
+        return set.gear["무기"]?.slot === type ? set.gear["무기"] : set.alexWeapons?.[type];
+    }
+    function equip(slot, item) {
+        let gear = active.gear;
+        if (isAlex() && alexWeapons.includes(slot)) {
+            if (gear["무기"]?.slot === slot) {
+                delete active.alexWeapons?.[slot];
+                slot = "무기";
+            } else gear = active.alexWeapons ??= {};
+        }
+        if (item) gear[slot] = item;
+        else delete gear[slot];
+        render();
+    }
 
     function element(tag, text, className) {
         const node = document.createElement(tag);
@@ -28,6 +48,7 @@
     }
     function selectVariant(v) {
         character = v;
+        if (selectedSlot === "무기" || alexWeapons.includes(selectedSlot)) selectedSlot = isAlex() ? v.weapon : "무기";
         render();
     }
     const weaponIcons = {
@@ -60,20 +81,27 @@
         list.replaceChildren();
         const query = compact(byId("characterQuery").value);
         for (const v of variants) {
-            const fields = [v.name + v.weapon, ...v.aliases.map(alias => alias + v.weapon)].map(compact);
+            const types = v.name === "알렉스" ? alexWeapons : [v.weapon];
+            const fields = types.flatMap(type => [v.name, ...v.aliases].map(name => compact(name + type)));
             if (!fields.some(f => [...query].every(c => f.includes(c)))) continue;
             const b = button("", () => selectVariant(v), v === character);
             b.className = "character-card";
-            b.title = v.name + " · " + v.weapon;
+            b.title = v.name + " · " + types.join(" / ");
             b.setAttribute("aria-label", b.title);
             const portrait = element("img", undefined, "character-portrait");
             portrait.src = "img/실험체/" + v.name + ".webp";
             portrait.alt = "";
             portrait.loading = "lazy";
-            const icon = element("img", undefined, "character-weapon");
-            icon.src = weaponIcons[v.weapon];
-            icon.alt = "";
-            b.append(portrait, element("span", v.name, "character-name"), icon);
+            const icons = element("span", undefined, "character-weapon");
+            const iconTypes = v.name === "알렉스" ? ["양손검","암기","톤파","권총"] : [v.weapon];
+            if (iconTypes.length > 1) icons.classList.add("character-weapon-quad");
+            for (const type of iconTypes) {
+                const icon = element("img");
+                icon.src = weaponIcons[type];
+                icon.alt = "";
+                icons.append(icon);
+            }
+            b.append(portrait, element("span", v.name, "character-name"), icons);
             list.append(b);
         }
         if (!list.childElementCount) list.textContent = "검색 결과가 없습니다.";
@@ -117,9 +145,10 @@
             return tab;
         }));
         equipped.replaceChildren();
-        for (const slot of slots) {
+        equipped.classList.toggle("alex-weapons",isAlex());
+        for (const slot of isAlex() ? [...alexWeapons,...slots.slice(1)] : slots) {
             const row = element("div", undefined, "equipment-line");
-            const item = active.gear[slot];
+            const item = itemAt(active,slot);
             const select = () => {
                 if (selectedSlot !== slot) byId("gearQuery").value = "";
                 selectedSlot = slot;
@@ -128,7 +157,7 @@
             row.append(element("small",slot), item ? gearCard(item, select, selectedSlot === slot)
                 : button("미장착", select, selectedSlot === slot));
             if (item) {
-                row.append(button("해제", () => {delete active.gear[slot]; render();}));
+                row.append(button("해제", () => equip(slot)));
                 const stats = element("div", undefined, "gear-stats");
                 for (const [key,value] of Object.entries(item.stats)) stats.append(element("div",key+" +"+value));
                 for (const effect of item.effects) stats.append(element("div",effect.name,"gear-effect-name"));
@@ -143,20 +172,22 @@
         const terms = byId("gearQuery").value.trim().split(/\s+/).map(compact);
         list.replaceChildren();
         for (const item of catalog) {
-            if (slotOf(item) !== selectedSlot || (selectedSlot === "무기" && item.slot !== character.weapon)) continue;
+            const weaponType = selectedSlot === "무기" ? character.weapon : selectedSlot;
+            if (slotOf(item) === "무기" ? item.slot !== weaponType : item.slot !== selectedSlot) continue;
             if (rarity !== "전체 등급" && rarity !== item.rarity) continue;
             const fields = [item.name,...(itemAliases[item.name] || []),...Object.keys(item.stats),...item.effects.flatMap(e=>[e.name,e.description])].map(compact);
             if (!terms.every(t => fields.some(f=>f.includes(t)) || [...t].every(c=>compact(item.name).includes(c)))) continue;
-            const b = gearCard(item, () => {active.gear[selectedSlot] = item; render();}, active.gear[selectedSlot] === item);
+            const b = gearCard(item, () => equip(selectedSlot,item), itemAt(active,selectedSlot) === item);
             list.append(b);
         }
         if (!list.childElementCount) list.textContent = "조건에 맞는 장비가 없습니다.";
     }
     function scaled([start,growth = 0]) { return start + growth * (level - 1); }
     function calculate(set, forSkill = false) {
-        if (set.gear["무기"] && set.gear["무기"].slot !== character.weapon) return null;
+        const weapon = itemAt(set,"무기");
+        if (weapon && weapon.slot !== character.weapon) return null;
         const flat = {}, pct = {};
-        const items = Object.values(set.gear);
+        const items = slots.map(slot => itemAt(set,slot)).filter(Boolean);
         for (const item of items) {
             for (const [key, raw] of Object.entries(item.stats)) {
                 const [a,b] = String(raw).split("~").map(parseFloat);
@@ -249,7 +280,7 @@
     function equippedEffects(set, detailed) {
         const list = element("ul", undefined, "equipped-effects");
         for (const slot of slots) {
-            const item = set.gear[slot];
+            const item = itemAt(set,slot);
             if (!item) continue;
             const entries = [...item.effects];
             for (const [name, value] of Object.entries(item.stats)) {
@@ -293,6 +324,8 @@
     const skillRanks = new Map();
     let skillOwner = "";
     function syncSkillControls() {
+        byId("alexWeaponLabel").hidden = !isAlex();
+        if (isAlex()) byId("alexWeapon").value = character.weapon;
 
         if (skillOwner !== character.name) {
             skillOwner = character.name;
@@ -333,20 +366,22 @@
             byId("skillOutput").querySelectorAll("article select")[index].focus({preventScroll:true});
         };
         const article = element("article");
-        if (skill.parts) {
+        const form = isAlex() && skill.parts && /^[QWE] /.test(skill.name)
+            ? skill.parts[["양손검","톤파"].includes(character.weapon) ? 0 : 1] : null;
+        if (skill.parts && !form) {
             const heading = element("h3",skill.name);
             heading.append(select);
             article.append(heading);
         }
-        const parts = skill.parts || [{name:skill.name, icon:skill.icons[0], lines:skill.lines}];
+        const parts = form ? [form] : skill.parts || [{name:skill.name, icon:skill.icons[0], lines:skill.lines}];
         for (const part of parts) {
             const block = element("div",undefined,"skill-part");
-            const heading = element(skill.parts ? "h4" : "h3");
+            const heading = element(skill.parts && !form ? "h4" : "h3");
             const icon = element("img");
             icon.src = part.icon;
             icon.alt = "";
-            heading.append(icon,part.name);
-            if (!skill.parts) heading.append(select);
+            heading.append(icon,form ? skill.name[0] + " - " + part.name : part.name);
+            if (!skill.parts || form) heading.append(select);
             block.append(heading);
             renderSkillLines(block,skill.name,part.lines,rank);
             article.append(block);
@@ -470,13 +505,24 @@
             const item = heroes[Number(idx)];
             gear[slotOf(item)] = item;
         }
-        if (sets.length === 1 && !Object.keys(active.gear).length) {
+        if (sets.length === 1 && !Object.keys(active.gear).length && !Object.keys(active.alexWeapons || {}).length) {
             active.gear = gear;
-            if (gear["무기"]) character = variants.find(v=>v.weapon===gear["무기"].slot) || character;
+            if (gear["무기"]) {
+                const type = gear["무기"].slot;
+                if (isAlex() && alexWeapons.includes(type)) character.weapon = type;
+                else character = variants.find(v=>v.weapon===type) || character;
+                selectedSlot = isAlex() ? character.weapon : "무기";
+            }
         } else addSet(gear);
         b.textContent = "세트 "+active.id+" 등록됨";
     });
     byId("newSet").onclick = () => {addSet(); render();};
+    const weaponSelect = byId("alexWeapon");
+    weaponSelect.replaceChildren(...alexWeapons.map(type=>new Option(type,type)));
+    weaponSelect.onchange = () => {
+        character.weapon = weaponSelect.value;
+        totalsView();
+    };
     byId("characterQuery").oninput = characters;
     byId("gearQuery").oninput = gearPicker;
     byId("compareRarity").onchange = gearPicker;

@@ -43,6 +43,7 @@ body.comparing :is(.main-layout,.result-section,.area-planner,.calculation-mode-
 #equipped { height:284px; grid-template-rows:minmax(0,1fr); display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); align-items:start; gap:6px }
 .equipment-line { max-height:100%; flex-direction:column; align-items:stretch; min-width:0 }
 .equipment-line > small { text-align:center }
+#equipped.alex-weapons { grid-template-columns:repeat(8,minmax(76px,1fr)); overflow-x:auto }
 .equipment-line > :not(.gear-stats) { flex-shrink:0 }
 .gear-stats { overflow-y:auto; min-height:0; font-size:11px; line-height:1.5; color:#d0d7dc; overflow-wrap:anywhere }
 #gearPicker { height:300px; grid-template-columns:repeat(auto-fill,minmax(70px,1fr)); grid-auto-rows:82px }
@@ -79,7 +80,14 @@ body.comparing :is(.main-layout,.result-section,.area-planner,.calculation-mode-
 #comparison #characters .character-card { display:grid; grid-template-columns:minmax(0,1fr) 26px; grid-template-rows:auto 26px; align-self:start; box-sizing:border-box; width:100%; padding:0; min-width:0; overflow:hidden; background:#363b46; border:1px solid #595f69; border-radius:1px }
 .character-portrait { grid-column:1/-1; display:block; width:100%; height:auto; aspect-ratio:122/160; object-fit:contain }
 .character-name { display:block; align-content:center; padding:0 2px; text-align:center; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; background:#101216ed; font-size:clamp(10px,1vw,13px); font-weight:bold; line-height:1.2 }
-.character-weapon { display:block; width:26px; height:26px; box-sizing:border-box; padding:4px; object-fit:contain; background:#111820 }
+.character-weapon { grid-area:2 / 2; display:grid; width:26px; height:26px; overflow:hidden; background:#111820 }
+.character-weapon img { display:block; width:100%; height:100%; box-sizing:border-box; padding:4px; object-fit:contain; min-width:0; min-height:0 }
+.character-weapon.character-weapon-quad { grid-template:repeat(2,13px) / repeat(2,13px) }
+.character-weapon.character-weapon-quad > img { width:13px; height:13px; padding:0; object-fit:cover; overflow:clip; overflow-clip-margin:0 }
+.character-weapon-quad > img:nth-child(1) { object-view-box:inset(3%); }
+.character-weapon-quad > img:nth-child(2) { object-view-box:inset(19%); }
+.character-weapon-quad > img:nth-child(3) { object-view-box:inset(11%); }
+.character-weapon-quad > img:nth-child(4) { object-view-box:inset(8%); }
 #comparison #characters .character-card:is(:hover,:focus-visible) { border-color:#b9d3dc }
 #comparison #characters .character-card[aria-pressed=true] { outline:2px solid #21b9eb; outline-offset:-2px; z-index:1 }
 #comparison #characters .character-card[aria-pressed=true] .character-name { background:#0d4156 }
