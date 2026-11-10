@@ -2,6 +2,11 @@
 function evaluateSkillLine(line, rank, values) {
     // Normalize equivalent notations used by different saved character sheets.
     const original = line;
+    const timed = line.match(/^(쿨다운|시전 딜레이): ([\d.]+)초 \/ 실질 공격 속도$/);
+    if (timed) {
+        const speed = values["실질 공격 속도"];
+        return {label:timed[1], result:speed > 0 ? Number((Number(timed[2])/speed).toFixed(2))+"초" : "—"};
+    }
     line = line.replace(/^쿨다운\s*:\s*([\d.]+)초$/,"쿨다운 [$1]");
     line = line.replace(/(\)|\])\[\d+\]$/,"$1")
         .replace(/\[([^\[\]()]+?)의\s*([\d.%/\s]+)\]/g,"(+$1의 $2)")
@@ -48,8 +53,13 @@ function evaluateSkillLine(line, rank, values) {
         if (values["표식 피해 배율"] && label==="피해량" && original.includes("치명타 확률의 50%")) {
             total = (total - values["치명타 확률"]*.5)*values["표식 피해 배율"];
         }
-        if (label==="쿨다운") total *= 100/(100+(values["유효 스킬 가속"] || 0));
-        return [Number(total.toFixed(2)).toLocaleString("ko")+(percent?"%":label==="쿨다운"?"초":""),...unknown].join(" ")+suffix;
+        if (label==="쿨다운") total *= (1-(values["공속 쿨다운 감소율"] || 0))*100/(100+(values["유효 스킬 가속"] || 0));
+        if (label==="쿨다운" && values["공속 적용 쿨다운"] !== undefined) total = values["공속 적용 쿨다운"];
+        if (label==="발사 수") total += values["추가 발사 수"] || 0;
+        const formatted = label==="쿨다운" && Object.hasOwn(values,"공속 쿨다운 감소율")
+            ? total.toLocaleString("ko",{maximumFractionDigits:2, roundingMode:"halfEven"})
+            : Number(total.toFixed(2)).toLocaleString("ko");
+        return [formatted+(percent?"%":label==="쿨다운"?"초":""),...unknown].join(" ")+suffix;
     }
     const results = formula.split(/\s*~\s*(?=\[|\()/).map(part);
     return results.every(x=>x!==null) ? {label, result:results.join(" ~ ")} : null;

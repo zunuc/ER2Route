@@ -76,12 +76,32 @@
     "아르카나": "img/무기 종류/대표 이미지/22. Arcana.png",
     "VF의수": "img/무기 종류/대표 이미지/23. VF Prosthetic.png"
 };
+    let characterWeaponFilter = "";
+    const weaponFilters = byId("characterWeapons");
+    for (const [type, src] of [["", ""], ...Object.entries(weaponIcons)]) {
+        const filter = button(type ? "" : "ALL", () => {
+            characterWeaponFilter = type;
+            for (const other of weaponFilters.children) other.setAttribute("aria-pressed", other === filter);
+            characters();
+            byId("characters").scrollTop = 0;
+        }, !type);
+        filter.title = type || "전체 무기군";
+        filter.setAttribute("aria-label", filter.title);
+        if (src) {
+            const icon = element("img");
+            icon.src = src;
+            icon.alt = "";
+            filter.append(icon);
+        }
+        weaponFilters.append(filter);
+    }
     function characters() {
         const list = byId("characters");
         list.replaceChildren();
         const query = compact(byId("characterQuery").value);
         for (const v of variants) {
             const types = v.name === "알렉스" ? alexWeapons : [v.weapon];
+            if (characterWeaponFilter && !types.includes(characterWeaponFilter)) continue;
             const fields = types.flatMap(type => [v.name, ...v.aliases].map(name => compact(name + type)));
             if (!fields.some(f => [...query].every(c => f.includes(c)))) continue;
             const b = button("", () => selectVariant(v), v === character);
@@ -213,7 +233,9 @@
         let armor = base("방어력") + f("방어력") + extra("방어력") + (hasEffect("두 개의 가면") ? 8 : 0);
         const name = character.name, passive = (skillRanks.get(skillData[character.name].find(skill => skill.name.startsWith("패시브"))) || 1);
         const condition = Number(byId("skillCondition").value) || 0;
-        const baseSpeed = base("공격 속도") + weaponSpeed;
+        // Camilo's measured rapier speeds at +41% and +79% imply a combined base near 0.73.
+        const baseSpeed = name === "카밀로" && character.weapon === "레이피어"
+            ? 0.73 : base("공격 속도") + weaponSpeed;
         let speedBonus = m("공격 속도")+p("공격 속도")+extra("공격 속도");
         const haste = f("쿨다운 감소");
         let attack = base("공격력")+f("공격력")+m("공격력")+(ampType ? 0 : adaptive)+extra("공격력")+(hasEffect("묵직함") ? bonusHp*.02 : 0);
@@ -262,7 +284,7 @@
         }
         if (!forSkill) return {totals, speedBonus};
         const values = {...totals, "체력":hp, "추가 체력":bonusHp, "추가 공격력":attack-base("공격력"),
-            "추가 방어력":armor-base("방어력"), "추가 공격 속도":speedBonus, "공격 속도":speedBonus,
+            "추가 방어력":armor-base("방어력"), "추가 공격 속도":speedBonus, "공격 속도":speedBonus, "실질 공격 속도":speed,
             "치명타 확률":totals["치명타 확률 (%)"], "추가 치명타 피해량":critDamage,
             "레벨":level, "캐릭터 레벨":level, [name+" 레벨"]:level, "방어 관통":f("방어 관통"),
             "기본 공격 증폭":m("기본 공격 증폭")+p("기본 공격 증폭")};
@@ -389,12 +411,31 @@
         if (skill.sharedLines) renderSkillLines(article,skill.name,skill.sharedLines,rank);
         return article;
     }
+    // Linear fit to measured dual-sword and rapier cooldowns above the 1.5 s floor.
+    function camiloQCooldown(speed) {
+        return Math.max(1.5, Math.min(5, 5.2734 - 2.5388 * speed));
+    }
     function renderSkillLines(output,skillName,lines,rank) {
+        const scaling = {
+            "데비&마를렌": {Q:[120,70], W:[100,65]},
+            "히스이": {Q:[140,60], E:[120,50]}
+        }[character.name]?.[skillName[0]];
+        if (scaling) output.append(element("p",`추가 공격 속도 ${scaling[0]}%에서 쿨다운이 최대 ${scaling[1]}% 감소합니다.`));
+        const camiloQ = character.name === "카밀로" && skillName.startsWith("Q ") && lines.includes("쿨다운: 5초");
+        if (camiloQ) output.append(element("p","쌍검·레이피어 공통 실측 추정식: 5.2734 − 2.5388 × 실질 공격 속도 (최소 1.5초, 최대 5초)"));
+        const marleneShots = character.name === "데비&마를렌" && lines.some(line => line.startsWith("발사 수 ["));
+        if (marleneShots) output.append(element("p","추가 공격 속도 100%에서 추가 발사 수가 최대 7개에 도달합니다."));
         const fixedCooldown = lines.some(l=>l.startsWith("쿨다운 고정")) || character.name==="셀린" ||
             (["띠아","펠릭스"].includes(character.name) && /^[QWE]\s/.test(skillName));
         const values = sets.map(set=>{
             const context = calculate(set,true);
-            if (context) context["유효 스킬 가속"] = fixedCooldown ? 0 : context["쿨다운 감소"];
+            if (context) {
+                context["유효 스킬 가속"] = fixedCooldown ? 0 : context["쿨다운 감소"];
+                const speed = Math.max(0,context["추가 공격 속도"]);
+                if (scaling) context["공속 쿨다운 감소율"] = Math.min(1,speed/scaling[0]) * scaling[1]/100;
+                if (camiloQ) context["공속 적용 쿨다운"] = camiloQCooldown(context["실질 공격 속도"]);
+                if (marleneShots) context["추가 발사 수"] = Math.floor(7 * Math.min(1,speed/100));
+            }
             return context;
         });
         const table = element("table");

@@ -237,7 +237,7 @@
         @media (max-width: 768px) { .area-planner { width: calc(100vw - 40px); } .area-label { font-size: 10px; min-width: 38px; padding: 3px 4px; } .calculation-mode-row { width: calc(100vw - 40px); } .mode-button-stack { flex-direction: row-reverse; } }
 
     </style>
-    <link rel="stylesheet" href="comparison.css?v=alex-icons-2">
+    <link rel="stylesheet" href="comparison.css?v=character-filter">
 </head>
 <body>
 
@@ -1584,6 +1584,7 @@ function startRouteCalculation() {
     <div class="compare-layout">
         <section class="character-panel"><h2>실험체 선택</h2>
             <input type="search" id="characterQuery" aria-label="실험체 검색" placeholder="실험체 이름, 무기, 줄임말 검색">
+            <div id="characterWeapons" role="group" aria-label="실험체 무기군 필터"></div>
             <div id="characters" class="compare-picker"></div>
 
 </section>
@@ -1613,7 +1614,7 @@ function startRouteCalculation() {
 <script src="comparison-data.js"></script>
 <script src="skill-data.js"></script>
 <script src="skill-values.js"></script>
-<script src="comparison.js?v=alex-icons-2"></script>
+<script src="comparison.js?v=character-filter"></script>
 </body>
 </html>
 
