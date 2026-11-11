@@ -50,6 +50,7 @@ body.comparing :is(.main-layout,.result-section,.area-planner,.calculation-mode-
 #comparison .gear-card { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:0; min-width:0; width:100%; height:82px; background:#3e4144; border:1px solid #555; overflow:hidden }
 #comparison .gear-card img { width:54px; height:54px; object-fit:contain; border-bottom:2px solid #b45cdb }
 #comparison .gear-card.legend img { border-color:#d8ae50 }
+#comparison .gear-card.transcendent img { border-color:#ed6262 }
 #comparison .gear-card span { width:100%; box-sizing:border-box; padding:4px 2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:center; font-size:10px }
 #comparison .gear-card[aria-pressed=true] { outline:2px solid #fff; outline-offset:-2px }
 @media(max-width:700px){.compare-layout{grid-template-columns:1fr}.compare-layout .totals-panel{grid-column:1}#equipped{overflow-x:auto;grid-template-columns:repeat(5,minmax(72px,1fr))}}
@@ -109,3 +110,7 @@ body.comparing :is(.main-layout,.result-section,.area-planner,.calculation-mode-
 #characterWeapons { display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:3px; margin-top:8px }
 #comparison #characterWeapons button { display:grid; place-items:center; height:30px; min-width:0; padding:2px; font-size:10px }
 #characterWeapons img { width:100%; height:24px; object-fit:contain }
+
+#comparison .transcendent { border-bottom:2px solid #ed6262 }
+#itemTooltip.transcendent-tooltip { border-left-color:#ed6262 }
+#itemTooltip.transcendent-tooltip .item-tooltip-type { color:#ed6262 }

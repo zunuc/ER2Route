@@ -6,7 +6,9 @@
         stats: Object.fromEntries(Object.entries(item.statValues).map(([key,v]) => [statNames[key],v])),
         effects: item.effects || []
     }));
-    const catalog = [...heroes, ...[...legendarySearchItems, ...additionalLegendaryItems].map(item => ({...item, image:"img/전설/"+item.name+".webp", rarity:"전설"}))];
+    const catalog = [...heroes, ...[...legendarySearchItems, ...additionalLegendaryItems].map(item => ({...item, image:item.image || "img/전설/"+item.name+".webp", rarity:item.rarity || "전설"}))];
+    const rarityOrder = {영웅:0, 전설:1, 초월:2};
+    catalog.sort((a,b) => rarityOrder[a.rarity] - rarityOrder[b.rarity]);
     const slotOf = item => weaponBases[item.slot] ? "무기" : item.slot;
     const alexWeapons = ["양손검", "톤파", "권총", "암기"];
     const variants = characterData.flatMap(c => (c.name === "알렉스" ? alexWeapons.slice(0,1) : Object.keys(c.weapons)).map(weapon => ({...c, weapon})))
@@ -132,7 +134,7 @@
     }
     function gearCard(item, click, pressed) {
         const card = button("", () => { hideTooltip(); click(); }, pressed);
-        card.className = "gear-card " + (item.rarity === "전설" ? "legend" : "hero");
+        card.className = "gear-card " + (item.rarity === "초월" ? "transcendent" : item.rarity === "전설" ? "legend" : "hero");
         const img = element("img");
         img.src = item.image;
         img.alt = "";
@@ -237,7 +239,7 @@
         const baseSpeed = name === "카밀로" && character.weapon === "레이피어"
             ? 0.73 : base("공격 속도") + weaponSpeed;
         let speedBonus = m("공격 속도")+p("공격 속도")+extra("공격 속도");
-        const haste = f("쿨다운 감소");
+        let haste = f("쿨다운 감소");
         let attack = base("공격력")+f("공격력")+m("공격력")+(ampType ? 0 : adaptive)+extra("공격력")+(hasEffect("묵직함") ? bonusHp*.02 : 0);
         let amp = f("스킬 증폭")+extra("스킬 증폭")+(ampType ? adaptive*2 : 0);
         let ampPercent = m("스킬 증폭")+p("스킬 증폭")+p("(고유) 스킬 증폭");
@@ -265,6 +267,7 @@
                 regeneration += 2*passive + (10*passive-2*passive)*condition/100; break;
             case "블레어": if (condition) {speedBonus += 15; speed = baseSpeed*(1+speedBonus/100);} break;
         }
+        if (hasEffect("연마")) haste += Math.max(0,attack-base("공격력"))*.05;
         const totals = {
             "최대 체력": hp,
             "방어력": armor,

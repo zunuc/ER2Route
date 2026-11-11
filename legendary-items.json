@@ -13,7 +13,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "녹슨 검",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%96%91%EC%86%90%EA%B2%80",
@@ -40,7 +39,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "녹슨 검",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%96%91%EC%86%90%EA%B2%80",
@@ -67,7 +65,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "얼음",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%96%91%EC%86%90%EA%B2%80",
@@ -94,7 +91,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "녹슨 검",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%96%91%EC%86%90%EA%B2%80",
@@ -120,7 +116,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "고철",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%96%91%EC%86%90%EA%B2%80",
@@ -148,7 +143,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "전신 수영복",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -175,7 +169,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "라이터",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -203,7 +196,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "셔츠",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -230,7 +222,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "바람막이",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -257,7 +248,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "승복",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -275,7 +265,7 @@
     "slot": "옷",
     "rarity": "전설",
     "stats": {
-      "공격력": 14,
+      "공격력": "10",
       "레벨 당 공격력": "3~60",
       "방어력": 18,
       "치명타 확률": "34%"
@@ -285,7 +275,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "전신 수영복",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -294,6 +283,10 @@
       {
         "name": "치유 감소",
         "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 20% 감소합니다."
+      },
+      {
+        "name": "포착",
+        "description": "8초마다 다음 기본 공격 적중 시 30(+공격력의 10%)의 피해를 입히고 대상에게 표식을 5초 동안 부여합니다. 표식이 부여된 대상에게 개별 스킬로 피해를 입히면 표식이 제거되고 40(+공격력의 30%)(+치명타 확률의 50%)의 추가 피해를 입히며 2초 동안 이동 속도가 10% 증가합니다."
       }
     ]
   },
@@ -313,7 +306,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "가죽",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -340,7 +332,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "셔츠",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -368,7 +359,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "옷감",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -386,10 +376,10 @@
     "slot": "옷",
     "rarity": "전설",
     "stats": {
-      "공격력": 12,
+      "공격력": "10",
       "레벨 당 공격력": "3~60",
       "방어력": 20,
-      "쿨다운 감소": 15,
+      "쿨다운 감소": "10",
       "방어 관통": 12
     },
     "materials": [
@@ -397,15 +387,14 @@
     ],
     "price": 200,
     "craftNames": [
-      "바람막이",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
     "checkedAt": "2026-11-08",
     "effects": [
       {
-        "name": "치유 감소",
-        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 20% 감소합니다."
+        "name": "자상",
+        "description": "동일한 적 실험체에게 5초 안에 3회 기본 공격 적중 및 개별 스킬로 피해를 입히면 적에게 매 초 10(+방어 관통 50%)(+추가 공격력의 10%)의 고정 피해를 입히는 [자상] 상태를 4초 동안 부여합니다. [자상] 상태의 적에게 향할 시 이동 속도가 8%만큼 증가합니다. 쿨다운 12초"
       }
     ]
   },
@@ -425,7 +414,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "승복",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -453,7 +441,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "바람막이",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -480,7 +467,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "셔츠",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -507,7 +493,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "전신 수영복",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -535,7 +520,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "옷감",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -564,7 +548,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "승복",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -590,7 +573,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "전신 수영복",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -617,7 +599,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "승복",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -644,7 +625,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "덧댄 가죽",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -672,7 +652,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "십자가",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -694,7 +673,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "가죽",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -722,7 +700,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "옷감",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -749,7 +726,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "나뭇가지",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -777,7 +753,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "바람막이",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -803,7 +778,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "피아노선",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -831,7 +805,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "셔츠",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -859,7 +832,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "가위",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -887,7 +859,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "화약",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -915,7 +886,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "꽃",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EC%98%B7",
@@ -942,7 +912,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "고철",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -968,7 +937,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "자전거 헬멧",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -996,7 +964,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "플라스틱",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1022,7 +989,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "모자",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1053,7 +1019,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "머리띠",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1081,7 +1046,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "고무",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1108,7 +1072,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "가면",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1136,7 +1099,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "머리띠",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1163,7 +1125,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "플라스틱",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1191,7 +1152,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "가면",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1218,7 +1178,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "머리띠",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1245,7 +1204,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "원석",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1267,7 +1225,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "깃털",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1293,7 +1250,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "모자",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1324,7 +1280,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "모자",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1352,7 +1307,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "머리띠",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1379,7 +1333,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "플라스틱",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1406,7 +1359,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "자전거 헬멧",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1433,7 +1385,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "가면",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1460,7 +1411,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "배터리",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1479,20 +1429,24 @@
     "rarity": "전설",
     "stats": {
       "방어력": 15,
-      "레벨 당 최대 체력": "22~440",
-      "쿨다운 감소": 25
+      "레벨 당 최대 체력": "20~400",
+      "쿨다운 감소": "20"
     },
     "materials": [
       "미스릴"
     ],
     "price": 250,
     "craftNames": [
-      "십자가",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
     "checkedAt": "2026-11-08",
-    "effects": []
+    "effects": [
+      {
+        "name": "수호자 프로토콜",
+        "description": "적 실험체를 이동 불가 상태로 만들 경우 주변 10m 범위 내 자신을 제외한 아군 실험체에게 2.5초 동안 지속되는 30(+추가 체력의 6%)(+캐릭터 레벨*3)의 보호막을 부여합니다. 쿨다운 8초"
+      }
+    ]
   },
   {
     "id": "머리-천룡잠",
@@ -1508,7 +1462,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "꽃",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1535,7 +1488,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "쌍안경",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1562,7 +1514,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "리본",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1589,7 +1540,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "흑연",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1616,7 +1566,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "모자",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1643,7 +1592,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "리본",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1661,16 +1609,15 @@
     "slot": "머리",
     "rarity": "전설",
     "stats": {
-      "방어력": 8,
       "스킬 증폭": 75,
-      "쿨다운 감소": 10
+      "쿨다운 감소": 10,
+      "최대 체력": "120"
     },
     "materials": [
       "포스 코어"
     ],
     "price": 350,
     "craftNames": [
-      "자전거 헬멧",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1696,7 +1643,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "라이터",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1723,7 +1669,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "원석",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1749,7 +1694,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "머리띠",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1776,7 +1720,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "가면",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%A8%B8%EB%A6%AC",
@@ -1798,7 +1741,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "깃털",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -1825,7 +1767,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "피아노선",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -1851,7 +1792,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "팔찌",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -1869,7 +1809,7 @@
     "slot": "팔·장식",
     "rarity": "전설",
     "stats": {
-      "공격력": 27,
+      "공격력": "15",
       "공격 속도": "30%",
       "치명타 확률": "35%"
     },
@@ -1878,15 +1818,14 @@
     ],
     "price": 200,
     "craftNames": [
-      "만년필",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
     "checkedAt": "2026-11-08",
     "effects": [
       {
-        "name": "치유 감소",
-        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 20% 감소합니다."
+        "name": "간극",
+        "description": "기본 공격으로 피해를 입힐 때 적 실험체와의 거리에 비례하여 기본 공격 피해가 최대 8%까지 증가합니다. (최대 5.5m)"
       }
     ]
   },
@@ -1899,19 +1838,23 @@
       "스킬 증폭": 60,
       "최대 체력": 100,
       "쿨다운 감소": 15,
-      "주는 회복 증가": "10%"
+      "주는 회복 증가": "6%"
     },
     "materials": [
       "생명의 나무"
     ],
     "price": 200,
     "craftNames": [
-      "원석",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
     "checkedAt": "2026-11-08",
-    "effects": []
+    "effects": [
+      {
+        "name": "유대",
+        "description": "아군 실험체에게 치유 혹은 보호막 스킬을 적용했을 경우, 자신과 해당 아군의 이동 속도가 1.5초 동안 6% 증가합니다."
+      }
+    ]
   },
   {
     "id": "팔·장식-토템",
@@ -1928,7 +1871,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "붕대",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -1955,7 +1897,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "쇠구슬",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -1981,7 +1922,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "마패",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2008,7 +1948,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "붕대",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2035,7 +1974,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "실",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2062,7 +2000,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "거북이 등딱지",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2084,15 +2021,14 @@
     "slot": "팔·장식",
     "rarity": "전설",
     "stats": {
-      "스킬 증폭": 75,
-      "쿨다운 감소": 20
+      "스킬 증폭": "73",
+      "쿨다운 감소": "15"
     },
     "materials": [
       "운석"
     ],
     "price": 200,
     "craftNames": [
-      "화학품",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2101,6 +2037,10 @@
       {
         "name": "치유 감소",
         "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 20% 감소합니다."
+      },
+      {
+        "name": "깎아내기",
+        "description": "체력이 60% 이상인 적에게 입히는 피해가 5% 증가합니다."
       }
     ]
   },
@@ -2120,7 +2060,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "쇠구슬",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2148,7 +2087,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "손목시계",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2175,7 +2113,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "흑연",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2203,7 +2140,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "거북이 등딱지",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2230,7 +2166,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "붕대",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2257,7 +2192,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "깃털",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2282,7 +2216,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "흑연",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2309,7 +2242,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "유리병",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2335,7 +2267,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "마패",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2356,7 +2287,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "손목시계",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2378,7 +2308,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "배터리",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2404,7 +2333,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "쇠구슬",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2432,7 +2360,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "돌멩이",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2445,23 +2372,22 @@
     "slot": "팔·장식",
     "rarity": "전설",
     "stats": {
-      "스킬 증폭": 88,
-      "쿨다운 감소": 20
+      "스킬 증폭": "80",
+      "쿨다운 감소": "10"
     },
     "materials": [
       "포스 코어"
     ],
     "price": 350,
     "craftNames": [
-      "종이",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
     "checkedAt": "2026-11-08",
     "effects": [
       {
-        "name": "신속",
-        "description": "4초 이내에 3회의 개별 피해를 가하면, 3초간 이동 속도가 30% 증가합니다. (쿨다운 10초) 지속적으로 피해를 입히는 개별 스킬의 경우 3초 마다 판정이 적용됩니다."
+        "name": "과부하",
+        "description": "5초 이내에 개별 스킬로 2회 피해를 입히면 8초 동안 스킬 증폭이 10% 증가하며, 쿨다운이 40% 빠르게 회복됩니다. 쿨다운 15초"
       }
     ]
   },
@@ -2480,7 +2406,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "플라스틱",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2501,7 +2426,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "거북이 등딱지",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2524,7 +2448,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "트럼프 카드",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2545,7 +2468,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "손목시계",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2563,23 +2485,22 @@
     "slot": "팔·장식",
     "rarity": "전설",
     "stats": {
-      "스킬 증폭": 82,
-      "쿨다운 감소": 10
+      "스킬 증폭": "88",
+      "쿨다운 감소": "20"
     },
     "materials": [
       "포스 코어"
     ],
     "price": 350,
     "craftNames": [
-      "깃털",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
     "checkedAt": "2026-11-08",
     "effects": [
       {
-        "name": "저주",
-        "description": "스킬 공격을 가하면 적을 4초간 저주 상태로 만듭니다. 저주 상태인 적은 저주 상태에서 해제될 때 50 (+스킬 증폭의 15%) 에 해당하는 고정 피해를 입습니다. 한번 저주 상태가 되면 8초간 (기본 공격 피격 시 1초 감소) 다시 저주 상태가 되지 않습니다. (쿨다운: 2초)"
+        "name": "신속",
+        "description": "4초 이내에 3회의 기본 공격 또는 개별 스킬로 피해를 입히면, 3초간 이동 속도가 30% 증가합니다. (쿨다운 10초) 지속적으로 입히는 개별 스킬의 경우 3초마다 판정이 적용됩니다."
       }
     ]
   },
@@ -2598,7 +2519,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "얼음",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2625,7 +2545,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "고철",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%ED%8C%94%C2%B7%EC%9E%A5%EC%8B%9D",
@@ -2652,7 +2571,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "슬리퍼",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%8B%A4%EB%A6%AC",
@@ -2674,7 +2592,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "타이즈",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%8B%A4%EB%A6%AC",
@@ -2696,7 +2613,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "나막신",
       "생명의 나무"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%8B%A4%EB%A6%AC",
@@ -2724,7 +2640,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "운동화",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%8B%A4%EB%A6%AC",
@@ -2746,7 +2661,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "타이즈",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%8B%A4%EB%A6%AC",
@@ -2759,22 +2673,25 @@
     "slot": "다리",
     "rarity": "전설",
     "stats": {
-      "공격력": 23,
-      "공격 속도": "10%",
+      "공격력": "25",
       "이동 속도": 0.25,
-      "쿨다운 감소": 15
+      "쿨다운 감소": "10"
     },
     "materials": [
       "운석"
     ],
     "price": 200,
     "craftNames": [
-      "얼음",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%8B%A4%EB%A6%AC",
     "checkedAt": "2026-11-08",
-    "effects": []
+    "effects": [
+      {
+        "name": "연마",
+        "description": "추가 공격력의 5%만큼 쿨다운 감소가 증가합니다."
+      }
+    ]
   },
   {
     "id": "다리-블레이드 부츠",
@@ -2792,7 +2709,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "못",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%8B%A4%EB%A6%AC",
@@ -2818,7 +2734,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "슬리퍼",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%8B%A4%EB%A6%AC",
@@ -2841,7 +2756,6 @@
     ],
     "price": 200,
     "craftNames": [
-      "나막신",
       "운석"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%8B%A4%EB%A6%AC",
@@ -2868,7 +2782,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "운동화",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%8B%A4%EB%A6%AC",
@@ -2896,7 +2809,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "나막신",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%8B%A4%EB%A6%AC",
@@ -2918,7 +2830,6 @@
     ],
     "price": 250,
     "craftNames": [
-      "슬리퍼",
       "미스릴"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%8B%A4%EB%A6%AC",
@@ -2944,7 +2855,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "슬리퍼",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%8B%A4%EB%A6%AC",
@@ -2967,7 +2877,6 @@
     ],
     "price": 350,
     "craftNames": [
-      "운동화",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%8B%A4%EB%A6%AC",
@@ -2995,11 +2904,2233 @@
     ],
     "price": 350,
     "craftNames": [
-      "나막신",
       "포스 코어"
     ],
     "source": "https://www.namu.moe/w/%EC%9D%B4%ED%84%B0%EB%84%90%20%EB%A6%AC%ED%84%B4%2F%EC%95%84%EC%9D%B4%ED%85%9C%2F%EC%9E%A5%EB%B9%84%2F%EB%8B%A4%EB%A6%AC",
     "checkedAt": "2026-11-08",
     "effects": []
+  },
+  {
+    "name": "제너레이터",
+    "slot": "옷",
+    "rarity": "전설",
+    "stats": {
+      "레벨 당 스킬 증폭": "5~100",
+      "방어력": "25",
+      "스킬 증폭": "10",
+      "공격 속도": "20%"
+    },
+    "craftNames": [
+      "생명의 나무"
+    ],
+    "id": "옷-제너레이터",
+    "materials": [
+      "생명의 나무"
+    ],
+    "image": "img/전설/제너레이터.png",
+    "effects": [
+      {
+        "name": "풀 가동",
+        "description": "개별 스킬로 적 실험체에게 피해를 입히면 5초 동안 공격 속도가 5% 증가하는 중첩을 얻습니다. (최대 4중첩) 적 실험체에게 기본 공격 적중 시 5초 동안 스킬 증폭이 2.5% 증가하는 중첩을 얻습니다. (최대 4중첩) 두 중첩이 모두 최대 중첩일 때 이동 속도가 6% 상승합니다."
+      }
+    ]
+  },
+  {
+    "name": "제왕의 투구",
+    "slot": "머리",
+    "rarity": "전설",
+    "stats": {
+      "공격력": "30",
+      "최대 체력": "250",
+      "쿨다운 감소": "15"
+    },
+    "craftNames": [
+      "포스 코어"
+    ],
+    "id": "머리-제왕의 투구",
+    "materials": [
+      "포스 코어"
+    ],
+    "image": "img/전설/제왕의 투구.png",
+    "effects": [
+      {
+        "name": "연격",
+        "description": "3초 이내에 스킬을 2회 사용 시 5초 동안 [연격]이 활성화됩니다. [연격] 상태에서 기본 공격 적중 시 30(+공격력의 25%)(+캐릭터 레벨*2)만큼 추가 스킬 피해를 입히며 기본 공격 적중 시 효과를 추가로 1회 발동합니다. 쿨다운 3초"
+      }
+    ]
+  },
+  {
+    "name": "아이보리 스텝",
+    "slot": "다리",
+    "rarity": "전설",
+    "stats": {
+      "공격 속도": "25%",
+      "치명타 확률": "33%",
+      "이동 속도": "0.25"
+    },
+    "craftNames": [
+      "미스릴"
+    ],
+    "id": "다리-아이보리 스텝",
+    "materials": [
+      "미스릴"
+    ],
+    "image": "img/전설/아이보리 스텝.png",
+    "effects": [
+      {
+        "name": "기민한 대처",
+        "description": "체력이 60% 이상일 때 이동 속도가 5% 상승합니다."
+      }
+    ]
+  },
+  {
+    "name": "데스애더퀸-VBS",
+    "slot": "VF의수",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "78",
+      "레벨 당 기본 공격 증폭": "1.0~20.0%",
+      "공격 속도": "35%",
+      "방어 관통": "12%",
+      "(고유) 기본 공격 사거리": "0.2"
+    },
+    "effects": [
+      {
+        "name": "의념",
+        "description": "VF폭주 상태일 때 스킬을 사용하면 의념을 충전합니다. 충전된 상태에서 다음 3초 안에 이루어지는 기본 공격이 캐릭터 레벨 * 9의 추가 스킬 피해를 입힙니다. (쿨다운 0.2초) VF폭주 상태일 때에는 데스애더의 의념만 발동합니다."
+      },
+      {
+        "name": "독사의 맹독",
+        "description": "독사의 진노(R)에 적중한 적 대상의 방어력을 7초동안 7% 감소시킵니다. 이 효과는 최대 2중첩까지 중첩됩니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/데스애더퀸-VBS.webp",
+    "id": "VF의수-데스애더퀸-VBS",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "블랙맘바킹-VBS",
+    "slot": "VF의수",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "69",
+      "레벨 당 최대 체력": "10.0~200.0",
+      "모든 피해 흡혈": "15%"
+    },
+    "effects": [
+      {
+        "name": "불꽃 결계",
+        "description": "VF폭주 상태일 때 전투에 돌입하면 매 초마다 주변 2.5m적에게 최대 체력의 4%의 스킬 피해를 입힙니다. VF폭주 상태일 때에는 블랙맘바킹-TL의 불꽃 결계만 발동합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/블랙맘바킹-VBS.webp",
+    "id": "VF의수-블랙맘바킹-VBS",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "하이 눈",
+    "slot": "권총",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "31",
+      "맞춤형 능력치": "58",
+      "공격 속도": "30%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/하이 눈.webp",
+    "id": "권총-하이 눈",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "하이 눈-진홍",
+    "slot": "권총",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "86",
+      "공격 속도": "35%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "열정",
+        "description": "기본 공격이 적 실험체에게 명중하면, 적 실험체에게 현재 체력의 2%의 피해를 주고, 5초간 열정을 중첩하며, 중첩 당 8%의 공격 속도를 얻습니다. 최대 4중첩이 되면 10의 공격력과 0.08의 이동 속도를 추가로 얻습니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/하이 눈-진홍.webp",
+    "id": "권총-하이 눈-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "하이 눈-새벽",
+    "slot": "권총",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "28",
+      "스킬 증폭": "116",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "마탄",
+        "description": "기본 스킬 사용 시 4초 동안 지속되는 [마탄]을 중첩하여 획득합니다. [마탄]은 최대 2중첩까지 가능하며, 2중첩 상태에서 기본 공격 시 스킬 증폭의 35%+적 최대 체력의 8%의 추가 스킬 피해를 입히고, 입힌 피해의 50%만큼 체력을 회복합니다. 이 효과가 발동되면 [마탄] 중첩은 모두 제거됩니다. (쿨다운: 5초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/하이 눈-새벽.webp",
+    "id": "권총-하이 눈-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "블러디 핸즈",
+    "slot": "글러브",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "35",
+      "맞춤형 능력치": "57",
+      "공격 속도": "30%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/블러디 핸즈.webp",
+    "id": "글러브-블러디 핸즈",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "블러디 핸즈-진홍",
+    "slot": "글러브",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "88",
+      "공격 속도": "30%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "충전 - 섬광",
+        "description": "다음에 가하는 기본 공격이 캐릭터 레벨 * 11의 추가 스킬 피해를 입히고 1.5초 동안 이동 속도를 20%만큼 감소시킵니다. (쿨다운: 5초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/블러디 핸즈-진홍.webp",
+    "id": "글러브-블러디 핸즈-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "블러디 핸즈-새벽",
+    "slot": "글러브",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "30",
+      "스킬 증폭": "112",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "충전 - 섬광",
+        "description": "다음에 가하는 기본 공격이 캐릭터 레벨 * 8 (+스킬 증폭의 25%)의 추가 스킬 피해를 입히고 1.5초 동안 이동 속도를 20%만큼 감소시킵니다. (쿨다운: 5초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/블러디 핸즈-새벽.webp",
+    "id": "글러브-블러디 핸즈-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "하트 브레이커",
+    "slot": "기타",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "22",
+      "맞춤형 능력치": "59",
+      "공격 속도": "30%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/하트 브레이커.webp",
+    "id": "기타-하트 브레이커",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "하트 브레이커-진홍",
+    "slot": "기타",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "75",
+      "공격 속도": "30%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "열정",
+        "description": "기본 공격이 적 실험체에게 적중 시, 적 실험체의 현재 체력의 2%의 스킬 피해를 입히고, 5초간 열정을 중첩하며, 중첩 당 7%의 공격 속도를 얻습니다. 최대 4 중첩이 되면 10의 공격력과 0.1의 이동 속도를 추가로 얻습니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/하트 브레이커-진홍.webp",
+    "id": "기타-하트 브레이커-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "하트 브레이커-새벽",
+    "slot": "기타",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "25",
+      "스킬 증폭": "110",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "파열",
+        "description": "적 실험체에게 개별 스킬로 피해를 입힐 경우 적중된 실험체를 기준으로 0.8초 후 60(+캐릭터 레벨*3)(+스킬 증폭의 25%)만큼 스킬 피해를 입히는 광역 폭발을 일으킵니다. (쿨다운 8초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/하트 브레이커-새벽.webp",
+    "id": "기타-하트 브레이커-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "로즈 스텝",
+    "slot": "다리",
+    "rarity": "초월",
+    "stats": {
+      "스킬 증폭": "50",
+      "이동 속도": "0.27",
+      "쿨다운 감소": "10"
+    },
+    "effects": [
+      {
+        "name": "각성",
+        "description": "궁극기 사용 시 8초 동안 방어 관통이 12% 증가합니다. (쿨다운 20초)"
+      },
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/로즈 스텝.webp",
+    "id": "다리-로즈 스텝",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "분홍신",
+    "slot": "다리",
+    "rarity": "초월",
+    "stats": {
+      "맞춤형 능력치": "25",
+      "공격 속도": "33%",
+      "이동 속도": "0.27"
+    },
+    "effects": [
+      {
+        "name": "재생의 일격",
+        "description": "10초 마다 다음 기본 공격이 강화되어 20(+추가 공격력의 40%)(+스킬 증폭의 15%)의 추가 스킬 피해를 입히고 (근거리:20(+추가 공격력의 65%)(+스킬 증폭의 15%)|원거리:20(+추가 공격력의 40%)(+스킬 증폭의 10%))만큼 체력을 회복합니다. 기본 공격을 가할 때마다 쿨다운이 1초 감소합니다."
+      },
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/분홍신.webp",
+    "id": "다리-분홍신",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "엘디안 부츠",
+    "slot": "다리",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "18",
+      "공격 속도": "25%",
+      "이동 속도": "0.27",
+      "치명타 확률": "35%"
+    },
+    "effects": [
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/엘디안 부츠.webp",
+    "id": "다리-엘디안 부츠",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "탭루트",
+    "slot": "다리",
+    "rarity": "초월",
+    "stats": {
+      "방어력": "10",
+      "최대 체력": "250",
+      "이동 속도": "0.27",
+      "쿨다운 감소": "20",
+      "전술 스킬 쿨다운 감소": "20"
+    },
+    "effects": [
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/탭루트.webp",
+    "id": "다리-탭루트",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "픽시 부츠",
+    "slot": "다리",
+    "rarity": "초월",
+    "stats": {
+      "스킬 증폭": "50",
+      "이동 속도": "0.27",
+      "쿨다운 감소": "20"
+    },
+    "effects": [
+      {
+        "name": "순풍",
+        "description": "적 실험체에게 개별 스킬 적중 시 3초 동안 이동 속도가 5% 증가합니다."
+      },
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/픽시 부츠.webp",
+    "id": "다리-픽시 부츠",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "비색 단검",
+    "slot": "단검",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "20",
+      "맞춤형 능력치": "57",
+      "공격 속도": "30%",
+      "이동 속도": "3%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/비색 단검.webp",
+    "id": "단검-비색 단검",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "비색 단검-진홍",
+    "slot": "단검",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "79",
+      "공격 속도": "40%",
+      "이동 속도": "2%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "가벼운 발걸음",
+        "description": "0.4m 이동할 때마다 [가벼운 발걸음]을 최대 100회까지 중첩해서 휙득합니다. 중첩에 따라 이동 속도를 최대 0.18까지 휙득합니다. 기본 공격 피해를 입힐 경우 중첩을 모두 소모하여 최대 150의 스킬 피해를 입힙니다. (근거리) 최대 중첩 상태에서 기본 공격에 피격된 대상의 이동 속도를 2초 동안 20% 감소시킵니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/비색 단검-진홍.webp",
+    "id": "단검-비색 단검-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "비색 단검-새벽",
+    "slot": "단검",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "13",
+      "스킬 증폭": "114",
+      "이동 속도": "3%",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "집행자",
+        "description": "적의 현재 체력이 적 최대 체력의 40% 이하일 경우, 자신이 대상에게 입히는 스킬의 피해량이 15% 증가합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/비색 단검-새벽.webp",
+    "id": "단검-비색 단검-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "진홍빛 낫",
+    "slot": "도끼",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "50",
+      "맞춤형 능력치": "59",
+      "공격 속도": "30%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/진홍빛 낫.webp",
+    "id": "도끼-진홍빛 낫",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "진홍빛 낫-진홍",
+    "slot": "도끼",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "99",
+      "공격 속도": "30%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "크리티컬 블로우",
+        "description": "적에 대한 다음 기본 공격은 공격력의 55%만큼 추가 스킬 피해를 입히고, 피해를 입힌 경우 15(+공격력의 30%)(+자신의 잃은 체력 5%)만큼 체력을 회복합니다. 최대 체력을 초과한 회복량은 5초 동안 지속되는 추가 체력으로 전환됩니다. (쿨다운 6초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/진홍빛 낫-진홍.webp",
+    "id": "도끼-진홍빛 낫-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "진홍빛 낫-새벽",
+    "slot": "도끼",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "50",
+      "스킬 증폭": "114",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "충전 - 섬광",
+        "description": "다음에 가하는 기본 공격이 캐릭터 레벨 * 8 (+스킬 증폭의 25%)의 추가 스킬 피해를 입히고 1.5초 동안 이동 속도를 20%만큼 감소시킵니다. (쿨다운: 5초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/진홍빛 낫-새벽.webp",
+    "id": "도끼-진홍빛 낫-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "헬파이어",
+    "slot": "돌격 소총",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "36",
+      "맞춤형 능력치": "57",
+      "공격 속도": "30%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/헬파이어.webp",
+    "id": "돌격 소총-헬파이어",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "헬파이어-진홍",
+    "slot": "돌격 소총",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "95",
+      "공격 속도": "40%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "연장 총열",
+        "description": "7초 마다 다음 기본 공격이 강화되어 사거리가 25%만큼 늘어나며 (최대 7.5m까지), (캐릭터 레벨 * 3)의 추가 스킬 피해를 입힙니다.  기본 공격을 가할 때마다 쿨다운이 1초 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/헬파이어-진홍.webp",
+    "id": "돌격 소총-헬파이어-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "헬파이어-새벽",
+    "slot": "돌격 소총",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "25",
+      "스킬 증폭": "106",
+      "공격 속도": "30%",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "파열",
+        "description": "적 실험체에게 개별 스킬로 피해를 입힐 경우 적중된 실험체를 기준으로 0.8초 후 60(+캐릭터 레벨*3)(+스킬 증폭의 25%)만큼 스킬 피해를 입히는 광역 폭발을 일으킵니다. (쿨다운 8초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/헬파이어-새벽.webp",
+    "id": "돌격 소총-헬파이어-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "노스페라투",
+    "slot": "레이피어",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "8",
+      "맞춤형 능력치": "58",
+      "공격 속도": "30%",
+      "치명타 피해량": "12%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/노스페라투.webp",
+    "id": "레이피어-노스페라투",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "노스페라투-진홍",
+    "slot": "레이피어",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "64",
+      "공격 속도": "30%",
+      "치명타 확률": "20%",
+      "치명타 피해량": "10%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "충전 - 섬광",
+        "description": "다음에 가하는 기본 공격이 캐릭터 레벨 * 11의 추가 스킬 피해를 입히고 1.5초 동안 이동 속도를 20% 감소시킵니다. (쿨다운: 5초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/노스페라투-진홍.webp",
+    "id": "레이피어-노스페라투-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "노스페라투-새벽",
+    "slot": "레이피어",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "5",
+      "스킬 증폭": "116",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "파열",
+        "description": "적 실험체에게 개별 스킬로 피해를 입힐 경우 적중된 실험체를 기준으로 0.8초 후 60(+캐릭터 레벨*3)(+스킬 증폭의 25%)만큼 스킬 피해를 입히는 광역 폭발을 일으킵니다. (쿨다운 8초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/노스페라투-새벽.webp",
+    "id": "레이피어-노스페라투-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "피스브링어",
+    "slot": "망치",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "50",
+      "맞춤형 능력치": "58",
+      "공격 속도": "30%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/피스브링어.webp",
+    "id": "망치-피스브링어",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "피스브링어-진홍",
+    "slot": "망치",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "102",
+      "공격 속도": "30%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "크리티컬 블로우",
+        "description": "적에 대한 다음 기본 공격은 공격력의 55%만큼 추가 스킬 피해를 입히고, 피해를 입힌 경우 15(+공격력의 30%)(+자신의 잃은 체력 5%)만큼 체력을 회복합니다.  최대 체력을 초과한 회복량은 5초 동안 지속되는 추가 체력으로 전환됩니다. (쿨다운 6초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/피스브링어-진홍.webp",
+    "id": "망치-피스브링어-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "피스브링어-새벽",
+    "slot": "망치",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "48",
+      "스킬 증폭": "116",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "파열",
+        "description": "적 실험체에게 개별 스킬로 피해를 입힐 경우 적중된 실험체를 기준으로 0.8초 후 60(+캐릭터 레벨*3)(+스킬 증폭의 25%)만큼 스킬 피해를 입히는 광역 폭발을 일으킵니다. (쿨다운 8초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/피스브링어-새벽.webp",
+    "id": "망치-피스브링어-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "발할라의 투구",
+    "slot": "머리",
+    "rarity": "초월",
+    "stats": {
+      "방어력": "18",
+      "레벨 당 최대 체력": "25~500",
+      "쿨다운 감소": "10"
+    },
+    "effects": [
+      {
+        "name": "파쇄타",
+        "description": "전투 상태 진입 후 4초마다 강화된 기본 공격을 충전합니다. 강화된 기본 공격은 20(+추가 체력의 10%)(+캐릭터 레벨*3)만큼 추가 스킬 피해를 입히고 40(+추가 체력의 14%)만큼 체력을 회복합니다."
+      },
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/발할라의 투구.webp",
+    "id": "머리-발할라의 투구",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "변검",
+    "slot": "머리",
+    "rarity": "초월",
+    "stats": {
+      "방어력": "8",
+      "맞춤형 능력치": "45",
+      "이동 속도": "3%",
+      "쿨다운 감소": "20",
+      "방어 관통": "10"
+    },
+    "effects": [
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/변검.webp",
+    "id": "머리-변검",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "아이실드",
+    "slot": "머리",
+    "rarity": "초월",
+    "stats": {
+      "방어력": "15",
+      "맞춤형 능력치": "35",
+      "공격 속도": "25%",
+      "모든 피해 흡혈": "8%"
+    },
+    "effects": [
+      {
+        "name": "현란함",
+        "description": "적 실험체에게 개별 피해를 적중할 때마다 3초 동안 이동 속도가 (근거리 : 3% | 원거리 : 1.5%) 증가하는 중첩을 얻습니다. (최대 8중첩)"
+      },
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/아이실드.webp",
+    "id": "머리-아이실드",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "페더폴",
+    "slot": "머리",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "33",
+      "공격 속도": "30%",
+      "치명타 확률": "35%"
+    },
+    "effects": [
+      {
+        "name": "연장 총열",
+        "description": "7초 마다 다음 기본 공격이 강화되어 사거리가 25%만큼 늘어나며 (최대 7.5m까지), (캐릭터 레벨 *3)의 추가 스킬 피해를 입힙니다. 기본 공격을 가할 때마다 쿨다운이 1초 감소합니다."
+      },
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/페더폴.webp",
+    "id": "머리-페더폴",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "핏빛 왕관",
+    "slot": "머리",
+    "rarity": "초월",
+    "stats": {
+      "맞춤형 능력치": "50",
+      "공격 속도": "35%",
+      "이동 속도": "3.5%"
+    },
+    "effects": [
+      {
+        "name": "개시",
+        "description": "20초 마다 적에게 기본 공격 적중 시 5초 동안 공격력 8 또는 스킬 증폭이 16과 공격 속도가 20%만큼 증가합니다. 기본 공격을 가할 때 마다 쿨다운이 1초 감소합니다."
+      },
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/핏빛 왕관.webp",
+    "id": "머리-핏빛 왕관",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "로드 오브 하트",
+    "slot": "방망이",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "57",
+      "맞춤형 능력치": "56",
+      "공격 속도": "30%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/로드 오브 하트.webp",
+    "id": "방망이-로드 오브 하트",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "혈색반월",
+    "slot": "석궁",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "35",
+      "맞춤형 능력치": "57",
+      "공격 속도": "30%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/혈색반월.webp",
+    "id": "석궁-혈색반월",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "혈색반월-진홍",
+    "slot": "석궁",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "92",
+      "공격 속도": "40%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "연장 총열",
+        "description": "7초 마다 다음 기본 공격이 강화되어 사거리가 25%만큼 늘어나며 (최대 7.5m까지), (캐릭터 레벨 * 3)의 추가 스킬 피해를 입힙니다. 기본 공격을 가할 때마다 쿨다운이 1초 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/혈색반월-진홍.webp",
+    "id": "석궁-혈색반월-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "혈색반월-새벽",
+    "slot": "석궁",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "40",
+      "스킬 증폭": "112",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "파열",
+        "description": "적 실험체에게 개별 스킬로 피해를 입힐 경우 적중된 실험체를 기준으로 0.8초 후 60(+캐릭터 레벨*3)(+스킬 증폭의 25%)만큼 스킬 피해를 입히는 광역 폭발을 일으킵니다. (쿨다운 8초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/혈색반월-새벽.webp",
+    "id": "석궁-혈색반월-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "환영도",
+    "slot": "쌍검",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "17",
+      "맞춤형 능력치": "56",
+      "공격 속도": "30%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/환영도.webp",
+    "id": "쌍검-환영도",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "환영도-진홍",
+    "slot": "쌍검",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "72",
+      "공격 속도": "30%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "현란함",
+        "description": "적 실험체에게 개별 피해를 적중할 때마다 3초 동안 이동 속도가 (근거리: 3% I 원거리: 2%) 증가하는 중첩을 얻습니다. (최대 8중첩) 지속적으로 피해를 입히는 개별 스킬의 경우 1초 마다 판정이 적용됩니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/환영도-진홍.webp",
+    "id": "쌍검-환영도-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "환영도-새벽",
+    "slot": "쌍검",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "16",
+      "스킬 증폭": "112",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "파열",
+        "description": "적 실험체에게 개별 스킬로 피해를 입힐 경우 적중된 실험체를 기준으로 0.8초 후 60(+캐릭터 레벨*3)(+스킬 증폭의 25%)만큼 스킬 피해를 입히는 광역 폭발을 일으킵니다. (쿨다운 8초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/환영도-새벽.webp",
+    "id": "쌍검-환영도-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "히드라",
+    "slot": "쌍절곤",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "33",
+      "맞춤형 능력치": "57",
+      "공격 속도": "30%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/히드라.webp",
+    "id": "쌍절곤-히드라",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "히드라-진홍",
+    "slot": "쌍절곤",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "89",
+      "공격 속도": "30%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "블래스터 탄환",
+        "description": "기본 공격을 적중한 대상에게 (+공격력의 80%)만큼 추가 스킬 피해를 입힙니다. 근처 다른 적이 있을 경우 최대 5명에게 동일한 스킬 피해를 입히는 스파크를 발사합니다. 야생동물에게는 피해량이 200% 증가합니다. (쿨다운 5초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/히드라-진홍.webp",
+    "id": "쌍절곤-히드라-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "히드라-새벽",
+    "slot": "쌍절곤",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "30",
+      "스킬 증폭": "112",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "의념",
+        "description": "스킬을 사용하면 의념을 충전합니다. 충전된 상태에서 공격 속도가 40% 상승하고, 다음 3초 안에 이루어지는 기본 공격이 스킬 증폭의 40% 의 추가 스킬 피해를 입힙니다. (쿨다운: 2초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/히드라-새벽.webp",
+    "id": "쌍절곤-히드라-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "더 데스",
+    "slot": "아르카나",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "40",
+      "스킬 증폭": "112",
+      "모든 피해 흡혈": "6%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/더 데스.webp",
+    "id": "아르카나-더 데스",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "더 데스-진홍",
+    "slot": "아르카나",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "40",
+      "스킬 증폭": "117",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "저주",
+        "description": "스킬 공격을 가하면 적을 4초간 저주 상태로 만듭니다. 저주 상태에서 해제될 때 50 (+스킬 증폭의 15%) 에 해당하는 고정 피해를 입힙니다. 한 번 저주 상태가 되면 8초간 (기본 공격 피격 시 1초 감소) 다시 저주 상태가 되지 않습니다. (쿨다운: 2초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/더 데스-진홍.webp",
+    "id": "아르카나-더 데스-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "더 데스-새벽",
+    "slot": "아르카나",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "40",
+      "스킬 증폭": "110",
+      "쿨다운 감소": "15",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "한파",
+        "description": "스킬로 적에게 피해를 입히면 1초간 이동 속도를 25%, 공격 속도를 30% 만큼 느리게 만듭니다. (쿨다운: 2초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/더 데스-새벽.webp",
+    "id": "아르카나-더 데스-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "흑련비표",
+    "slot": "암기",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "31",
+      "맞춤형 능력치": "54",
+      "공격 속도": "30%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/흑련비표.webp",
+    "id": "암기-흑련비표",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "흑련비표-진홍",
+    "slot": "암기",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "77",
+      "공격 속도": "25%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "열정",
+        "description": "기본 공격이 적 실험체에게 적중 시, 적 실험체의 현재 체력의 3%의 스킬 피해를 입히고, 5초간 열정을 중첩하며, 중첩 당 7%의 공격 속도를 얻습니다. 최대 4 중첩이 되면 10의 공격력과 0.1의 이동 속도를 추가로 얻습니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/흑련비표-진홍.webp",
+    "id": "암기-흑련비표-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "흑련비표-새벽",
+    "slot": "암기",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "30",
+      "스킬 증폭": "114",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "저주",
+        "description": "스킬 공격을 가하면 적을 4초간 저주 상태로 만듭니다. 저주 상태인 적은 저주 상태에서 해제될 때 50 (+스킬 증폭의 15%) 에 해당하는 고정 피해를 입습니다. 한번 저주 상태가 되면 8초간 (기본 공격 피격 시 1초 감소) 다시 저주 상태가 되지 않습니다. (쿨다운: 2초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/흑련비표-새벽.webp",
+    "id": "암기-흑련비표-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "다인슬라이프",
+    "slot": "양손검",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "27",
+      "맞춤형 능력치": "58",
+      "공격 속도": "30%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/다인슬라이프.webp",
+    "id": "양손검-다인슬라이프",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "다인슬라이프-진홍",
+    "slot": "양손검",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "84",
+      "공격 속도": "40%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "충전 - 섬광",
+        "description": "다음에 가하는 기본 공격이 캐릭터 레벨 * 11 의 추가 스킬 피해를 입히고, 1.5초 동안 이동 속도를 20%만큼 감소시킵니다. (쿨다운: 5초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/다인슬라이프-진홍.webp",
+    "id": "양손검-다인슬라이프-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "다인슬라이프-새벽",
+    "slot": "양손검",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "22",
+      "스킬 증폭": "124",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "영혼 수확",
+        "description": "적 실험체에게 개별 스킬로 피해를 입힐 경우 10(+스킬 증폭의 10%)만큼 추가 피해를 입히고 표식을 남깁니다. 표식이 남겨진 뒤 3초 후 스킬로 피해를 한번 더 입히면 40(+스킬 증폭의 40%)만큼 추가피해를 입힙니다. (쿨다운: 8초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/다인슬라이프-새벽.webp",
+    "id": "양손검-다인슬라이프-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "버건디 47",
+    "slot": "옷",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "13",
+      "레벨 당 공격력": "3~60",
+      "방어력": "18",
+      "공격 속도": "20%",
+      "모든 피해 흡혈": "8%"
+    },
+    "effects": [
+      {
+        "name": "세컨드 윈드 - 핏빛 계약",
+        "description": "착용자의 체력이 40% 이하일 때 적 실험체에게 피해를 받으면, 2.5초간 200(+캐릭터 레벨 * 15)의 보호막과 50% 방해 효과 저항을 획득합니다. 또한 8초 동안 공격력이 15 혹은 스킬 증폭이 30 증가하고, 받는 회복량이 12% 증가합니다. (쿨다운 50초)"
+      },
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/버건디 47.webp",
+    "id": "옷-버건디 47",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "붉은 별빛",
+    "slot": "옷",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "18",
+      "레벨 당 공격력": "3~60",
+      "방어력": "20",
+      "공격 속도": "15%",
+      "치명타 확률": "35%"
+    },
+    "effects": [
+      {
+        "name": "예열",
+        "description": "적 실험체에게 기본 공격을 적중시킬 때마다 5초 동안 공격 속도가 5% 증가하는 중첩을 얻습니다. (최대 5중첩)"
+      },
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/붉은 별빛.webp",
+    "id": "옷-붉은 별빛",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "비키니",
+    "slot": "옷",
+    "rarity": "초월",
+    "stats": {
+      "방어력": "25",
+      "스킬 증폭": "35",
+      "레벨 당 스킬 증폭": "5~100",
+      "모든 피해 흡혈": "8%"
+    },
+    "effects": [
+      {
+        "name": "명경지수",
+        "description": "피해를 입지 않은 상태에서 5초 후, 매 초마다 30(+캐릭터 레벨 * 5)의 보호막을 획득합니다. 보호막의 최대치는 50(+캐릭터 레벨 * 10)(+스킬 증폭의 40%)입니다."
+      },
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/비키니.webp",
+    "id": "옷-비키니",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "퀸 오브 하트",
+    "slot": "옷",
+    "rarity": "초월",
+    "stats": {
+      "방어력": "28",
+      "스킬 증폭": "35",
+      "레벨 당 스킬 증폭": "5~100",
+      "체력 재생": "100%",
+      "쿨다운 감소": "25"
+    },
+    "effects": [
+      {
+        "name": "응집",
+        "description": "3초 이내에 적 실험체에게 개별 스킬을 2회 적중하면 2초 뒤에 이동 속도를 1초 동안 50% 감소시킵니다.(쿨다운 12초)"
+      },
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/퀸 오브 하트.webp",
+    "id": "옷-퀸 오브 하트",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "흑염룡의 갑주",
+    "slot": "옷",
+    "rarity": "초월",
+    "stats": {
+      "방어력": "41",
+      "레벨 당 최대 체력": "25.0~500.0",
+      "쿨다운 감소": "10"
+    },
+    "effects": [
+      {
+        "name": "겁화의 심장",
+        "description": "전투 상태 돌입 시 3초 마다 주변 4m의 적에게 20(+최대 체력의 6%)의 피해를 입히고 실험체에게 입힌 피해량의 150%만큼 회복합니다. (최대 회복량 600)"
+      },
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/흑염룡의 갑주.webp",
+    "id": "옷-흑염룡의 갑주",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "위도우 메이커",
+    "slot": "저격총",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "28",
+      "맞춤형 능력치": "59",
+      "공격 속도": "30%",
+      "시야": "1.5",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/위도우 메이커.webp",
+    "id": "저격총-위도우 메이커",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "위도우 메이커-진홍",
+    "slot": "저격총",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "84",
+      "공격 속도": "30%",
+      "시야": "1.5",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "충전 - 철환",
+        "description": "다음에 가하는 기본 공격이 100의 추가 스킬 피해를 입히고 0.56초 동안 적의 이동 속도를 99%만큼 감소시킵니다. (쿨다운: 5초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/위도우 메이커-진홍.webp",
+    "id": "저격총-위도우 메이커-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "위도우 메이커-새벽",
+    "slot": "저격총",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "22",
+      "스킬 증폭": "112",
+      "공격 속도": "40%",
+      "시야": "1.5",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "충전 - 섬광",
+        "description": "다음에 가하는 기본 공격이 캐릭터 레벨 * 8 (+스킬 증폭의 25%)의 추가 스킬 피해를 입히고 1초 동안 적의 이동 속도를 20%만큼 감소시킵니다. (쿨다운: 5초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/위도우 메이커-새벽.webp",
+    "id": "저격총-위도우 메이커-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "롱기누스의 창",
+    "slot": "창",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "36",
+      "방어력": "8",
+      "맞춤형 능력치": "59",
+      "공격 속도": "30%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/롱기누스의 창.webp",
+    "id": "창-롱기누스의 창",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "롱기누스의 창-진홍",
+    "slot": "창",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "92",
+      "방어력": "8",
+      "공격 속도": "40%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "가벼운 발걸음",
+        "description": "0.2m 이동할 때마다 [가벼운 발걸음]을 최대 100회까지 중첩해서 획득합니다. 중첩에 따라 이동 속도를 최대 0.15까지 획득합니다. 기본 공격 피해를 입힐 경우 중첩을 모두 소모하여 최대 150의 스킬 피해를 입힙니다. (근거리) 최대 중첩 상태에서 기본 공격에 피격된 대상의 이동 속도를 2초 동안 20% 감소시킵니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/롱기누스의 창-진홍.webp",
+    "id": "창-롱기누스의 창-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "롱기누스의 창-새벽",
+    "slot": "창",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "33",
+      "방어력": "8",
+      "스킬 증폭": "116",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "징벌",
+        "description": "동일한 적에게 4초 안에 기본 공격 또는 개별 스킬 3회 적중 시, 해당 적에게 50(+스킬 증폭의 20%)(+캐릭터 레벨 * 2)의 스킬 피해를 입히고 보호막을 2.5초 동안 100(+스킬 증의 30%)(+캐릭터 레벨 * 5)만큼 획득합니다. (쿨다운 12초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/롱기누스의 창-새벽.webp",
+    "id": "창-롱기누스의 창-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "혈화구절편",
+    "slot": "채찍",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "25",
+      "맞춤형 능력치": "57",
+      "공격 속도": "30%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/혈화구절편.webp",
+    "id": "채찍-혈화구절편",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "혈화구절편-진홍",
+    "slot": "채찍",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "25",
+      "스킬 증폭": "104",
+      "공격 속도": "30%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "신속 - 산들바람",
+        "description": "4초 이내의 3회의 기본 공격 또는 개별 스킬로 피해를 가하면, 2.5초간 이동 속도가 15% 증가하고, 100(+캐릭터 레벨 * 10)의 보호막을 획득합니다. (쿨다운 10초) 지속적으로 피해를 입히는 개별 스킬의 경우 3초 마다 판정이 적용됩니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/혈화구절편-진홍.webp",
+    "id": "채찍-혈화구절편-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "혈화구절편-새벽",
+    "slot": "채찍",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "25",
+      "스킬 증폭": "116",
+      "공격 속도": "30%",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "충전 - 섬광",
+        "description": "다음에 가하는 기본 공격이 캐릭터 레벨 * 8 (+스킬 증폭의 25%)의 추가 스킬 피해를 입히고 1.5초 동안 이동 속도를 20%만큼 감소시킵니다. (쿨다운: 5초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/혈화구절편-새벽.webp",
+    "id": "채찍-혈화구절편-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "비전 플렉스",
+    "slot": "카메라",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "28",
+      "맞춤형 능력치": "57",
+      "공격 속도": "30%",
+      "시야": "1",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/비전 플렉스.webp",
+    "id": "카메라-비전 플렉스",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "비전 플렉스-진홍",
+    "slot": "카메라",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "77",
+      "공격 속도": "40%",
+      "시야": "1",
+      "쿨다운 감소": "10",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "블래스터 탄환",
+        "description": "기본 공격을 적중한 대상에게 (+공격력의 80%)만큼 추가 스킬 피해를 입힙니다. 근처 다른 적이 있을 경우 최대 5명에게 동일한 스킬 피해를 입히는 스파크를 발사합니다. 야생동물에게는 피해량이 200% 증가합니다. (쿨다운: 5초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/비전 플렉스-진홍.webp",
+    "id": "카메라-비전 플렉스-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "비전 플렉스-새벽",
+    "slot": "카메라",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "25",
+      "스킬 증폭": "110",
+      "시야": "1",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "의념",
+        "description": "스킬을 사용하면 의념을 충전합니다. 충전된 상태에서 공격 속도가 40% 상승하고, 다음 3초 안에 이루어지는 기본 공격이 스킬 증폭의 40% 의 추가 스킬 피해를 입힙니다. (쿨다운: 2초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/비전 플렉스-새벽.webp",
+    "id": "카메라-비전 플렉스-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "칼날 톤파",
+    "slot": "톤파",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "23",
+      "방어력": "8",
+      "맞춤형 능력치": "57",
+      "공격 속도": "30%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/칼날 톤파.webp",
+    "id": "톤파-칼날 톤파",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "칼날 톤파-진홍",
+    "slot": "톤파",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "74",
+      "방어력": "8",
+      "공격 속도": "35%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "징벌",
+        "description": "동일한 적에게 4초 안에 기본 공격 또는 개별 스킬 3회 적중 시, 해당 적에게 40(+추가 공격력의 50%)(+캐릭터 레벨 * 5)의 스킬 피해를 입히고 보호막을 2.5초 동안 100(+공격력의 55%)(+캐릭터 레벨 * 5)만큼 획득합니다. (쿨다운 12초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/칼날 톤파-진홍.webp",
+    "id": "톤파-칼날 톤파-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "칼날 톤파-새벽",
+    "slot": "톤파",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "20",
+      "방어력": "8",
+      "스킬 증폭": "114",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "징벌",
+        "description": "동일한 적에게 4초 안에 기본 공격 또는 개별 스킬 3회 적중 시, 해당 적에게 50(+스킬 증폭의 20%)(+캐릭터 레벨 * 2)의 스킬 피해를 입히고 보호막을 2.5초 동안 100(+스킬 증의 30%)(+캐릭터 레벨 * 5)만큼 획득합니다. (쿨다운 12초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/칼날 톤파-새벽.webp",
+    "id": "톤파-칼날 톤파-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "체이서",
+    "slot": "투척",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "45",
+      "맞춤형 능력치": "54",
+      "공격 속도": "30%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/체이서.webp",
+    "id": "투척-체이서",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "체이서-진홍",
+    "slot": "투척",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "91",
+      "공격 속도": "30%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "열정",
+        "description": "기본 공격이 적 실험체에게 적중 시, 적 실험체의 현재 체력의 3%의 스킬 피해를 입히고, 5초간 열정을 중첩하며, 중첩 당 5%의 공격 속도를 얻습니다. 최대 4 중첩이 되면 10의 공격력과 0.1의 이동 속도를 추가로 얻습니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/체이서-진홍.webp",
+    "id": "투척-체이서-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "체이서-새벽",
+    "slot": "투척",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "40",
+      "스킬 증폭": "108",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "영혼 수확",
+        "description": "적 실험체에게 개별 스킬로 피해를 입힐 경우 10(+스킬 증폭의 10%)만큼 추가 피해를 입히고 표식을 남깁니다. 표식이 남겨진 뒤 3초 후 스킬로 피해를 한번 더 입히면 40(+스킬 증폭의 40%)만큼 추가 피해를 입힙니다. (쿨다운 8초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/체이서-새벽.webp",
+    "id": "투척-체이서-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "네크로노미콘",
+    "slot": "팔·장식",
+    "rarity": "초월",
+    "stats": {
+      "스킬 증폭": "95",
+      "방어 관통": "15%"
+    },
+    "effects": [
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/네크로노미콘.webp",
+    "id": "팔·장식-네크로노미콘",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "노바 실드",
+    "slot": "팔·장식",
+    "rarity": "초월",
+    "stats": {
+      "방어력": "15",
+      "맞춤형 능력치": "45",
+      "쿨다운 감소": "20"
+    },
+    "effects": [
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      },
+      {
+        "name": "깎아내기",
+        "description": "체력이 60% 이상인 적에게 입히는 피해가 5% 증가합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/노바 실드.webp",
+    "id": "팔·장식-노바 실드",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "파프니르",
+    "slot": "팔·장식",
+    "rarity": "초월",
+    "stats": {
+      "레벨 당 최대 체력": "25.0~500.0"
+    },
+    "effects": [
+      {
+        "name": "파프니르의 비늘",
+        "description": "전투 상태 진입 시, 적 실험체에게 누적하여 400의 피해를 받을 때마다 [비늘] 중첩을 1개 획득합니다. 이 효과는 12초간 유지되며, 최대 8중첩까지 쌓을 수 있습니다. 이동 불가 상태가 되면 추가로 [비늘] 중첩을 1개 획득합니다. [비늘] 중첩 당 방어력이 3만큼 증가하며, 최대 중첩 최초 달성 시 3초 동안 점감하는 100(+추가 체력의 100%)의 보호막을 얻고 이동 속도가 8% 증가합니다."
+      },
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/파프니르.webp",
+    "id": "팔·장식-파프니르",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "프로미넌스",
+    "slot": "팔·장식",
+    "rarity": "초월",
+    "stats": {
+      "방어력": "15",
+      "레벨 당 최대 체력": "21~420",
+      "쿨다운 감소": "20"
+    },
+    "effects": [
+      {
+        "name": "불꽃 결계",
+        "description": "전투에 돌입하면 매 초마다 주변 2.5m 이내의 적에게 (근거리: 최대 체력의 4% | 원거리: 최대 체력의 3%)의 스킬 피해를 입힙니다."
+      },
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/프로미넌스.webp",
+    "id": "팔·장식-프로미넌스",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "혈사조",
+    "slot": "팔·장식",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "28",
+      "공격 속도": "30%",
+      "방어 관통": "20%"
+    },
+    "effects": [
+      {
+        "name": "치유 감소",
+        "description": "상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초간 30% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/혈사조.webp",
+    "id": "팔·장식-혈사조",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "페일노트",
+    "slot": "활",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "24",
+      "맞춤형 능력치": "57",
+      "공격 속도": "30%",
+      "쿨다운 감소": "15",
+      "방어 관통": "10%"
+    },
+    "effects": [],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/페일노트.webp",
+    "id": "활-페일노트",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "페일노트-진홍",
+    "slot": "활",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "76",
+      "공격 속도": "30%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "열정",
+        "description": "기본 공격이 적 실험체에게 적중 시, 적 실험체의 현재 체력의 3%의 스킬 피해를 입히고. 5초간 열정을 중첩하며, 중첩 당 5%의 공격 속도를 얻습니다. 최대 4 중첩이 되면 10의 공격력과 0.1의 이동 속도를 추가로 얻습니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/페일노트-진홍.webp",
+    "id": "활-페일노트-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "슈퍼사이드와인더-VBS",
+    "slot": "VF의수",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "94",
+      "이동 속도": "3%",
+      "쿨다운 감소": "30"
+    },
+    "effects": [
+      {
+        "name": "가벼운 발걸음",
+        "description": "VF폭주 상태일 때 0.04m 이동할 때마다 [가벼운 발걸음]을 최대 100회까지 중첩해서 획득합니다. 중첩에 따라 이동 속도가 최대 0.1까지 증가합니다. 기본 공격 피해를 입힐 경우 중첩을 모두 소모하여 최대 150의 스킬 피해를 입힙니다. 최대 중첩 상태에서 기본 공격에 피격된 대상의 이동 속도를 1초동안 40% 감소시킵니다. VF폭주 상태일 때에는 사이드와인더의 가벼운 발걸음만 발동합니다."
+      },
+      {
+        "name": "VF 제어 강화",
+        "description": "에키온의 과부하 상태의 지속시간이 VF폭주(R) 레벨에 따라 영구적으로 30/35%/40%/45% 감소합니다."
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/슈퍼사이드와인더-VBS.webp",
+    "id": "VF의수-슈퍼사이드와인더-VBS",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "로드 오브 하트-진홍",
+    "slot": "방망이",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "102",
+      "공격 속도": "40%",
+      "방어 관통": "7%"
+    },
+    "effects": [
+      {
+        "name": "크리티컬 블로우",
+        "description": "적에 대한 다음 기본 공격은 공격력의 55%만큼 추가 스킬 피해를 입히고, 피해를 입힌 경우 15(+공격력의 30%)(+자신의 잃은 체력 5%)만큼 체력을 회복합니다. 최대 체력을 초과한 회복량은 5초 동안 지속되는 추가 체력으로 전환됩니다. (쿨다운 6초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/로드 오브 하트-진홍.webp",
+    "id": "방망이-로드 오브 하트-진홍",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
+  },
+  {
+    "name": "로드 오브 하트-새벽",
+    "slot": "방망이",
+    "rarity": "초월",
+    "stats": {
+      "공격력": "55",
+      "스킬 증폭": "114",
+      "방어 관통": "8%"
+    },
+    "effects": [
+      {
+        "name": "파열",
+        "description": "적 실험체에게 개별 스킬로 피해를 입힐 경우 적중된 실험체를 기준으로 0.8초 후 60(+캐릭터 레벨*3)(+스킬 증폭의 25%)만큼 스킬 피해를 입히는 광역 폭발을 일으킵니다. (쿨다운 8초)"
+      }
+    ],
+    "craftNames": [
+      "VF 혈액 샘플"
+    ],
+    "image": "img/전설/로드 오브 하트-새벽.webp",
+    "id": "방망이-로드 오브 하트-새벽",
+    "materials": [
+      "VF 혈액 샘플"
+    ]
   }
 ]
