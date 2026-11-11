@@ -149,6 +149,7 @@
     }
     function equipment() {
         const tabs = byId("setTabs"), equipped = byId("equipped");
+        const addButton = byId("newSet");
         tabs.replaceChildren(...sets.map((set, index) => {
             const tab = element("span", undefined, "set-tab");
             const name = "세트 " + set.id;
@@ -166,6 +167,7 @@
             }
             return tab;
         }));
+        tabs.append(addButton);
         equipped.replaceChildren();
         equipped.classList.toggle("alex-weapons",isAlex());
         for (const slot of isAlex() ? [...alexWeapons,...slots.slice(1)] : slots) {

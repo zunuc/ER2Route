@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이터널리턴 2루트 계산기 13.0</title>
+    <title>이터널리턴 2루트 계산기</title>
     <link rel="icon" href="img/icon.png" type="image/x-icon">
     
     <style>
@@ -238,6 +238,7 @@
 
     </style>
     <link rel="stylesheet" href="comparison.css?v=items-patch">
+<link rel="stylesheet" href="wildlife.css?v=area-icons">
 </head>
 <body>
 
@@ -329,6 +330,7 @@
     <div class="result-section">
         <div class="title-wrapper">
             <h2 class="title">계산 결과</h2>
+            <label class="wildlife-toggle route-wildlife-toggle"><span>도착 지역 야생동물 보기</span><input type="checkbox" id="routeWildlifeToggle" role="switch"><span class="switch-track" aria-hidden="true"></span></label>
             <button class="btn-action" style="padding: 10px 25px; background: #ff4655; color: white; border: none; font-weight: bold; font-size: 14px;" onclick="startRouteCalculation()">루트 계산 실행</button>
         </div>
         <div id="routeResults"></div>
@@ -336,7 +338,7 @@
 
     <section class="area-planner" aria-label="지역으로 제작 가능 장비 계산기">
         <div class="map-column">
-            <h2 class="planner-heading">지역 선택</h2>
+            <div class="wildlife-heading"><h2 class="planner-heading">지역 선택</h2><label class="wildlife-toggle"><span>야생동물 위치 보기</span><input type="checkbox" id="mapWildlifeToggle" role="switch"><span class="switch-track" aria-hidden="true"></span></label></div>
             <p class="map-help">지역 이름을 클릭해 선택하세요. 다시 클릭하면 선택이 해제되며, 선택 개수에는 제한이 없습니다.</p>
             <div class="map-frame" id="mapFrame">
                 <img class="satellite-map" src="img/Satellite Map.png" alt="루미아 섬 위성 지도">
@@ -347,12 +349,10 @@
             <div class="craft-panel-header">
                 <h2>제작 가능 장비</h2>
                 <div>
-                    <select class="area-weapon-filter" id="areaWeaponFilter" onchange="setAreaWeaponFilter(this.value)">
-                        <option value="all">무기군: 전체</option>
-                    </select>
                     <span class="craft-count" id="craftCount">지역을 선택하세요</span>
                 </div>
             </div>
+            <div id="areaWeaponFilter" role="group" aria-label="제작 가능 장비 무기군"></div>
             <div id="craftResults" aria-live="polite"></div>
         </aside>
     </section>
@@ -1336,7 +1336,7 @@ function startRouteCalculation() {
                 let html = `
                     <div class="route-group-card">
                         <div class="route-group-header" onclick="toggleRoute(${index})">
-                            <div class="route-path">${res.path[0]} ➔ ${res.path[1]}</div>
+                            <div><div class="route-path">${res.path[0]} ➔ ${res.path[1]}</div><div class="route-wildlife" data-area="${res.path[1]}"></div></div>
                             <div style="display: flex; align-items: center;">
                                 ${missingInfoHtml}
                                 <span class="toggle-icon" id="icon-${index}">▼</span>
@@ -1459,15 +1459,28 @@ function startRouteCalculation() {
                 frame.appendChild(label);
             });
             const weaponFilter = document.getElementById('areaWeaponFilter');
-            const availableWeaponGroups = new Set(allItems.filter(item => item.type === 'weapon').map(item => item.weaponGroup));
-            weaponGroupOrder
-                .filter(group => availableWeaponGroups.has(group))
-                .forEach(group => weaponFilter.insertAdjacentHTML('beforeend', `<option value="${group}">${weaponGroupKoreanNames[group] || group}</option>`));
+            ['all', ...weaponGroupOrder].forEach((group, index) => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.dataset.group = group;
+                button.title = weaponGroupKoreanNames[group] || '전체 무기군';
+                button.setAttribute('aria-label', button.title);
+                button.setAttribute('aria-pressed', group === areaWeaponFilter);
+                if (group === 'all') button.textContent = 'ALL';
+                else {
+                    const icon = document.querySelectorAll('#weaponFilters .slot img')[index - 1].cloneNode();
+                    icon.alt = '';
+                    button.append(icon);
+                }
+                button.addEventListener('click', () => setAreaWeaponFilter(group));
+                weaponFilter.append(button);
+            });
             renderCraftableItems();
         }
 
         function setAreaWeaponFilter(group) {
             areaWeaponFilter = group;
+            document.querySelectorAll('#areaWeaponFilter button').forEach(button => button.setAttribute('aria-pressed', button.dataset.group === group));
             renderCraftableItems();
         }
 
@@ -1588,8 +1601,8 @@ function startRouteCalculation() {
             <div id="characters" class="compare-picker"></div>
 
 </section>
-        <section><div class="compare-heading"><h2>장비 세트</h2><button id="newSet">세트 추가</button></div>
-            <div id="setTabs"></div><div id="equipped"></div>
+        <section><div class="compare-heading"><h2>장비 세트</h2></div>
+            <div id="setTabs"><button id="newSet" aria-label="세트 추가" title="세트 추가">+</button></div><div id="equipped"></div>
             <div class="compare-heading"><h3>장비 선택</h3><select id="compareRarity" aria-label="장비 등급"><option>전체 등급</option><option>영웅</option><option>전설</option><option>초월</option></select></div>
             <input id="gearQuery" type="search" placeholder="장비 이름, 스탯, 고유 옵션 검색" aria-label="장비 검색">
             <div id="gearPicker" class="compare-picker"></div>
@@ -1615,6 +1628,8 @@ function startRouteCalculation() {
 <script src="skill-data.js"></script>
 <script src="skill-values.js"></script>
 <script src="comparison.js?v=items-patch"></script>
+<script src="wildlife-data.js?v=aligned-map"></script>
+<script src="wildlife.js"></script>
 </body>
 </html>
 
