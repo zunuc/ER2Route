@@ -241,7 +241,7 @@
         const baseSpeed = name === "카밀로" && character.weapon === "레이피어"
             ? 0.73 : base("공격 속도") + weaponSpeed;
         let speedBonus = m("공격 속도")+p("공격 속도")+extra("공격 속도");
-        let haste = f("쿨다운 감소");
+        let haste = f("쿨다운 감소") + extra("쿨다운 감소");
         let attack = base("공격력")+f("공격력")+m("공격력")+(ampType ? 0 : adaptive)+extra("공격력")+(hasEffect("묵직함") ? bonusHp*.02 : 0);
         let amp = f("스킬 증폭")+extra("스킬 증폭")+(ampType ? adaptive*2 : 0);
         let ampPercent = m("스킬 증폭")+p("스킬 증폭")+p("(고유) 스킬 증폭");
@@ -513,7 +513,7 @@
         diffs.append(element("h2","세트별 스탯 비교"),table);
     }
     const adjustmentInputs = new Map();
-    for (const name of ["체력","방어력","공격력","스킬 증폭","공격 속도","이동 속도"]) {
+    for (const name of ["체력","방어력","공격력","스킬 증폭","공격 속도","이동 속도","쿨다운 감소"]) {
         const label = element("label", name + (["공격 속도","이동 속도"].includes(name) ? " (%)" : ""));
         const input = element("input");
         input.type = "number";
