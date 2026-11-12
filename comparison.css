@@ -20,7 +20,9 @@ body.comparing :is(.main-layout,.result-section,.area-planner,.calculation-mode-
 .compare-heading,.level-control { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px }
 .compare-heading h2 { margin-bottom:0 !important }
 #setTabs { display:flex; gap:5px; flex-wrap:wrap; margin:12px 0 }
-.set-tab { display:inline-flex; background:#383d40; border:1px solid #62686b; border-radius:2px }
+.set-tab { display:inline-flex; max-width:100%; min-width:0; background:#383d40; border:1px solid #62686b; border-radius:2px }
+#comparison .set-tab button:first-child { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+#comparison .set-tab button + button { flex-shrink:0 }
 .set-tab:has([aria-pressed=true]) { background:#233e49; border-color:#27bfed }
 #comparison .set-tab button { background:transparent; border:0 }
 #comparison .set-tab button + button:hover { background:#60373c }

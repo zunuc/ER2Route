@@ -128,6 +128,7 @@
         }
         if (!list.childElementCount) list.textContent = "검색 결과가 없습니다.";
     }
+    const setName = set => set.name || "세트 " + set.id;
     function addSet(gear = {}) {
         active = {id:++serial, gear, adjustments:{}};
         sets.push(active);
@@ -152,8 +153,27 @@
         const addButton = byId("newSet");
         tabs.replaceChildren(...sets.map((set, index) => {
             const tab = element("span", undefined, "set-tab");
-            const name = "세트 " + set.id;
+            const name = setName(set);
             tab.append(button(name, () => { active = set; render(); }, set === active));
+            const rename = button("✎", () => {
+                const value = window.prompt("세트 이름을 입력하세요.", setName(set));
+                if (value === null || !value.trim()) return;
+                set.name = value.trim();
+                render();
+            });
+            rename.title = name + " 이름 변경";
+            rename.setAttribute("aria-label", rename.title);
+            const copy = button("⧉", () => {
+                const duplicate = structuredClone(set);
+                duplicate.id = ++serial;
+                duplicate.name = setName(set) + " (복사)";
+                sets.push(duplicate);
+                active = duplicate;
+                render();
+            });
+            copy.title = name + " 복사";
+            copy.setAttribute("aria-label", copy.title);
+            tab.append(rename, copy);
             if (sets.length > 1) {
                 const close = button("×", () => {
                     sets.splice(index, 1);
@@ -201,7 +221,7 @@
             if (rarity !== "전체 등급" && rarity !== item.rarity) continue;
             const fields = [item.name,...(itemAliases[item.name] || []),...Object.keys(item.stats),...item.effects.flatMap(e=>[e.name,e.description])].map(compact);
             if (!terms.every(t => fields.some(f=>f.includes(t)) || [...t].every(c=>compact(item.name).includes(c)))) continue;
-            const b = gearCard(item, () => equip(selectedSlot,item), itemAt(active,selectedSlot) === item);
+            const b = gearCard(item, () => equip(selectedSlot,item), itemAt(active,selectedSlot)?.name === item.name);
             list.append(b);
         }
         if (!list.childElementCount) list.textContent = "조건에 맞는 장비가 없습니다.";
@@ -445,7 +465,7 @@
         });
         const table = element("table");
         const head = table.createTHead().insertRow();
-        head.append(element("th","상세 정보"),...sets.map(set=>element("th","세트 "+set.id)));
+        head.append(element("th","상세 정보"),...sets.map(set=>element("th",setName(set))));
         const body = table.createTBody();
         for (const line of lines) {
             const parsed = evaluateSkillLine(line,rank,values.find(Boolean) || {});
@@ -471,7 +491,7 @@
         const results = sets.map(set=>calculate(set));
         const stats = results.map(result=>result?.totals);
         const activeIndex = sets.indexOf(active), data = stats[activeIndex];
-        panel.replaceChildren(element("strong",character.name+" · "+character.weapon+" · Lv."+level+" · 세트 "+active.id));
+        panel.replaceChildren(element("strong",character.name+" · "+character.weapon+" · Lv."+level+" · "+setName(active)));
         if (!data) panel.append(element("p","장착 무기가 다릅니다. 실험체의 무기군을 바꾸거나 이 세트의 무기를 교체하세요."));
         else {
             const dl = element("dl");
@@ -484,7 +504,7 @@
         renderSkills();
         if (diffs.hidden) return;
         const table = element("table"), header = table.createTHead().insertRow();
-        header.append(element("th","스탯"),...sets.map((s,i)=>element("th","세트 "+s.id+(i===0?" (기준)":""))));
+        header.append(element("th","스탯"),...sets.map((s,i)=>element("th",setName(s)+(i===0?" (기준)":""))));
         const body = table.createTBody();
         for (const key of new Set(stats.flatMap(s=>Object.keys(s || {})))) {
             const row = body.insertRow(); row.append(element("th",key));
@@ -560,7 +580,7 @@
                 selectedSlot = isAlex() ? character.weapon : "무기";
             }
         } else addSet(gear);
-        b.textContent = "세트 "+active.id+" 등록됨";
+        b.textContent = setName(active)+" 등록됨";
     });
     byId("newSet").onclick = () => {addSet(); render();};
     const weaponSelect = byId("alexWeapon");
