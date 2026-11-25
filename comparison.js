@@ -111,9 +111,10 @@
             b.title = v.name + " · " + types.join(" / ");
             b.setAttribute("aria-label", b.title);
             const portrait = element("img", undefined, "character-portrait");
-            portrait.src = "img/실험체/" + v.name + ".webp";
+            portrait.src = v.portrait || "img/실험체/" + v.name + ".webp";
+            if (v.name === "메이사") portrait.classList.add("meissa-portrait");
             portrait.alt = "";
-            portrait.loading = "lazy";
+            portrait.loading = v.name === "메이사" ? "eager" : "lazy";
             const icons = element("span", undefined, "character-weapon");
             const iconTypes = v.name === "알렉스" ? ["양손검","암기","톤파","권총"] : [v.weapon];
             if (iconTypes.length > 1) icons.classList.add("character-weapon-quad");
@@ -123,7 +124,9 @@
                 icon.alt = "";
                 icons.append(icon);
             }
-            b.append(portrait, element("span", v.name, "character-name"), icons);
+            const portraitFrame = element("span", undefined, "character-portrait-frame");
+            portraitFrame.append(portrait);
+            b.append(v.name === "메이사" ? portraitFrame : portrait, element("span", v.name, "character-name"), icons);
             list.append(b);
         }
         if (!list.childElementCount) list.textContent = "검색 결과가 없습니다.";
@@ -271,6 +274,8 @@
             speedBonus += condition * [0.3,0.65,1][passive-1] + (condition>=10 ? 10 : 0);
             if (condition>=10) ampPercent += 5;
         }
+        if (name==="메이사") speedBonus += condition*[8,9,10][passive-1];
+        if (name==="알렉스" && ["양손검","톤파"].includes(character.weapon)) armor += [4,10,16][passive-1];
         if (name==="루크") speedBonus += condition*[3,4,5][passive-1];
         let speed = baseSpeed * (1+speedBonus/100);
         switch (name) {
@@ -297,6 +302,7 @@
             "체력 재생": regeneration,
             "공격력": attack,
             "공격 속도": speed,
+            "기본 공격 증폭 (%)": m("기본 공격 증폭")+p("기본 공격 증폭"),
             "치명타 확률 (%)": Math.min(100,crit),
             "추가 치명타 피해량 (%)": critDamage,
             "스킬 증폭": amp*(1+ampPercent/100),
@@ -308,11 +314,15 @@
             totals["대상 방어력 감소 (%)"] = [2,5,8][passive-1] + totals["치명타 확률 (%)"]*.1;
         }
         if (!forSkill) return {totals, speedBonus};
-        const values = {...totals, "체력":hp, "추가 체력":bonusHp, "추가 공격력":attack-base("공격력"),
+        const values = {...totals, "기본 공격력":base("공격력"), "체력":hp, "추가 체력":bonusHp, "추가 공격력":attack-base("공격력"),
             "추가 방어력":armor-base("방어력"), "추가 공격 속도":speedBonus, "공격 속도":speedBonus, "실질 공격 속도":speed,
             "치명타 확률":totals["치명타 확률 (%)"], "추가 치명타 피해량":critDamage,
             "레벨":level, "캐릭터 레벨":level, [name+" 레벨"]:level, "방어 관통":f("방어 관통"),
-            "기본 공격 증폭":m("기본 공격 증폭")+p("기본 공격 증폭")};
+            "기본 공격 증폭":totals["기본 공격 증폭 (%)"]};
+        if (name==="메이사") {
+            values["메이사 패시브 피해 배율"] = (1+Math.min(100,crit)/100*(1+critDamage/100))*(1+condition*[1,1.5,2][passive-1]/100);
+            values["메이사 스킬 피해 배율"] = 1+condition*[1,1.5,2][passive-1]/100;
+        }
         if (name==="데비&마를렌") values["표식 피해 배율"] = 1 + values["치명타 확률"]*.005;
         if (name==="나딘") Object.assign(values,{"야성 중첩":condition,"야성 중첩 수":condition});
         if (name==="클로에") values["니나 공격력"] = attack*(.6+.02*(level-1)) + [4,7,10][passive-1];
@@ -364,6 +374,7 @@
         byId("baseStatDialog").showModal();
     };
     const conditions = {
+        "메이사":["플로우 컨트롤 중첩",4],
         "에이든":["일반 0 / 과전하 1",1], "헤이즈":["기본 0 / 로켓 런처 1",1], "루크":["공격 속도 중첩",8],
         "나딘":["야성 중첩",250], "매그너스":["근성 중첩",10], "실비아":["탐색한 지역 수",10],
         "시셀라":["잃은 체력 (%)",100], "데비&마를렌":["마를렌 0 / 데비 1",1], "블레어":["쌍날검 0 / 쌍검 1",1]
@@ -398,7 +409,9 @@
         return max;
     }
     function renderSkills() {
-        byId("skillOutput").replaceChildren(...skillData[character.name].map(renderSkill));
+        const skills = [...skillData[character.name]];
+        if (weaponSkillData[character.weapon]) skills.push(weaponSkillData[character.weapon]);
+        byId("skillOutput").replaceChildren(...skills.map(renderSkill));
     }
     function renderSkill(skill,index) {
         const rank = skillRanks.get(skill) || 1;

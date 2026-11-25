@@ -56,6 +56,12 @@ function evaluateSkillLine(line, rank, values) {
         if (label==="쿨다운") total *= (1-(values["공속 쿨다운 감소율"] || 0))*100/(100+(values["유효 스킬 가속"] || 0));
         if (label==="쿨다운" && values["공속 적용 쿨다운"] !== undefined) total = values["공속 적용 쿨다운"];
         if (label==="발사 수") total += values["추가 발사 수"] || 0;
+        if (values["메이사 패시브 피해 배율"] && label === "강화 기본 공격 추가 피해량") total *= values["메이사 패시브 피해 배율"];
+        else if (values["메이사 스킬 피해 배율"] && /피해량/.test(label) && !multiplier && !label.startsWith("에너지 화살")) {
+            const factor = values["메이사 스킬 피해 배율"];
+            total *= factor;
+            if (factor !== 1) for (let i=0;i<unknown.length;i++) unknown[i] += " × " + Number(factor.toFixed(4));
+        }
         const formatted = label==="쿨다운" && Object.hasOwn(values,"공속 쿨다운 감소율")
             ? total.toLocaleString("ko",{maximumFractionDigits:2, roundingMode:"halfEven"})
             : Number(total.toFixed(2)).toLocaleString("ko");

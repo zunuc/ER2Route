@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이터널리턴 2루트 계산기 13.1</title>
+    <title>이터널리턴 2루트 계산기 13.2</title>
     <link rel="icon" href="img/icon.png" type="image/x-icon">
     
     <style>
@@ -237,14 +237,14 @@
         @media (max-width: 768px) { .area-planner { width: calc(100vw - 40px); } .area-label { font-size: 10px; min-width: 38px; padding: 3px 4px; } .calculation-mode-row { width: calc(100vw - 40px); } .mode-button-stack { flex-direction: row-reverse; } }
 
     </style>
-    <link rel="stylesheet" href="comparison.css?v=13-1">
+    <link rel="stylesheet" href="comparison.css?v=13-2">
 <link rel="stylesheet" href="wildlife.css?v=ordered-routes">
 </head>
 <body>
 
     <div class="header">
         <img src="img/logo__white.png" alt="Logo" onerror="this.style.display='none'">
-        <span>2루트 계산기 13.1</span>
+        <span>2루트 계산기 13.2</span>
     </div>
     <div class="calculation-mode-row">
         <button class="btn-action area-mode-button" id="calculationModeButton" onclick="toggleCalculationMode()">지역으로 계산</button>
@@ -357,7 +357,7 @@
         </aside>
     </section>
 
-    <script src="legendary-search.js?v=13-1"></script>
+    <script src="legendary-search.js?v=13-2"></script>
     <script>
         // =====================================================================
         // 데이터 영역: 기존의 const allItems 와 const areaData 를 여기에 붙여넣으세요.
@@ -480,7 +480,7 @@
             {"name":"석양의 갑옷","type":"Cheat","roles":["탱"],"weaponGroup":null,"image":"img/상의/Sunset Armor.png","materials":["덧댄 가죽","실","원석"],"statValues":{"am":"28","lvhp":"21~420"},"effects":[{"name":"불꽃 결계","description":"전투에 돌입하면 매 초마다 주변 2.5m의 적에게 (근거리: 최대 체력의 2% | 원거리: 최대 체력의 1.5%) 스킬 피해를 입힙니다."}]},
             {"name":"어사의","type":"Cheat","roles":["스증"],"weaponGroup":null,"image":"img/상의/Covert Agent Uniform.png","materials":["붕대","꽃","마패"],"statValues":{"am":"25","sk":"12","lvsk":"5~100","cd":"10"}},
             {"name":"광학미채 슈트","type":"Cheat","roles":["원딜"],"weaponGroup":null,"image":"img/상의/Optical Camouflage Suit.png","useGlass":true,"materials":["고무","유리병"],"statValues":{"ad":"7","lvad":"3~60","am":"13","cp":"24%"},"effects":[{"name":"치유 감소","description":"상대에게 피해를 입히면 피격된 대상의 치유 효과가 4초 동안 20% 감소합니다."}]},
-            {"name":"락커의 자켓","type":"Cheat","roles":["암살자"],"weaponGroup":null,"image":"img/상의/Rocker_s Jacket.png","materials":["화학품","쇠구슬"],"statValues":{"lvad":"3~60","am":"20","ap":"10","ad":"10"},"effects":[]},
+            {"name":"락커의 자켓","type":"Cheat","roles":["암살자"],"weaponGroup":null,"image":"img/상의/Rocker_s Jacket.png","materials":["화학품","쇠구슬"],"statValues":{"lvad":"3~60","am":"20","ap":"8","ad":"10"},"effects":[]},
             {"name":"성기사의 갑옷","type":"Cheat","roles":["탱"],"weaponGroup":null,"image":"img/상의/Crusader Armor.png","materials":["덧댄 가죽","실","십자가"],"statValues":{"am":"35","lvhp":"18~360","regen":"100%"}},
             {"name":"아마조네스 아머","type":"Cheat","roles":["탱"],"weaponGroup":null,"image":"img/상의/Amazoness_Armor.png","materials":["덧댄 가죽","실","가위"],"statValues":{"am":"28","lvhp":"18~360","cd":"10"},"effects":[{"name":"신속","description":"4초 이내의 3회의 개별 피해를 가하면, 3초간 이동 속도가 18% 증가합니다. (쿨다운: 10초)"}]},
             {"name":"용의 도복","type":"Cheat","roles":["암살자"],"weaponGroup":null,"image":"img/상의/Dragon Dobok.png","materials":["가위","옷감","거북이 등딱지"],"statValues":{"lvad":"3~60","am":"20","cd":"15","ap":"6"}},
@@ -523,7 +523,7 @@
             {"name":"스마트 밴드","type":"Arm","roles":["암살자"],"weaponGroup":null,"image":"img/팔/Smart Band.png","materials":["손목시계","배터리","피아노선","고철"],"statValues":{"ad":"30","cd":"15","ap":"7"}},
             {"name":"미닛맨의 표식","type":"Arm","roles":["원딜"],"weaponGroup":null,"image":"img/팔/Minuteman Armband.png","materials":["붕대","화약","유리병"],"statValues":{"ad":"24","as":"18%","cp":"24%"}},
             {"name":"스포츠 시계","type":"Arm","roles":["스증"],"weaponGroup":null,"image":"img/팔/Sports Watch.png","materials":["손목시계","화학품","만년필","종이"],"statValues":{"sk":"32","as":"30%"},"effects":[{"name":"열정 - 순환","description":"기본 공격이 적에게 명중 시, (근거리)(5 + 스킬 증폭의 23%) / (원거리)(5 + 스킬 증폭의 18%)의 스킬 피해를 주고, 8초간 열정 스택을 휙득하여 10%의 공격 속도를 얻습니다."}]},
-            {"name":"백우선","type":"Arm","roles":["스증"],"weaponGroup":null,"image":"img/팔/White Crane Fan.png","materials":["못","깃털","꽃","원석"],"statValues":{"sk":"55","cd":"10"},"effects":[{"name":"신속","description":"4초 이내에 3회의 기본 공격 또는 개별 스킬로 피해를 입히면, 3초간 이동 속도가 18% 증가합니다. (쿨다운 10초) 지속적으로 입히는 개별 스킬의 경우 3초마다 판정이 적용됩니다."}]},
+            {"name":"백우선","type":"Arm","roles":["스증"],"weaponGroup":null,"image":"img/팔/White Crane Fan.png","materials":["못","깃털","꽃","원석"],"statValues":{"sk":"50","cd":"10"},"effects":[{"name":"신속","description":"4초 이내에 3회의 기본 공격 또는 개별 스킬로 피해를 입히면, 3초간 이동 속도가 18% 증가합니다. (쿨다운 10초) 지속적으로 입히는 개별 스킬의 경우 3초마다 판정이 적용됩니다."}]},
             {"name":"궁기병의 화살통","type":"Arm","roles":["원딜"],"weaponGroup":null,"image":"img/팔/Laced Quiver.png","materials":["깃털","오일","붕대"],"statValues":{"ad":"25","as":"30%","sp":"2%"}},
             {"name":"해적 깃발","type":"Arm","roles":["원딜"],"weaponGroup":null,"image":"img/팔/Pirate Flag.png","materials":["오일","붕대","고철","화학품"],"statValues":{"ad":"25","as":"25%","cd":"10"}},
             {"name":"오르골","type":"Arm","roles":["전사"],"weaponGroup":null,"image":"img/팔/Music Box.png","materials":["옷감","배터리","흑연"],"statValues":{"am":"10","hp":"150","as":"30%"}},
@@ -1640,10 +1640,10 @@ function startRouteCalculation() {
     </section>
 </section>
 <button id="compareToggle" aria-controls="comparison" aria-expanded="false">아이템 스탯 비교</button>
-<script src="comparison-data.js?v=13-1"></script>
-<script src="skill-data.js?v=13-1"></script>
-<script src="skill-values.js"></script>
-<script src="comparison.js?v=13-1"></script>
+<script src="comparison-data.js?v=13-2"></script>
+<script src="skill-data.js?v=13-2"></script>
+<script src="skill-values.js?v=13-2"></script>
+<script src="comparison.js?v=13-2-basic-amp"></script>
 <script src="wildlife-data.js?v=aligned-map"></script>
 <script src="wildlife.js"></script>
 </body>

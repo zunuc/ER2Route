@@ -116,3 +116,6 @@ body.comparing :is(.main-layout,.result-section,.area-planner,.calculation-mode-
 #comparison .transcendent { border-bottom:2px solid #ed6262 }
 #itemTooltip.transcendent-tooltip { border-left-color:#ed6262 }
 #itemTooltip.transcendent-tooltip .item-tooltip-type { color:#ed6262 }
+
+.character-portrait-frame { grid-column:1/-1; position:relative; overflow:hidden; aspect-ratio:122/160; }
+.character-portrait-frame .meissa-portrait { position:absolute; width:420%; max-width:none; height:auto; aspect-ratio:1; left:-168%; top:-30%; }
