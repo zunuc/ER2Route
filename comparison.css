@@ -125,3 +125,7 @@ body.comparing :is(.main-layout,.result-section,.area-planner,.calculation-mode-
 #gearStatFilters { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:5px; margin-top:6px; }
 #gearStatFilters button { padding:8px 3px; font-size:12px; }
 #gearStatFilters button[aria-pressed="true"] { border-color:#ff4655; background:#563237; color:white; }
+
+#comparison .gear-card.shard-none { border-bottom:1px solid #555; }
+#comparison .gear-card.shard-red { border-bottom:2px solid #ed6262; }
+#comparison .gear-card.shard-blue { border-bottom:2px solid #549eff; }

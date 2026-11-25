@@ -143,6 +143,9 @@
         img.src = item.image;
         img.alt = "";
         card.append(img, element("span", item.name));
+        if (slotOf(item) === "무기" && item.craftNames?.includes("VF 혈액 샘플")) {
+            card.classList.add(item.name.endsWith("-진홍") ? "shard-red" : item.name.endsWith("-새벽") ? "shard-blue" : "shard-none");
+        }
         card.setAttribute("aria-label", item.rarity + " " + item.name);
         card.onpointerenter = event => {
             if (event.pointerType !== "touch") showTooltip({...item, type:item.rarity+" · "+item.slot}, event);
@@ -243,7 +246,7 @@
             const weaponType = selectedSlot === "무기" ? character.weapon : selectedSlot;
             if (slotOf(item) === "무기" ? item.slot !== weaponType : item.slot !== selectedSlot) continue;
             if (rarity !== "전체 등급" && rarity !== item.rarity) continue;
-            const hasStat = key => (statEquivalents[key] || [key]).some(k => Object.hasOwn(item.stats, statNames[k]));
+            const hasStat = key => matchesItemStat(item.stats, key, slotOf(item) === "무기");
             if (gearStats.size && !(gearStatCondition === "OR" ? [...gearStats].some(hasStat) : [...gearStats].every(hasStat))) continue;
             const fields = [item.name,...(itemAliases[item.name] || []),...Object.keys(item.stats),...item.effects.flatMap(e=>[e.name,e.description])].map(compact);
             if (!terms.every(t => fields.some(f=>f.includes(t)) || [...t].every(c=>compact(item.name).includes(c)))) continue;

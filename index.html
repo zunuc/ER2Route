@@ -237,7 +237,7 @@
         @media (max-width: 768px) { .area-planner { width: calc(100vw - 40px); } .area-label { font-size: 10px; min-width: 38px; padding: 3px 4px; } .calculation-mode-row { width: calc(100vw - 40px); } .mode-button-stack { flex-direction: row-reverse; } }
 
     </style>
-    <link rel="stylesheet" href="comparison.css?v=13-2-gear-filter">
+    <link rel="stylesheet" href="comparison.css?v=13-2-shard-colors">
 <link rel="stylesheet" href="wildlife.css?v=ordered-routes">
 </head>
 <body>
@@ -812,6 +812,13 @@ const areaData = {
                 'hp': ['hp', 'lvhp']
             };
 
+        function matchesItemStat(stats, key, isWeapon) {
+            const has = code => Object.hasOwn(stats, code) || Object.hasOwn(stats, statNames[code]);
+            if ((key === 'ad' || key === 'sk') && has('adaptive')) return true;
+            if (key === 'ad' && isWeapon && (statEquivalents.sk || ['sk']).some(has)) return false;
+            return (statEquivalents[key] || [key]).some(has);
+        }
+
         function renderItems() {
             const display = document.getElementById('allItemsDisplay');
             display.innerHTML = '';
@@ -824,8 +831,7 @@ const areaData = {
                 const type = { "옷": "Cheat", "머리": "Head", "팔·장식": "Arm", "다리": "leg" }[item.slot] || "weapon";
                 if (currentTypeFilter !== "all" && currentTypeFilter !== type) return false;
                 if (type === "weapon" && currentWeaponFilter !== "all" && weaponGroupKoreanNames[currentWeaponFilter] !== item.slot) return false;
-                const hasStat = key => Object.keys(item.stats).some(label =>
-                    (statEquivalents[key] || [key]).some(k => statNames[k] === label));
+                const hasStat = key => matchesItemStat(item.stats, key, type === "weapon");
                 const stats = [...selectedStats];
                 return (!stats.length || (statCondition === "OR" ? stats.some(hasStat) : stats.every(hasStat))) && matchesSearch(item, terms);
             }) : [];
@@ -834,27 +840,8 @@ const areaData = {
                 if (currentTypeFilter !== 'all' && item.type !== currentTypeFilter) return false;
                 if (currentWeaponFilter !== 'all' && item.type === 'weapon' && item.weaponGroup !== currentWeaponFilter) return false;
 
-                if (selectedStats.size > 0) {
-                    const itemStats = Object.keys(item.stats || {});
-                    if (statCondition === 'OR') {
-                        let hasOne = false;
-                        for (let s of selectedStats) {
-                            // statEquivalents에 정의된 배열을 가져오고, 없으면 자기 자신[s]만 사용
-                            let equivs = statEquivalents[s] || [s];
-                            // 해당 아이템이 equivs(예: ['ad', 'lvad']) 중 하나라도 가지고 있는지 확인
-                            if (equivs.some(eq => itemStats.includes(eq))) { 
-                                hasOne = true; 
-                                break; 
-                            }
-                        }
-                        if (!hasOne) return false;
-                    } else { 
-                        for (let s of selectedStats) {
-                            let equivs = statEquivalents[s] || [s];
-                            if (!equivs.some(eq => itemStats.includes(eq))) return false;
-                        }
-                    }
-                }
+                const hasStat = key => matchesItemStat(item.statValues || item.stats || {}, key, item.type === 'weapon');
+                if (selectedStats.size && !(statCondition === 'OR' ? [...selectedStats].some(hasStat) : [...selectedStats].every(hasStat))) return false;
                 return true;
             });
 
@@ -1647,7 +1634,7 @@ function startRouteCalculation() {
 <script src="comparison-data.js?v=13-2"></script>
 <script src="skill-data.js?v=13-2"></script>
 <script src="skill-values.js?v=13-2-flow"></script>
-<script src="comparison.js?v=13-2-gear-filter"></script>
+<script src="comparison.js?v=13-2-shard-colors"></script>
 <script src="wildlife-data.js?v=aligned-map"></script>
 <script src="wildlife.js"></script>
 </body>
