@@ -57,7 +57,7 @@ function evaluateSkillLine(line, rank, values) {
         if (label==="쿨다운" && values["공속 적용 쿨다운"] !== undefined) total = values["공속 적용 쿨다운"];
         if (label==="발사 수") total += values["추가 발사 수"] || 0;
         if (values["메이사 패시브 피해 배율"] && label === "강화 기본 공격 추가 피해량") total *= values["메이사 패시브 피해 배율"];
-        else if (values["메이사 스킬 피해 배율"] && /피해량/.test(label) && !multiplier && !label.startsWith("에너지 화살")) {
+        else if (values["메이사 스킬 피해 배율"] && /피해량/.test(label) && !label.startsWith("에너지 화살")) {
             const factor = values["메이사 스킬 피해 배율"];
             total *= factor;
             if (factor !== 1) for (let i=0;i<unknown.length;i++) unknown[i] += " × " + Number(factor.toFixed(4));
