@@ -119,3 +119,9 @@ body.comparing :is(.main-layout,.result-section,.area-planner,.calculation-mode-
 
 .character-portrait-frame { grid-column:1/-1; position:relative; overflow:hidden; aspect-ratio:122/160; }
 .character-portrait-frame .meissa-portrait { position:absolute; width:420%; max-width:none; height:auto; aspect-ratio:1; left:-168%; top:-30%; }
+
+.gear-filter-heading { display:flex; align-items:center; gap:8px; margin-top:10px; font-size:13px; }
+.gear-filter-heading span { margin-right:auto; }
+#gearStatFilters { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:5px; margin-top:6px; }
+#gearStatFilters button { padding:8px 3px; font-size:12px; }
+#gearStatFilters button[aria-pressed="true"] { border-color:#ff4655; background:#563237; color:white; }

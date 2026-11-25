@@ -214,6 +214,27 @@
         }
         gearPicker();
     }
+    const gearStats = new Set();
+    let gearStatCondition = "OR";
+    for (const key of displayFilterStats) {
+        const filter = button(statLabels[key], () => {
+            if (gearStats.has(key)) gearStats.delete(key); else gearStats.add(key);
+            filter.setAttribute("aria-pressed", String(gearStats.has(key)));
+            gearPicker();
+        }, false);
+        filter.dataset.stat = key;
+        byId("gearStatFilters").append(filter);
+    }
+    byId("gearStatCondition").onclick = () => {
+        gearStatCondition = gearStatCondition === "OR" ? "AND" : "OR";
+        byId("gearStatCondition").textContent = "조건: " + gearStatCondition;
+        gearPicker();
+    };
+    byId("clearGearStats").onclick = () => {
+        gearStats.clear();
+        for (const filter of byId("gearStatFilters").children) filter.setAttribute("aria-pressed", "false");
+        gearPicker();
+    };
     function gearPicker() {
         const list = byId("gearPicker"), rarity = byId("compareRarity").value;
         const terms = byId("gearQuery").value.trim().split(/\s+/).map(compact);
@@ -222,6 +243,8 @@
             const weaponType = selectedSlot === "무기" ? character.weapon : selectedSlot;
             if (slotOf(item) === "무기" ? item.slot !== weaponType : item.slot !== selectedSlot) continue;
             if (rarity !== "전체 등급" && rarity !== item.rarity) continue;
+            const hasStat = key => (statEquivalents[key] || [key]).some(k => Object.hasOwn(item.stats, statNames[k]));
+            if (gearStats.size && !(gearStatCondition === "OR" ? [...gearStats].some(hasStat) : [...gearStats].every(hasStat))) continue;
             const fields = [item.name,...(itemAliases[item.name] || []),...Object.keys(item.stats),...item.effects.flatMap(e=>[e.name,e.description])].map(compact);
             if (!terms.every(t => fields.some(f=>f.includes(t)) || [...t].every(c=>compact(item.name).includes(c)))) continue;
             const b = gearCard(item, () => equip(selectedSlot,item), itemAt(active,selectedSlot)?.name === item.name);

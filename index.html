@@ -237,7 +237,7 @@
         @media (max-width: 768px) { .area-planner { width: calc(100vw - 40px); } .area-label { font-size: 10px; min-width: 38px; padding: 3px 4px; } .calculation-mode-row { width: calc(100vw - 40px); } .mode-button-stack { flex-direction: row-reverse; } }
 
     </style>
-    <link rel="stylesheet" href="comparison.css?v=13-2">
+    <link rel="stylesheet" href="comparison.css?v=13-2-gear-filter">
 <link rel="stylesheet" href="wildlife.css?v=ordered-routes">
 </head>
 <body>
@@ -251,6 +251,22 @@
     </div>
 
     <div class="main-layout">
+        <div class="column candidates-column">
+            <div class="title-wrapper">
+                <h2 class="title">후보군</h2>
+                <button class="btn-action" onclick="clearCandidates()">전체 삭제</button>
+            </div>
+            <div class="grid-bg candidate-grid" id="candidateList"></div>
+
+            <div style="margin-top: 20px;">
+                <div class="title-wrapper">
+                    <h2 class="title">스탯 필터</h2>
+                    <button class="btn-action" onclick="addRequirement()">+ 추가</button>
+                </div>
+                <div class="grid-bg requirement-container" id="requirementContainer"></div>
+            </div>
+        </div>
+
         <div class="column stats-column">
             <div>
                 <div class="title-wrapper">
@@ -298,22 +314,6 @@
                     <div class="slot" onclick="setWeaponFilter('Arcana', this)"><img src="img/무기 종류/대표 이미지/22. Arcana.png"></div>
                     <div class="slot" onclick="setWeaponFilter('VF Prosthetic', this)"><img src="img/무기 종류/대표 이미지/23. VF Prosthetic.png"></div>
                 </div>
-            </div>
-        </div>
-
-        <div class="column candidates-column">
-            <div class="title-wrapper">
-                <h2 class="title">후보군</h2>
-                <button class="btn-action" onclick="clearCandidates()">전체 삭제</button>
-            </div>
-            <div class="grid-bg candidate-grid" id="candidateList"></div>
-
-            <div style="margin-top: 20px;">
-                <div class="title-wrapper">
-                    <h2 class="title">스탯 필터</h2>
-                    <button class="btn-action" onclick="addRequirement()">+ 추가</button>
-                </div>
-                <div class="grid-bg requirement-container" id="requirementContainer"></div>
             </div>
         </div>
 
@@ -806,16 +806,18 @@ const areaData = {
                 (term.length > 1 && [...term].every(char => name.includes(char))));
         }
 
-        function renderItems() {
-            const display = document.getElementById('allItemsDisplay');
-            display.innerHTML = '';
-
-            // [추가된 부분] 기본 스탯을 선택했을 때 레벨 비례 스탯도 함께 인식하도록 그룹화
             const statEquivalents = {
                 'ad': ['ad', 'lvad'],
                 'sk': ['sk', 'lvsk'],
                 'hp': ['hp', 'lvhp']
             };
+
+        function renderItems() {
+            const display = document.getElementById('allItemsDisplay');
+            display.innerHTML = '';
+
+            // [추가된 부분] 기본 스탯을 선택했을 때 레벨 비례 스탯도 함께 인식하도록 그룹화
+
 
             const terms = document.getElementById('itemSearch').value.trim().split(/\s+/).map(compact).filter(Boolean);
             const legendary = terms.length ? legendarySearchItems.filter(item => {
@@ -1621,6 +1623,8 @@ function startRouteCalculation() {
             <div id="setTabs"><button id="newSet" aria-label="세트 추가" title="세트 추가">+</button></div><div id="equipped"></div>
             <div class="compare-heading"><h3>장비 선택</h3><select id="compareRarity" aria-label="장비 등급"><option>전체 등급</option><option>영웅</option><option>전설</option><option>초월</option></select></div>
             <input id="gearQuery" type="search" placeholder="장비 이름, 스탯, 고유 옵션 검색" aria-label="장비 검색">
+            <div class="gear-filter-heading"><span>보유 스탯</span><button type="button" id="gearStatCondition">조건: OR</button><button type="button" id="clearGearStats">초기화</button></div>
+            <div id="gearStatFilters" role="group" aria-label="장비 보유 스탯 필터"></div>
             <div id="gearPicker" class="compare-picker"></div>
         </section>
         <section class="adjustment-panel"><h2>추가 수치</h2><div id="adjustmentFields"></div></section>
@@ -1643,7 +1647,7 @@ function startRouteCalculation() {
 <script src="comparison-data.js?v=13-2"></script>
 <script src="skill-data.js?v=13-2"></script>
 <script src="skill-values.js?v=13-2-flow"></script>
-<script src="comparison.js?v=13-2-basic-amp"></script>
+<script src="comparison.js?v=13-2-gear-filter"></script>
 <script src="wildlife-data.js?v=aligned-map"></script>
 <script src="wildlife.js"></script>
 </body>
